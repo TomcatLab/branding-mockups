@@ -8,6 +8,7 @@ use App\Http\Controllers\MockupsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ShowcaseController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,37 +21,72 @@ use App\Http\Controllers\ShowcaseController;
 |
 */
 
-Route::get('/', function () {
-    return "coming soon";
-});
+// Route::group(['prefix'=>''], function () {
+//     Route::get('/', [
+//         HomeController::class, 'index'
+//     ]);
+//     Route::get('/{page}', [
+//         HomeController::class, 'index'
+//     ]);
+// });
 
-Route::group(array('prefix' => 'dashboard'), function()
-{
+Route::group(['prefix'=>'admin'],function(){
+
+    // Analytics
+    Route::get('/', [
+        AnalyticsController::class, 'index'
+    ]);
+
     Route::get('analytics', [
         AnalyticsController::class, 'index'
     ]);
 
-    Route::get('cms',[
-        CmsController::class, 'index'
-    ]);
+    Route::group(['prefix'=>'cms'],function(){
+        Route::get('pages-list',[
+            CmsController::class, 'index'
+        ]);
+        Route::get('page/{id}',[
+            CmsController::class, 'add'
+        ]);
+        Route::get('pages-trash',[
+            CmsController::class, 'trash'
+        ]);
+    });
 
-    Route::get('emails',[
-        EmailsController::class, 'index'
-    ]);
+    Route::group(['prefix'=>'emails'],function(){
+        Route::get('/',[
+            EmailsController::class, 'index'
+        ]);
+    });
 
-    Route::get('mockups',[
-        MockupsController::class, 'index'
-    ]);
+    Route::group(['prefix'=>'products'],function(){
+        Route::get('mockups-list',[
+            MockupsController::class, 'index'
+        ]);
+        Route::get('mockups-trash',[
+            MockupsController::class, 'trash'
+        ]);
+        Route::get('showcase-list',[
+            ShowcaseController::class, 'index'
+        ]); 
+        Route::get('showcase-trash',[
+            ShowcaseController::class, 'index'
+        ]);
+    });
     
     Route::get('settings',[
         SettingsController::class, 'index'
     ]);
 
-    Route::get('showcase',[
-        ShowcaseController::class, 'index'
-    ]);
-
-    Route::get('users',[
-        UsersController::class, 'index'
-    ]);
+    Route::group(['prefix'=>'users'],function(){
+        Route::get('users-list',[
+            UsersController::class, 'index'
+        ]);
+        Route::get('users-add',[
+            CmsController::class, 'add'
+        ]);
+        Route::get('users-trash',[
+            CmsController::class, 'trash'
+        ]);    
+    });
 });

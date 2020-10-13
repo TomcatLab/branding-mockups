@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{URL::to('dashboard/assets/css/demo_1/style.css')}}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{URL::to('dashboard/assets/images/favicon.png')}}" />
+    <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/grapesjs-dev/dist/css/grapes.min.css')}}">
+    
 </head>
 <body>
     <div class="main-wrapper">
@@ -53,5 +55,7 @@
     <script src="{{URL::to('dashboard/assets/js/dashboard.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/js/datepicker.js')}}"></script>
     <!-- end custom js for this page -->
+    <script src="{{URL::to('dashboard/assets/vendors/grapesjs-dev/dist/grapes.min.js')}}"></script>
+    <script src="{{URL::to('dashboard/assets/js/custome.js')}}"></script>
 </body>
 </html>

@@ -9,7 +9,10 @@ class UsersController extends Controller
     //
     public function index()
     {
-        # code...
+        return view('dashboard.pages.users', $this->data);
+    }
+    public function trash()
+    {
         return view('dashboard.pages.users', $this->data);
     }
 }

@@ -17,7 +17,7 @@
             <li class="nav-item nav-category">{{ $item['label'] }}</li>
             @elseif($item['type'] == 'link')
             <li class="nav-item">
-                <a href="{{ $item['link'] }}" class="nav-link">
+                <a href="{{URL::to($item['link'])}}" class="nav-link">
                     <i class="link-icon" data-feather="{{ $item['icon'] ? $item['icon'] : 'link-icon' }}"></i>
                     <span class="link-title">{{$item['label']}}</span>
                 </a>
@@ -33,7 +33,7 @@
                     <ul class="nav sub-menu">
                         @foreach($item['submenu'] as $submenu)
                         <li class="nav-item">
-                            <a href="{{ $submenu['link'] }}" class="nav-link">{{ $submenu['label'] }}</a>
+                            <a href="{{URL::to($submenu['link'])}}" class="nav-link">{{ $submenu['label'] }}</a>
                         </li>
                         @endforeach
                     </ul>

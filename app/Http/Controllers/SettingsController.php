@@ -9,7 +9,24 @@ class SettingsController extends Controller
     //
     public function index()
     {
-        # code...
-        return view('dashboard.pages.settings', $this->data);
+        $this->data['page'] = [
+            "header" => [
+                "style" => "regular",
+                "label" => "Pages",
+                "buttons" => [
+                    [
+                        "label" => "New Page",
+                        "style" => "primary",
+                        "action" => "model",
+                        "icon" => "file-plus",
+                        "target" => "newPageModal"
+                    ]
+                ]
+            ],
+            "pages" => [
+                
+            ]
+        ];
+        return view('dashboard.pages.configurations', $this->data);
     }
 }

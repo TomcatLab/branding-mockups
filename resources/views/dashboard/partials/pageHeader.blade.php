@@ -4,8 +4,13 @@
     </div>
     <div class="d-flex align-items-center flex-wrap text-nowrap">
     @foreach($page['header']['buttons'] as $button)
-        @if($button['style'] == "info" && $button['action'] == "link" )
-        <a type="button" class="btn btn-outline-primary btn-icon-text mr-2 mb-2 mb-md-0">
+        @if($button['action'] == "link" )
+        <a type="button" class="btn btn-outline-{{$button['style'] ? $button['style'] : 'info' }} btn-icon-text mr-2 mb-2 mb-md-0" href="{{ route($button['link']) }}">
+            <i class="btn-icon-prepend" data-feather="{{ $button['icon']}}"></i>
+            {{ $button['label']}}
+        </a>
+        @elseif($button['action'] == "model" )
+        <a type="button" class="btn btn-outline-{{$button['style'] ? $button['style'] : 'info' }} btn-icon-text mr-2 mb-2 mb-md-0" data-toggle="modal" data-target="#{{$button['target']}}">
             <i class="btn-icon-prepend" data-feather="{{ $button['icon']}}"></i>
             {{ $button['label']}}
         </a>

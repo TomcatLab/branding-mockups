@@ -10,6 +10,6 @@ class EmailsController extends Controller
     public function index()
     {
         # code...
-        return view('dashboard.pages.cms', $this->data);
+        return view('dashboard.pages.emails', $this->data);
     }
 }

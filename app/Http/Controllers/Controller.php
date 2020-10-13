@@ -20,19 +20,19 @@ class Controller extends BaseController
                 "type" => "link",
                 "label" => "Analytics",
                 "icon" => "activity",
-                "link" => "analytics"
+                "link" => "admin/analytics"
             ],
             [
                 "type" => "link",
                 "label" => "Mockups",
                 "icon" => "aperture",
-                "link" => "mockups"
+                "link" => "admin/products/mockups-list"
             ],
             [
                 "type" => "link",
                 "label" => "Showcase",
                 "icon" => "bookmark",
-                "link" => "showcase"
+                "link" => "admin/products/showcase-list"
             ],
             [
                 "type" => "category",
@@ -46,12 +46,12 @@ class Controller extends BaseController
                     [
                         "type" => "link",
                         "label" => "Pages",
-                        "link" => "pages"
+                        "link" => "admin/cms/pages-list"
                     ],
                     [
                         "type" => "link",
                         "label" => "Trash",
-                        "link" => "pages/trash"
+                        "link" => "admin/cms/pages-trash"
                     ],
                 ]
             ],
@@ -63,18 +63,18 @@ class Controller extends BaseController
                     [
                         "type" => "link",
                         "label" => "Users",
-                        "link" => "users"
+                        "link" => "admin/users/users-list"
                     ],
                     [
                         "type" => "link",
                         "label" => "Trash",
-                        "link" => "users/trash"
+                        "link" => "admin/users/users-trash"
                     ],
                 ]
             ],
             [
                 "type" => "category",
-                "label" => "Mockups",
+                "label" => "Products",
             ],
             [
                 "type" => "dropdown",
@@ -84,12 +84,29 @@ class Controller extends BaseController
                     [
                         "type" => "link",
                         "label" => "Mockups",
-                        "link" => "mockups"
+                        "link" => "admin/products/mockups-list"
                     ],
                     [
                         "type" => "link",
                         "label" => "Trash",
-                        "link" => "mockups/trash"
+                        "link" => "admin/products/mockups-trash"
+                    ],
+                ]
+            ],
+            [
+                "type" => "dropdown",
+                "label" => "Showcase",
+                "icon" => "grid",
+                "submenu" => [
+                    [
+                        "type" => "link",
+                        "label" => "Showcases",
+                        "link" => "admin/products/showcases-list"
+                    ],
+                    [
+                        "type" => "link",
+                        "label" => "Trash",
+                        "link" => "admin/products/showcases-trash"
                     ],
                 ]
             ],
@@ -101,14 +118,24 @@ class Controller extends BaseController
                 "type" => "link",
                 "label" => "Configurations",
                 "icon" => "settings",
-                "link" => "settings"
+                "link" => "admin/settings"
             ],
             [
                 "type" => "link",
                 "label" => "Email Templates",
                 "icon" => "mail",
-                "link" => "emails"
+                "link" => "admin/emails"
             ]
         ]
     ];
+
+    public function __construct()
+    {
+        // foreach ($this->data['menu'] as $key => $value) {
+        //    if($value['type'] == "link"){
+        //     $this->data['menu'][$key]['link'] = URL::to($value['link']);
+        //    }
+        // }
+    }
+
 }
