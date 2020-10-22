@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    public $data = [
+    public $Data = [
         'menu' => [
             [
                 "type" => "category",
@@ -101,12 +101,12 @@ class Controller extends BaseController
                     [
                         "type" => "link",
                         "label" => "Showcases",
-                        "link" => "admin/products/showcases-list"
+                        "link" => "admin/products/showcase-list"
                     ],
                     [
                         "type" => "link",
                         "label" => "Trash",
-                        "link" => "admin/products/showcases-trash"
+                        "link" => "admin/products/showcase-trash"
                     ],
                 ]
             ],

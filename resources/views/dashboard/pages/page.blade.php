@@ -1,8 +1,7 @@
-@extends('master')
+{{-- @extends('master') --}}
 
-@section('page')
+{{-- @section('page') --}}
     <div class="row">
-        sadfasdf
         <div id="gjs" style="height:0px; overflow:hidden;">
             <div class="panel">
             <h1 class="welcome">Welcome to</h1>
@@ -66,4 +65,4 @@
             </style>
         </div>
     </div>
-@endsection
+{{-- @endsection--}}

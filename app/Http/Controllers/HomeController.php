@@ -8,16 +8,18 @@ use App\Models\Cms;
 
 class HomeController extends Controller
 {
-    //
+
+    public $Request;
+
+    public function __construct(Request $request)
+    {
+        $this->Request = $request;
+    }
+
     function index()
     {
-        // $cms = new Cms;
-        // $x = $cms->pages();
-         
-        // return response(json_encode($x), 200)
-        //     ->header('Content-Type', 'application/json');
-
-        // return "Under maintanance";
+        return view("home.pages.mockups");
+        //return $this->Request->segment(1);
     }
 
     public function missingMethod($parameters = array())

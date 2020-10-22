@@ -1,18 +1,18 @@
 <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
     <div>
-        <h4 class="mb-3 mb-md-0">{{ $page['header']['label'] }}</h4>
+        <h4 class="mb-3 mb-md-0">{{ $page['header']['label'] ?? '' }}</h4>
     </div>
     <div class="d-flex align-items-center flex-wrap text-nowrap">
     @foreach($page['header']['buttons'] as $button)
         @if($button['action'] == "link" )
-        <a type="button" class="btn btn-outline-{{$button['style'] ? $button['style'] : 'info' }} btn-icon-text mr-2 mb-2 mb-md-0" href="{{ route($button['link']) }}">
-            <i class="btn-icon-prepend" data-feather="{{ $button['icon']}}"></i>
-            {{ $button['label']}}
+        <a type="button" class="btn btn-outline-{{$button['style'] ? $button['style'] : 'info' }} btn-icon-text mr-2 mb-2 mb-md-0" href="{{ URL::to($button['link']) ?? '' }}">
+            <i class="btn-icon-prepend" data-feather="{{ $button['icon'] ?? 'alert-circle'}}"></i>
+            {{ $button['label'] ?? ''}}
         </a>
         @elseif($button['action'] == "model" )
-        <a type="button" class="btn btn-outline-{{$button['style'] ? $button['style'] : 'info' }} btn-icon-text mr-2 mb-2 mb-md-0" data-toggle="modal" data-target="#{{$button['target']}}">
-            <i class="btn-icon-prepend" data-feather="{{ $button['icon']}}"></i>
-            {{ $button['label']}}
+        <a type="button" class="btn btn-outline-{{$button['style'] ? $button['style'] : 'info' }} btn-icon-text mr-2 mb-2 mb-md-0" data-toggle="modal" data-target="#{{$button['target'] ?? ''}}">
+            <i class="btn-icon-prepend" data-feather="{{ $button['icon'] ?? 'alert-circle'}}"></i>
+            {{ $button['label'] ?? ''}}
         </a>
         @endif
     <!-- 
