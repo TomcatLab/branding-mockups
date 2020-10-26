@@ -3,29 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Cms;
 use App\Models\PageTypes;
+use App\Models\PageGroups;
+use App\Models\Pages;
+use App\Models\PageContent;
+
 
 class CmsController extends Controller
 {
     public $Request;
     public $Cms;
     public $PageTypes;
+    public $PageGroups;
+    public $Pages;
+    public $PageContent;
 
     public function __construct(
         Request $request,
-        Cms $Cms,
-        PageTypes $PageTypes
+        PageTypes $PageTypes,
+        PageGroups $PageGroups,
+        Pages $Pages,
+        PageContent $PageContent
     )
     {
         $this->Request = $request;
-        $this->Cms = $Cms;
         $this->PageTypes = $PageTypes;
+        $this->PageGroups = $PageGroups;
+        $this->Pages = $Pages;
+        $this->PageContent = $PageContent;
     }
 
     public function index()
     {
-        $this->data['page'] = [
+        $this->Data['page'] = [
             "header" => [
                 "style" => "regular",
                 "label" => "Pages",
@@ -36,16 +46,24 @@ class CmsController extends Controller
                         "action" => "model",
                         "icon" => "file-plus",
                         "target" => "newPageModal"
+                    ],
+                    [
+                        "label" => "New Group",
+                        "style" => "primary",
+                        "action" => "model",
+                        "icon" => "file-plus",
+                        "target" => "newGroupModal"
                     ]
                 ]
             ],
         ];
-        $this->data['resource'] = [
-            "pages" => $this->Cms->pages(),
-            "categories" => $this->Cms->categories(),
-            "PageTypes" => $this->PageTypes->Types(),
+        $this->Data['Resource'] = [
+            "Pages" => $this->Pages->by_groups(),
+            "Groups" => $this->PageGroups->all(),
+            "PageTypes" => $this->PageTypes->all(),
+            "AllPages" => []
         ];
-        return view('dashboard.pages.cms', $this->data);
+        return view('dashboard.pages.cms', $this->Data);
     }
 
     public function add()
@@ -81,7 +99,12 @@ class CmsController extends Controller
 
     public function page($id = null)
     {
-        return view('dashboard.pages.page', $this->data);
+        $this->Data['PageId'] = $id;
+        $this->Data['Resources'] =[
+            "PageContent" => $this->PageContent->find($id)->get()
+        ];
+        //return $this->Data['Resources']['PageContent'][0]->content_value;
+        return view('dashboard.pages.page', $this->Data);
     }
 
     public function trash()

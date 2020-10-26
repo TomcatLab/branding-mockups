@@ -5,18 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Models\PageGroups;
+use App\Models\PageTypes;
 
 class Cms extends Model
 {
     use HasFactory;
     public $PagesTable = "Pages";
-    public $CategoriesTable = "PageCategories";
+    public $GroupsTable = "PageGroups";
+
+    public $PageGroups;
+
+    public function __construct(
+        PageTypes $PageTypes,
+        PageGroups $PageGroups
+    )
+    {
+        $this->PageTypes = $PageTypes;
+        $this->PageGroups = $PageGroups;
+    }
 
     public function Pages()
     {
         $PageData = [];
-        $Categories = $this->Categories();
-        foreach($Categories as $key => $Category){
+        $Groups = $this->PageGroups->all();
+        foreach($Groups as $key => $Category){
             $PageData[$key] = [
                 "CategoryId" => $Category->pct_id,
                 "CategoryName" => $Category->pct_name
@@ -33,14 +46,6 @@ class Cms extends Model
 
         }
         return $PageData;
-    }
-
-    public function Categories()
-    {
-        $Categories =  DB::table($this->CategoriesTable)
-                            ->where('pct_status', 1)
-                            ->get();
-        return $Categories;
     }
 
     public function add($Data)

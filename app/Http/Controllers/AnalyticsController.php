@@ -9,13 +9,13 @@ class AnalyticsController extends Controller
     //
     public function index()
     {
-        $this->data['page'] = [
+        $this->Data['page'] = [
             "header" => [
                 "style" => "regular",
                 "label" => "Analytics",
                 "buttons" => []
             ]
         ];
-        return view('dashboard.pages.analytics', $this->data);
+        return view('dashboard.pages.analytics', $this->Data);
     }
 }

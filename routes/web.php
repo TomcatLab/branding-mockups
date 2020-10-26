@@ -47,7 +47,7 @@ Route::group(['prefix'=>'admin'],function(){
             CmsController::class, 'index'
         ])->name('admin.cms.page-list');
 
-        Route::get('page-edit', [
+        Route::get('page-edit/{id}', [
             CmsController::class, 'page'
         ])->name('admin.cms.page-edit');
 

@@ -13,7 +13,7 @@ class PageTypes extends Model
 
     public function Types()
     {
-        $Types =  DB::table("PageTypes")
+        $Types =  DB::table("page_types")
                     ->where('pgt_status', 1)
                     ->get();
         return $Types;

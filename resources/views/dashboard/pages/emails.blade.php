@@ -6,7 +6,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">{{ $Email->name }}</h6>
+                    <h6 class="card-title">{{ $Email->email_name }}</h6>
                     {{ Form::open(array('url' => route('admin.emails'))) }}
                         <input type="hidden" name="EmailId" value="{{ $Email->email_id }}">
                         <div class="form-group">
@@ -23,7 +23,7 @@
                             <textarea
                                 class="form-control"
                                 name="EmailContent"
-                                id="tinymceExample"
+                                id="simpleMdeExample"
                                 rows="10">
                                 {{ $Email->email_content}}
                             </textarea>

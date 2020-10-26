@@ -57,12 +57,12 @@ class MockupsController extends Controller
 
     public function new()
     {
-        $this->data['Resources'] = [
+        $this->Data['Resources'] = [
             "MockupCategories" => $this->MockupCategories->all(),
             "FileExtensions" => $this->FileExtensions->all()
         ];
         
-        return view('dashboard.pages.mockups.new', $this->data);
+        return view('dashboard.pages.mockups.new', $this->Data);
     }
 
     public function save()
@@ -93,20 +93,18 @@ class MockupsController extends Controller
         //                 ->withInput();
         // }else{
             $Data = [
-                "name" => $MockupName,
-                "keywords" => $MockupKeywords,
-                "description" => $MockupDescription,
-                "author" => "1",
-                "category_id" => $MockupCategory,
-                "slug" => $MockupSlug,
-                "price" => $MockupPrice,
-                "info" => $MockupInformations,
-                "file_extension" => $MockupExtension,
-                "size" => "1",
-                "dimensions" => "1",
-                "license" => "1",
-                "created_at" => date('Y-m-d H:i:s'),
-                "status" => 1
+                "mockup_name" => $MockupName,
+                "mockup_keywords" => $MockupKeywords,
+                "mockup_description" => $MockupDescription,
+                "mockup_author" => "1",
+                "mockup_category_id" => $MockupCategory,
+                "mockup_slug" => $MockupSlug,
+                "mockup_price" => $MockupPrice,
+                "mockup_info" => $MockupInformations,
+                "mockup_file_extension" => $MockupExtension,
+                "mockup_size" => "1",
+                "mockup_dimensions" => "1",
+                "mockup_license" => "1",
             ];
     
             $this->Mockups->insert($Data);

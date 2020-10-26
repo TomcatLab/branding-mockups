@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="{{URL::to('dashboard/assets/css/demo_1/style.css')}}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{URL::to('dashboard/assets/images/favicon.png')}}" />
-    <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/grapesjs-dev/dist/css/grapes.min.css')}}">
+    <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/grapesjs/dist/css/grapes.min.css')}}">
+    <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/jstree/dist/themes/default/style.min.css')}}" />
     
 </head>
 <body>
@@ -47,6 +48,7 @@
     <script src="{{URL::to('dashboard/assets/vendors/apexcharts/apexcharts.min.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/vendors/progressbar.js/progressbar.min.js')}}"></script>
     <!-- end plugin js for this page -->
+    <script src="{{URL::to('dashboard/assets/vendors/grapesjs/dist/grapes.min.js')}}"></script>
     <!-- inject:js -->
     <script src="{{URL::to('dashboard/assets/vendors/feather-icons/feather.min.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/js/template.js')}}"></script>
@@ -55,7 +57,9 @@
     <script src="{{URL::to('dashboard/assets/js/dashboard.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/js/datepicker.js')}}"></script>
     <!-- end custom js for this page -->
-    <script src="{{URL::to('dashboard/assets/vendors/grapesjs-dev/dist/grapes.min.js')}}"></script>
+    <script src="{{URL::to('dashboard/assets/vendors/jstree/dist/jstree.min.js')}}"></script>
+    <script src="{{URL::to('dashboard/assets/js/simplemde.js')}}"></script>
+
     <script src="{{URL::to('dashboard/assets/js/custome.js')}}"></script>
 </body>
 </html>
