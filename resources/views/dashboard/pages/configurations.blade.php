@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('page')
-{{ $errors ?? '' }}
+    @include('dashboard.partials.alerts')
 <div class="row">
     @foreach($resources['Configurations'] as $Configurations)
     <div class="col-md-12 grid-margin stretch-card">
@@ -18,7 +18,7 @@
                             class="form-control"
                             id="{{ $Configuration['id'] }}"
                             value="{{ $Configuration['value'] }}"
-                            name="{{ $Configuration['id'] }}"
+                            name="{{ Str::slug($Configuration['name']) }}"
                         >
                     </div>
                     @endforeach

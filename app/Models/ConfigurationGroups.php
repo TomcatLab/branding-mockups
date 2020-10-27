@@ -4,10 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Showcases extends Model
+class ConfigurationGroups extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 }

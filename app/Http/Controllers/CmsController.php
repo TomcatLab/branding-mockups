@@ -71,18 +71,20 @@ class CmsController extends Controller
         $ValidatedData = $this->Request->validate([
             'page-name' => 'required|max:100',
         ]);
-
-        $PageName = $this->Request->input('page-name');
-        $PageParentId = $this->Request->input('parent-page');
-        $PageCategoryId = $this->Request->input('category');
-        $PageKeywords = $this->Request->input('keywords');
-        $pageDescription = $this->Request->input('description');
+        
         
         if ($Validator->fails()) {
             return redirect('admin.cms.page-list')
                         ->withErrors($Validator)
                         ->withInput();
         }else{
+            
+            $PageName = $this->Request->input('page-name');
+            $PageParentId = $this->Request->input('parent-page');
+            $PageCategoryId = $this->Request->input('category');
+            $PageKeywords = $this->Request->input('keywords');
+            $pageDescription = $this->Request->input('description');
+
             $data = [
                 "pg_name" => $PageName,
                 "pg_parent_id" => $PageParentId,

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Configurations;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+
 
 class SettingsController extends Controller
 {
@@ -38,36 +41,49 @@ class SettingsController extends Controller
             ]
         ];
         $this->Data['resources'] = [
-            "Configurations" => $this->Configurations->Get()
+            "Configurations" => $this->Configurations->by_groups()
         ];
         return view('dashboard.pages.configurations', $this->Data);
     }
 
     public function save()
     {
-        $Configurations = $this->Request->all();
         $GroupId = $this->Request->input('group');
-        $ValidateInputs = [];
+        $RequiredConfigurations = $this->Configurations->by_group($GroupId);
+        $ValidationRules = [];
 
-        foreach($Configurations as $Key => $Configuration){
-            if(is_numeric($Key)){
-                $ValidateInputs[$Key] = "required";
-            }
+        foreach($RequiredConfigurations as $RequiredConfiguration){
+            $InputName = Str::slug($RequiredConfiguration->name, '-');
+            $InputValues[$RequiredConfiguration->id] = $this->Request->input($InputName);
+            $ValidationRules[$InputName] = $RequiredConfiguration->validations;
         }
 
-        $validatedData = $this->Request->validate($ValidateInputs);
+        $validator = Validator::make($this->Request->all(), $ValidationRules, []);
 
         if ($validator->fails()) {
-           return redirect()->route('admin.settings');
+           return redirect()->route('admin.settings')
+                            ->withErrors($validator)
+                            ->withInput($this->Request->input());
         }else{
-            
-            foreach($Configurations as $Key => $Configuration){
-                if(is_numeric($Key)){
-                    $this->Configurations->Set(['configuration_id' => $Key, 'configuration_value' => $Configuration]);
+            $i = 0;
+            $messages = [];
+
+            foreach($RequiredConfigurations as $RequiredConfiguration){
+                if($RequiredConfiguration->value != $InputValues[$RequiredConfiguration->id]){
+                    $this->Configurations->Set(['id' => $RequiredConfiguration->id, 'value' => $InputValues[$RequiredConfiguration->id]]);
+                    $i++;
                 }
             }
 
-            return redirect()->route('admin.settings');
+            if($i){
+                $messages = [
+                    "success" => [
+                        "Successfully Updated"
+                    ]
+                ];    
+            }
+            
+            return redirect()->route('admin.settings')->with($messages);
         }
     }
 }

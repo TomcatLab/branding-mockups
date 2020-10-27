@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Branding Mockups</title>
+    <link rel="shortcut icon" href="{{URL::to('dashboard/assets/images/favicon.png')}}" />
     <!-- core:css -->
     <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/core/core.css')}}">
     <!-- endinject -->
@@ -18,7 +19,7 @@
     <!-- Layout styles -->  
     <link rel="stylesheet" href="{{URL::to('dashboard/assets/css/demo_1/style.css')}}">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="{{URL::to('dashboard/assets/images/favicon.png')}}" />
+    <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/simplemde/simplemde.min.css')}}">
     <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/grapesjs/dist/css/grapes.min.css')}}">
     <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/jstree/dist/themes/default/style.min.css')}}" />
     
@@ -58,7 +59,7 @@
     <script src="{{URL::to('dashboard/assets/js/datepicker.js')}}"></script>
     <!-- end custom js for this page -->
     <script src="{{URL::to('dashboard/assets/vendors/jstree/dist/jstree.min.js')}}"></script>
-    <script src="{{URL::to('dashboard/assets/js/simplemde.js')}}"></script>
+    <script src="{{URL::to('dashboard/assets/vendors/simplemde/simplemde.min.js')}}"></script>
 
     <script src="{{URL::to('dashboard/assets/js/custome.js')}}"></script>
 </body>

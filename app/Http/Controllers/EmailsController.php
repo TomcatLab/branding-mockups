@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Emails;
+use Illuminate\Support\Facades\Validator;
 
 class EmailsController extends Controller
 {
@@ -30,16 +31,40 @@ class EmailsController extends Controller
 
     public function Save()
     {
-        $EmailId = $this->Request->input('EmailId');
-        $EmailSubject = $this->Request->input('EmailSubject');
-        $EmailContent = $this->Request->input('EmailContent');
+        $rules = array(
+            'EmailContent' => 'required',                       // just a normal required validation
+            'EmailSubject' => 'required',    // required and must be unique in the ducks table
+        );
 
-        $Data = [
-            "email_subject" => $EmailSubject,
-            "email_content" => $EmailContent
-        ];
-        $this->Emails->Set($EmailId, $Data);
+        $messages = array(
+            'required' => 'The :attribute is really really really important.',
+            'same'  => 'The :others must match.'
+        );
 
-        return redirect()->route('admin.emails');
+        $validator = Validator::make($this->Request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect()->route('admin.emails')
+                                ->withErrors($validator)
+                                ->withInput($this->Request->input());
+        }
+        else{
+            $EmailId = $this->Request->input('EmailId');
+            $EmailSubject = $this->Request->input('EmailSubject');
+            $EmailContent = $this->Request->input('EmailContent');
+    
+            $Data = [
+                "subject" => $EmailSubject,
+                "content" => $EmailContent
+            ];
+            $this->Emails->Set($EmailId, $Data);
+    
+            $messages = [
+                "success" => [
+                    "Successfully Updated"
+                ]
+            ];
+            return redirect()->route('admin.emails')->with($messages);
+        }
     }
 }
