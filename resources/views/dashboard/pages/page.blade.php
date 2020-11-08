@@ -1,6 +1,19 @@
 @extends('master')
 
 @section('page')
+<style>
+.sidebar,
+.navbar,
+.footer{
+  display:none;
+}
+.main-wrapper .page-wrapper .page-content,
+.page-wrapper{
+  padding: 0px !important;
+  margin: 0px !important;
+  width: 100% !important;
+}
+</style>
 <script>
     var PageId = '{{ $PageId }}';
     var Styles = [{
@@ -31,9 +44,10 @@
           ];
 </script>
 <div id="page-{{ $PageId }}" style="height:0px; overflow:hidden;">
-      {!! $Resources['PageContent'][0]->content_value !!}
+      {!! $Resources['PageContent']->value !!}
       <style>
-      {{ $Resources['PageContent'][0]->content_styles }}
+      {{ $Resources['PageContent']->styles }}
       </style>
     </div>
+
 @endsection

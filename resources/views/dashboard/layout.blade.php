@@ -26,7 +26,12 @@
 </head>
 <body>
     <div class="main-wrapper">
-        @include('dashboard.partials.sidebar')
+        @if(isset($FullPage) && $FullPage)
+        <div class="page-wrapper full-page">
+            @yield('page')
+        </div>
+        @else
+            @include('dashboard.partials.sidebar')
             <div class="page-wrapper">
                 @include('dashboard.partials.navbar')
 
@@ -36,6 +41,7 @@
 
                 @include('dashboard.partials.footer')
             </div>
+        @endif
     </div>
 
     <!-- core:js -->

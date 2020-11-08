@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Mockups;
 use App\Models\FileExtensions;
 use App\Models\MockupCategories;
+use App\Http\Controllers\Controller;
 
 
 class MockupsController extends Controller
@@ -50,7 +51,7 @@ class MockupsController extends Controller
             ]
         ];
         $this->Data['resources'] = [
-            "Mockups" => $this->Mockups->all()
+            "Mockups" => $this->Mockups->by_groups()
         ];
         return view('dashboard.pages.mockups.all', $this->Data);
     }
@@ -93,18 +94,18 @@ class MockupsController extends Controller
         //                 ->withInput();
         // }else{
             $Data = [
-                "mockup_name" => $MockupName,
-                "mockup_keywords" => $MockupKeywords,
-                "mockup_description" => $MockupDescription,
-                "mockup_author" => "1",
-                "mockup_category_id" => $MockupCategory,
-                "mockup_slug" => $MockupSlug,
-                "mockup_price" => $MockupPrice,
-                "mockup_info" => $MockupInformations,
-                "mockup_file_extension" => $MockupExtension,
-                "mockup_size" => "1",
-                "mockup_dimensions" => "1",
-                "mockup_license" => "1",
+                "name" => $MockupName,
+                "keywords" => $MockupKeywords,
+                "description" => $MockupDescription,
+                "author" => "1",
+                "category_id" => $MockupCategory,
+                "slug" => $MockupSlug,
+                "price" => $MockupPrice,
+                "info" => $MockupInformations,
+                "file_extension" => $MockupExtension,
+                "size" => "1",
+                "dimensions" => "1",
+                "license" => "1",
             ];
     
             $this->Mockups->insert($Data);
@@ -115,19 +116,15 @@ class MockupsController extends Controller
 
     public function delete()
     {
-        $ValidatedData = $this->Request->validate([
-            'MockupId' => 'required',
-        ]);
-        // if ($Validator->fails()) {
-        //     return redirect('admin.products.mockups.list')
-        //                 ->withErrors($Validator)
-        //                 ->withInput();
-        // }else{
-            $MockupId = $this->Request->input('MockupId');
-            $Mockup = $this->Mockups->find($MockupId);
+        $MockupId = $this->Request->input('MockupId');
+
+        $Mockup = $this->Mockups->where('id',$MockupId)->first();
+
+        if ($Mockup != null) {
             $Mockup->delete();
-            return redirect()->route('admin.products.mockups.list');
-        //}
+            redirect()->route('admin.products.mockups.list')->with(['success' => [ 'Successfully deleted!!']]);
+        }
+        return redirect()->route('admin.products.mockups.list');
     }
 
     public function trash()

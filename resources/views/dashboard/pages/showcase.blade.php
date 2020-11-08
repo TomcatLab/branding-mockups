@@ -2,6 +2,9 @@
 
 @section('page')
 @include('dashboard.partials.pageHeader')
+
+@include('dashboard.partials.alerts')
+
 <div class="row">
     @foreach($resources['Showcases'] as $Showcase)
     <div class="col-12 col-md-3 stretch-card">
@@ -34,7 +37,7 @@
               <select class="form-control" id="ShowcaseCategory" name="ShowcaseCategory">
                 <option value="0" selected>Select showcase category</option>
                 @foreach($resources['MockupCategories'] as $MockupCategory)
-                <option value="{{ $MockupCategory->category_id }}" >{{ $MockupCategory->category_name }}</option>
+                <option value="{{ $MockupCategory->id }}" >{{ $MockupCategory->name }}</option>
                 @endforeach
               </select>
             </div>

@@ -3,27 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Cms;
-
 
 class HomeController extends Controller
 {
-
-    public $Request;
-
-    public function __construct(Request $request)
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        $this->Request = $request;
+        //$this->middleware('auth');
     }
 
-    function index()
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
     {
-        return view("home.pages.mockups");
-        //return $this->Request->segment(1);
-    }
-
-    public function missingMethod($parameters = array())
-    {
-        return "loop page";
+        return view('home.pages.mockups');
     }
 }

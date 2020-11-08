@@ -30,7 +30,7 @@ class Pages extends Model
         foreach($PageGroups as $key => $Group){
             $PageByGroups[$key] = [
                 "Group" => $Group,
-                "Pages" => $this->by_group($Group->group_id)
+                "Pages" => $this->by_group($Group->id)
             ];
         }
         return $PageByGroups;
@@ -41,9 +41,43 @@ class Pages extends Model
         $PagesByGroup = [];
         if(is_numeric($GroupId)){
             $PagesByGroup = DB::table($this->PagesTable)
-                                ->where('page_group_id',$GroupId)
-                                ->get();
+                            ->select(
+                                $this->PagesTable.".name",
+                                $this->PagesTable.".keywords",
+                                $this->PagesTable.".description",
+                                $this->PagesTable.".parent_id",
+                                $this->PagesTable.".group_id",
+                                $this->PagesTable.".type_id",
+                                "page_contents.id",
+                                "page_contents.value",
+                                "page_contents.styles"
+                            )
+                            ->leftJoin('page_contents', $this->PagesTable.'.id', '=', 'page_id')
+                            ->where('group_id',$GroupId)
+                            ->get();
         }
         return $PagesByGroup;
+    }
+
+    public function by_slug($Slug)
+    {
+        $Page = DB::table($this->PagesTable)
+        ->select(
+            $this->PagesTable.".name",
+            $this->PagesTable.".slug",
+            $this->PagesTable.".keywords",
+            $this->PagesTable.".description",
+            $this->PagesTable.".parent_id",
+            $this->PagesTable.".group_id",
+            $this->PagesTable.".type_id",
+            "page_contents.id",
+            "page_contents.value",
+            "page_contents.styles"
+        )
+        ->leftJoin('page_contents', $this->PagesTable.'.id', '=', 'page_id')
+        ->where($this->PagesTable.".slug",$Slug)
+        ->get();
+
+        return $Page;
     }
 }

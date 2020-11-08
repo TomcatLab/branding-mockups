@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\PageTypes;
 use App\Models\PageGroups;
 use App\Models\Pages;
 use App\Models\PageContent;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
 
 
 class CmsController extends Controller
@@ -68,10 +70,11 @@ class CmsController extends Controller
 
     public function add()
     {
-        $ValidatedData = $this->Request->validate([
-            'page-name' => 'required|max:100',
-        ]);
+        $ValidatedRules = [
+            'PageName' => 'required',
+        ];
         
+        $Validator = Validator::make($this->Request->all(), $ValidatedRules, []);
         
         if ($Validator->fails()) {
             return redirect('admin.cms.page-list')
@@ -79,23 +82,27 @@ class CmsController extends Controller
                         ->withInput();
         }else{
             
-            $PageName = $this->Request->input('page-name');
-            $PageParentId = $this->Request->input('parent-page');
-            $PageCategoryId = $this->Request->input('category');
-            $PageKeywords = $this->Request->input('keywords');
-            $pageDescription = $this->Request->input('description');
+            $PageName = $this->Request->input('PageName');
+            $PageParentId = $this->Request->input('ParentPage');
+            $PageGroupId = $this->Request->input('Group');
+            $PageKeywords = $this->Request->input('Keywords');
+            $PageDescription = $this->Request->input('Description');
+            $PageType = $this->Request->input('Type');
 
-            $data = [
-                "pg_name" => $PageName,
-                "pg_parent_id" => $PageParentId,
-                "pg_category_id" => $PageCategoryId,
-                "pg_keywords" => $PageKeywords,
-                "pg_description" => $pageDescription,
-                "pg_status" => 1
-            ];
-    
-            $this->Cms->add($data);
-            return redirect()->route('admin.cms.page-list');    
+            $this->Pages->name = $PageName;
+            $this->Pages->parent_id = $PageParentId;
+            $this->Pages->group_id = $PageGroupId;
+            $this->Pages->keywords = $PageKeywords;
+            $this->Pages->description = $PageDescription;
+            $this->Pages->type_id = $PageType;
+            $this->Pages->save();
+
+            $this->PageContent->page_id = $this->Pages->id;
+
+            //$this->PageContent->insert($Data);
+            $this->PageContent->save();
+
+            return redirect()->route('admin.cms.page-list',$this->PageContent->id);
         }
     }
 
@@ -103,10 +110,39 @@ class CmsController extends Controller
     {
         $this->Data['PageId'] = $id;
         $this->Data['Resources'] =[
-            "PageContent" => $this->PageContent->find($id)->get()
+            "PageContent" => $this->PageContent->where('id',$id)->first()
         ];
         //return $this->Data['Resources']['PageContent'][0]->content_value;
         return view('dashboard.pages.page', $this->Data);
+    }
+
+    public function new_group()
+    {
+        $ValidatedRules = array(
+            'GroupName' => 'required',
+        );
+
+        $Validator = Validator::make($this->Request->all(), $ValidatedRules, []);
+
+        if ($Validator->fails()) {
+            return redirect()->route('admin.cms.page-list')
+                                ->withErrors($Validator)
+                                ->withInput($this->Request->input());
+        }else{
+            $GroupName = $this->Request->input('GroupName');
+            $Data = [
+                "name" => $GroupName,
+            ];
+            $this->PageGroups->insert($Data);
+    
+            $Messages = [
+                "success" => [
+                    "Successfully Updated"
+                ]
+            ];
+            return redirect()->route('admin.cms.page-list')->with($Messages);
+        }
+
     }
 
     public function trash()

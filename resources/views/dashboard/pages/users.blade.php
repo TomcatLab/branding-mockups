@@ -11,20 +11,20 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>First Name</th>
-                                <th>LAST NAME</th>
+                                <th>Name</th>
                                 <th>EMAIL</th>
                                 <th>ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($Resources['Users'] as $User)
                             <tr>
                                 <th>1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
+                                <td>{{ $User->name }}</td>
+                                <td>{{ $User->email }}</td>
                                 <td>@mdo</td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
             </div>

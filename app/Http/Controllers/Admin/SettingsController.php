@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Configurations;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
 
 
 class SettingsController extends Controller
@@ -18,6 +19,7 @@ class SettingsController extends Controller
         Request $Request
     )
     {
+       // $this->middleware('auth');
         $this->Configurations = $Configurations;
         $this->Request = $Request;
     }

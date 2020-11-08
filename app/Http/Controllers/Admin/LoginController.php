@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
@@ -11,5 +12,10 @@ class LoginController extends Controller
     {
         # code...
         return view('dashboard.pages.login', $this->data);
+    }
+
+    public function admin_login()
+    {
+        # code...
     }
 }

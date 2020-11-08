@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Emails;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
 
 class EmailsController extends Controller
 {
@@ -31,7 +32,7 @@ class EmailsController extends Controller
 
     public function Save()
     {
-        $rules = array(
+        $ValidatedRules = array(
             'EmailContent' => 'required',                       // just a normal required validation
             'EmailSubject' => 'required',    // required and must be unique in the ducks table
         );
@@ -41,7 +42,7 @@ class EmailsController extends Controller
             'same'  => 'The :others must match.'
         );
 
-        $validator = Validator::make($this->Request->all(), $rules, $messages);
+        $validator = Validator::make($this->Request->all(), $ValidatedRules, $messages);
 
         if ($validator->fails()) {
             return redirect()->route('admin.emails')

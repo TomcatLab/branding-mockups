@@ -21,106 +21,122 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-// Route::group(['prefix'=>''], function () {
-//     Route::get('/', [
-//         HomeController::class, 'index'
-//     ]);
-//     Route::get('/{page}', [
-//         HomeController::class, 'index'
-//     ]);
-// });
+Route::group(['prefix'=>'home'], function () {
+    Route::get('/', [
+        HomeController::class, 'index'
+    ]);
+    Route::get('/{page}', [
+        HomeController::class, 'index'
+    ]);
+});
 
 Route::group(['prefix'=>'admin'],function(){
 
     // Analytics
+    Route::get('/login', [
+        App\Http\Controllers\Auth\LoginController::class, 'admin_login_form'
+    ])->name('admin.login');
+
+    Route::post('/login', [
+        App\Http\Controllers\Auth\LoginController::class, 'admin_login'
+    ])->name('admin.login');
+
     Route::get('/', [
-        AnalyticsController::class, 'index'
+        App\Http\Controllers\Admin\AnalyticsController::class, 'index'
     ]);
 
     Route::get('analytics', [
-        AnalyticsController::class, 'index'
+        App\Http\Controllers\Admin\AnalyticsController::class, 'index'
     ])->name('admin.analytics');
 
     Route::group(['prefix'=>'cms'],function(){
        
         Route::get('pages-list',[
-            CmsController::class, 'index'
+            App\Http\Controllers\Admin\CmsController::class, 'index'
         ])->name('admin.cms.page-list');
 
         Route::get('page-edit/{id}', [
-            CmsController::class, 'page'
+            App\Http\Controllers\Admin\CmsController::class, 'page'
         ])->name('admin.cms.page-edit');
 
         Route::post('page-add', [
-            CmsController::class, 'add'
+            App\Http\Controllers\Admin\CmsController::class, 'add'
         ])->name('admin.cms.page-add');
 
         Route::get('pages-trash',[
-            CmsController::class, 'trash'
+            App\Http\Controllers\Admin\CmsController::class, 'trash'
         ]);
+
+        Route::post('page-group',[
+            App\Http\Controllers\Admin\CmsController::class, 'new_group'
+        ])->name('admin.cms.page-group');
     });
 
     Route::group(['prefix'=>'emails'],function(){
         Route::get('/',[
-            EmailsController::class, 'index'
+            App\Http\Controllers\Admin\EmailsController::class, 'index'
         ])->name('admin.emails');
         Route::post('/',[
-            EmailsController::class, 'Save'
+            App\Http\Controllers\Admin\EmailsController::class, 'Save'
         ])->name('admin.emails');
     });
 
     Route::group(['prefix'=>'products'],function(){
         
         Route::get('mockups-list',[
-            MockupsController::class, 'index'
+            App\Http\Controllers\Admin\MockupsController::class, 'index'
         ])->name('admin.products.mockups.list');
 
         Route::get('mockups-new',[
-            MockupsController::class, 'new'
+            App\Http\Controllers\Admin\MockupsController::class, 'new'
         ])->name('admin.products.mockups.new');
 
         Route::post('mockups-new',[
-            MockupsController::class, 'save'
+            App\Http\Controllers\Admin\MockupsController::class, 'save'
         ])->name('admin.products.mockups.new');
 
         Route::delete('mockups-list',[
-            MockupsController::class, 'delete'
+            App\Http\Controllers\Admin\MockupsController::class, 'delete'
         ])->name('admin.products.mockups.list');
 
         Route::get('mockups-trash',[
-            MockupsController::class, 'trash'
+            App\Http\Controllers\Admin\MockupsController::class, 'trash'
         ])->name('admin.products.mockups.trash');
 
         Route::get('showcase-list',[
-            ShowcaseController::class, 'index'
+            App\Http\Controllers\Admin\ShowcaseController::class, 'index'
         ])->name("admin.products.showcases");
 
         Route::post('showcase-list',[
-            ShowcaseController::class, 'add'
+            App\Http\Controllers\Admin\ShowcaseController::class, 'add'
+        ])->name("admin.products.showcases");
+
+        Route::delete('showcase-list',[
+            App\Http\Controllers\Admin\ShowcaseController::class, 'delete'
         ])->name("admin.products.showcases");
 
         Route::get('showcase-trash',[
-            ShowcaseController::class, 'index'
+            App\Http\Controllers\Admin\ShowcaseController::class, 'trash'
         ]);
     });
     
     Route::get('settings',[
-        SettingsController::class, 'index'
+        App\Http\Controllers\Admin\SettingsController::class, 'index'
     ])->name('admin.settings');
 
     Route::post('settings',[
-        SettingsController::class, 'save'
+        App\Http\Controllers\Admin\SettingsController::class, 'save'
     ])->name('admin.settings');
 
     Route::group(['prefix'=>'users'],function(){
         Route::get('users-list',[
-            UsersController::class, 'index'
-        ]);
-        Route::get('users-add',[
-            CmsController::class, 'add'
+            App\Http\Controllers\Admin\UsersController::class, 'index'
         ]);
         Route::get('users-trash',[
-            CmsController::class, 'trash'
+            App\Http\Controllers\Admin\UsersController::class, 'trash'
         ]);    
     });
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -52,7 +52,7 @@ class Controller extends BaseController
                         "type" => "link",
                         "label" => "Trash",
                         "link" => "admin/cms/pages-trash"
-                    ],
+                    ]
                 ]
             ],
             [

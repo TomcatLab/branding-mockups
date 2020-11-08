@@ -25,7 +25,7 @@
                         <select class="form-control" id="MockupCategory" name="MockupCategory">
                             <option selected disabled>Select Category</option>
                             @foreach($Resources['MockupCategories'] as $MockupCategory)
-                            <option value="{{ $MockupCategory->category_id }}" >{{ $MockupCategory->category_name }}</option>
+                            <option value="{{ $MockupCategory->id }}" >{{ $MockupCategory->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -51,7 +51,7 @@
                         <select class="form-control" id="MockupExtension" name="MockupExtension">
                             <option selected disabled>Select File Extension</option>
                             @foreach($Resources['FileExtensions'] as $FileExtension)
-                            <option value="{{ $FileExtension->extension_id }}">{{$FileExtension->extension_name}}</option>
+                            <option value="{{ $FileExtension->id }}">{{$FileExtension->name}}</option>
                             @endforeach
                         </select>
                     </div>
