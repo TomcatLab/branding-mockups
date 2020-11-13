@@ -14,6 +14,23 @@ class HomeController extends Controller
     public function __construct()
     {
         //$this->middleware('auth');
+        $this->Data["menu"] = [
+            [
+                "type" => "page",
+                "label" => "Mockups",
+                "link" => ""
+            ],
+            [
+                "type" => "page",
+                "label" => "Freebies",
+                "link" => ""
+            ],
+            [
+                "type" => "page",
+                "label" => "Showcase",
+                "link" => ""
+            ],
+        ];
     }
 
     /**
@@ -23,6 +40,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home.pages.mockups');
+        return view('home.pages.mockups' , $this->Data);
     }
 }
