@@ -18,7 +18,7 @@
     <div class="">
       @include('home.partials.header')
       @include('home.partials.slider')
-      @yield('page')
+      @yield('content')
       @include('home.partials.footer')
     </div>
 

@@ -17,5 +17,9 @@ class ConfigurationGroupsSeeder extends Seeder
         DB::table('configuration_groups')->insert([
             'name' => 'Behance',
         ]);
+
+        DB::table('configuration_groups')->insert([
+            'name' => 'Social Media',
+        ]);
     }
 }

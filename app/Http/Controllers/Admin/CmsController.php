@@ -9,6 +9,7 @@ use App\Models\Pages;
 use App\Models\PageContent;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 
 class CmsController extends Controller
@@ -72,6 +73,7 @@ class CmsController extends Controller
     {
         $ValidatedRules = [
             'PageName' => 'required',
+            'PageSlug' => 'required'
         ];
         
         $Validator = Validator::make($this->Request->all(), $ValidatedRules, []);
@@ -88,6 +90,7 @@ class CmsController extends Controller
             $PageKeywords = $this->Request->input('Keywords');
             $PageDescription = $this->Request->input('Description');
             $PageType = $this->Request->input('Type');
+            $PageSlug = $this->Request->input('PageSlug');
 
             $this->Pages->name = $PageName;
             $this->Pages->parent_id = $PageParentId;
@@ -95,6 +98,7 @@ class CmsController extends Controller
             $this->Pages->keywords = $PageKeywords;
             $this->Pages->description = $PageDescription;
             $this->Pages->type_id = $PageType;
+            $this->Pages->slug = Str::of(Str::lower($PageSlug))->replace(' ', '-');
             $this->Pages->save();
 
             $this->PageContent->page_id = $this->Pages->id;
@@ -132,6 +136,7 @@ class CmsController extends Controller
             $GroupName = $this->Request->input('GroupName');
             $Data = [
                 "name" => $GroupName,
+                "key"  => strtolower(str_replace(" ","-",$GroupName))
             ];
             $this->PageGroups->insert($Data);
     

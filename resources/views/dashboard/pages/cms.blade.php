@@ -17,7 +17,7 @@
                             "state" : { "opened" : true },
                             "children" : [
                               @foreach($Resource["Pages"] as $Page)
-                                { "text" : "{{ $Page['Group']->name }}",
+                                { "text" : "{{ $Page['Group']->name }} [{{ $Page['Group']->key }}]",
                                     "children" : [
                                       @foreach($Page['Pages'] as $Item)
                                       {
@@ -79,6 +79,10 @@
           <div class="form-group">
             <label for="PageName" class="col-form-label">Page Name:</label>
             <input type="text" class="form-control" id="PageName" name="PageName">
+          </div>
+          <div class="form-group">
+            <label for="PageSlug" class="col-form-label">Page Slug:</label>
+            <input type="text" class="form-control" id="PageSlug" name="PageSlug">
           </div>
           <div class="form-group">
             <label for="Type">Page Type:</label>

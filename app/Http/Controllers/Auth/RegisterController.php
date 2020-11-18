@@ -70,4 +70,27 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    public function showRegistrationForm()
+    {
+        $this->Data["menu"] = [
+            [
+                "type" => "page",
+                "label" => "Mockups",
+                "link" => ""
+            ],
+            [
+                "type" => "page",
+                "label" => "Freebies",
+                "link" => ""
+            ],
+            [
+                "type" => "page",
+                "label" => "Showcase",
+                "link" => ""
+            ],
+        ];
+
+        return view('auth.register', $this->Data);
+    }
 }

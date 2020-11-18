@@ -80,4 +80,33 @@ class Pages extends Model
 
         return $Page;
     }
+
+    public function get_menus()
+    {
+        $Menus = [];
+        $PageByGroups = [];
+
+        $PageGroups = $this->PageGroups->all();
+        foreach($PageGroups as $key => $Group){
+            $menus = DB::table($this->PagesTable)
+                                        ->select(
+                                            $this->PagesTable.".name",
+                                            $this->PagesTable.".slug",
+                                            $this->PagesTable.".parent_id",
+                                            "page_types.id as page_type_id",
+                                            "page_types.name as page_type",
+                                            "page_types.action"
+                                        )
+                                        ->leftJoin('page_types', $this->PagesTable.'.id', '=', 'page_types.id')
+                                        ->where('group_id',$Group->id)
+                                        ->get();
+
+            $Menus[$Group->key] = [
+                "Group" => $Group,
+                "Pages" => $menus
+            ];
+        }
+
+        return $Menus;
+    }
 }

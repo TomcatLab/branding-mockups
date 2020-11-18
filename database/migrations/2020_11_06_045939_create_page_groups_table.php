@@ -16,6 +16,7 @@ class CreatePageGroupsTable extends Migration
         Schema::create('page_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('key');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

@@ -21,6 +21,10 @@ use App\Http\Controllers\HomeController;
 |
 */
 
+Route::get('/', [
+    HomeController::class, 'index'
+]);
+
 Route::group(['prefix'=>'home'], function () {
     Route::get('/', [
         HomeController::class, 'index'

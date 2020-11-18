@@ -1,4 +1,58 @@
 footer{
     /* Rectangle 6 */
     background: #010D1B;
+
+    .copyright-text{
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 184.19%;
+        /* or 29px */
+        text-align: center;
+        color: #575C6F;
+    }
+
+    .navigation{
+        font-style: normal;
+        font-size: 20px;
+        h5{
+            font-weight: bold;
+            color: $white;
+        }
+        ul.nav{
+            li{
+                a.nav-link{
+                    padding-left: 0;
+                    padding-right: 0;
+                    color: #575C6F;
+                }
+            }
+        }
+    }
+    .social-navigation{
+        font-style: normal;
+        font-size: 20px;
+        h5{
+            font-weight: bold;
+            color: $white;
+        }
+        ul.nav{
+            li{
+                a.nav-link{
+                    color: #575C6F;
+                }
+                &:first-child{
+                    a.nav-link{
+                        padding-left: 0;
+                    }
+                }
+                &:last-child{
+                    a.nav-link{
+                        padding-right: 0;
+                    }
+                }
+            }
+        }
+    }
 }

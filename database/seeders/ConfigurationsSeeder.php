@@ -19,5 +19,29 @@ class ConfigurationsSeeder extends Seeder
             'name' => "API",
             'default' => "123456789",
         ]);
+
+        DB::table('configurations')->insert([
+            'group_id' => 2,
+            'name' => "Facebook",
+            'default' => "",
+        ]);
+
+        DB::table('configurations')->insert([
+            'group_id' => 2,
+            'name' => "Pinterest",
+            'default' => "",
+        ]);
+
+        DB::table('configurations')->insert([
+            'group_id' => 2,
+            'name' => "Twitter",
+            'default' => "",
+        ]);
+
+        DB::table('configurations')->insert([
+            'group_id' => 2,
+            'name' => "Facebook",
+            'default' => "",
+        ]);
     }
 }

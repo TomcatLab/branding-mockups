@@ -10,12 +10,6 @@ class LoginController extends Controller
     //
     public function index()
     {
-        # code...
         return view('dashboard.pages.login', $this->data);
-    }
-
-    public function admin_login()
-    {
-        # code...
     }
 }

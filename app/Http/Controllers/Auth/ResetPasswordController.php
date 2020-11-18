@@ -27,4 +27,27 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function showResetForm()
+    {
+        $this->Data["menu"] = [
+            [
+                "type" => "page",
+                "label" => "Mockups",
+                "link" => ""
+            ],
+            [
+                "type" => "page",
+                "label" => "Freebies",
+                "link" => ""
+            ],
+            [
+                "type" => "page",
+                "label" => "Showcase",
+                "link" => ""
+            ],
+        ];
+
+        return view('auth.passwords.reset', $this->Data);
+    }
 }

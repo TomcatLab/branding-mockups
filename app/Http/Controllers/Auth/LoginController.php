@@ -40,6 +40,29 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function showLoginForm()
+    {
+        $this->Data["menu"] = [
+            [
+                "type" => "page",
+                "label" => "Mockups",
+                "link" => ""
+            ],
+            [
+                "type" => "page",
+                "label" => "Freebies",
+                "link" => ""
+            ],
+            [
+                "type" => "page",
+                "label" => "Showcase",
+                "link" => ""
+            ],
+        ];
+
+        return view('auth.login', $this->Data);
+    }
+
     public function admin_login_form()
     {
         $Data = [
