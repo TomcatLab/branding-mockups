@@ -9,6 +9,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ShowcaseController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Users\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,11 @@ Route::group(['prefix'=>'home'], function () {
     ]);
     Route::get('/{slug}/{id}/{sku}', [
         HomeController::class, 'index'
+    ]);
+});
+Route::group(['prefix'=>'myaccount'], function () {
+    Route::get('/', [
+        AccountController::class, 'index'
     ]);
 });
 
