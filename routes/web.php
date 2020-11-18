@@ -29,7 +29,13 @@ Route::group(['prefix'=>'home'], function () {
     Route::get('/', [
         HomeController::class, 'index'
     ]);
-    Route::get('/{page}', [
+    Route::get('/{slug}', [
+        HomeController::class, 'index'
+    ]);
+    Route::get('/{slug}/{id}', [
+        HomeController::class, 'index'
+    ]);
+    Route::get('/{slug}/{id}/{sku}', [
         HomeController::class, 'index'
     ]);
 });

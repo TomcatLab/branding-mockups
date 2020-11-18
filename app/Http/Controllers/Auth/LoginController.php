@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\Pages;
+
 
 class LoginController extends Controller
 {
@@ -35,30 +37,20 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(
+        Pages $Pages,
+        Request $Request
+    )
     {
+        $this->Pages = $Pages;
+        $this->Request = $Request;
+
         $this->middleware('guest')->except('logout');
     }
 
     public function showLoginForm()
     {
-        $this->Data["menu"] = [
-            [
-                "type" => "page",
-                "label" => "Mockups",
-                "link" => ""
-            ],
-            [
-                "type" => "page",
-                "label" => "Freebies",
-                "link" => ""
-            ],
-            [
-                "type" => "page",
-                "label" => "Showcase",
-                "link" => ""
-            ],
-        ];
+        $this->Data["menus"] = $this->Pages->get_menus();
 
         return view('auth.login', $this->Data);
     }

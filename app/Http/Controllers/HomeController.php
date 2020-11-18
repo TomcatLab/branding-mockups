@@ -32,15 +32,25 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index($Slug = null,$Id = null)
     {
-        $PageSlug_1 = $this->Request->segment(2);
-        $PageSlug_2 = $this->Request->segment(3);
-
-        if(empty($PageSlug)){
-            return view('home.pages.mockups' , $this->Data);
-        }elseif( empty($PageSlug_2) && !empty($PageSlug_1)){
-            return view('home.pages.'.$PageSlug , $this->Data);
+        $this->Data['PageConfig'] = [
+            
+        ];
+        if(!empty($Slug)){
+            return view('home.pages.'.$Slug, $this->Data);
+        }else{
+            return view('home.pages.mockups', $this->Data);
         }
+        // }elseif(empty($PageSlug_2) && !empty($PageSlug_1)){
+        //     return view('home.pages.'.$PageSlug_1, $this->Data);
+        // }elseif(!empty($PageSlug_1) && empty($PageSlug_2)){
+        //     return view('home.pages.mockup', $this->Data);
+        // }
+    }
+
+    private function page_handler($Slug, $Id)
+    {
+        
     }
 }

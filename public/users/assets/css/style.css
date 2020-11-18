@@ -7224,6 +7224,9 @@ section.page .pagehead .h5 {
         width: 20%;
         margin-left: 0; }
 
+.mockup .thumbs img {
+  border: 1px solid #ffff; }
+
 .pagination .page-link {
   border: none; }
 

@@ -51,7 +51,8 @@ gulp.task('cleanVendors', () => {
 gulp.task('buildCoreCss', () => {
     return gulp.src([
         './node_modules/perfect-scrollbar/css/perfect-scrollbar.css',
-        './node_modules/owl.carousel/dist/assets/owl.carousel.min.css'
+        './node_modules/owl.carousel/dist/assets/owl.carousel.min.css',
+        './node_modules/beerslider/dist/BeerSlider.css',
     ])
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(concat('core.css'))
@@ -65,7 +66,8 @@ gulp.task('buildCoreJs', () => {
         './node_modules/bootstrap/dist/js/bootstrap.min.js', 
         './node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js',
         './node_modules/owl.carousel/dist/owl.carousel.min.js',
-        './node_modules/feather-icons/dist/feather.min.js'
+        './node_modules/feather-icons/dist/feather.min.js',
+        './node_modules/beerslider/dist/BeerSlider.js',
     ])
     .pipe(concat('core.js'))
     .pipe(gulp.dest('./assets/vendors/core'));

@@ -8,6 +8,9 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Pages;
+use Illuminate\Http\Request;
+
 
 class RegisterController extends Controller
 {
@@ -36,8 +39,14 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(
+        Pages $Pages,
+        Request $Request
+    )
     {
+        $this->Pages = $Pages;
+        $this->Request = $Request;
+
         $this->middleware('guest');
     }
 
@@ -73,23 +82,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        $this->Data["menu"] = [
-            [
-                "type" => "page",
-                "label" => "Mockups",
-                "link" => ""
-            ],
-            [
-                "type" => "page",
-                "label" => "Freebies",
-                "link" => ""
-            ],
-            [
-                "type" => "page",
-                "label" => "Showcase",
-                "link" => ""
-            ],
-        ];
+        $this->Data["menus"] = $this->Pages->get_menus();
 
         return view('auth.register', $this->Data);
     }
