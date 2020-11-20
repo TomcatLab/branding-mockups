@@ -18,10 +18,14 @@ class PageTypesSeeder extends Seeder
         DB::table('page_types')->insert([
             'name' => 'Page',
             'action' => 'content',
+            'show' => "keywords,description",
+            'hide' => 'link'
         ]);
         DB::table('page_types')->insert([
             'name' => 'Link',
             'action' => 'url',
+            'show' => 'link',
+            'hide' => "keywords,description"
         ]);
     }
 }

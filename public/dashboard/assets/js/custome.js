@@ -88,4 +88,23 @@ $(function() {
       element: $("#simpleMdeExample")[0]
     });
   }
+  if(typeof actions !== 'undefined'){
+    let allfields = [];
+    $.each(actions, function( i, l ){
+      allfields = allfields.concat(l['show'].split(","),l['hide'].split(","));
+      $.each(allfields, function( fi, fn ){
+        $("."+fn).hide();
+      });
+    });
+    $('.action').change(function(){
+      let show = actions[$(this).val()].show;
+      let hide = actions[$(this).val()].hide;
+      $.each(show.split(","), function( i, l ){
+        $("."+l).show();
+      });
+      $.each(hide.split(","), function( i, l ){
+        $("."+l).hide();
+      });
+    });
+  }
 });

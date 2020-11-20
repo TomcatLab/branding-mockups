@@ -10,6 +10,7 @@
     <div class="card">
         <div class="card-body">
             <h6 class="card-title">Pages</h6>
+
             <script>
             var editor = "{{route('admin.cms.page-edit','xxx')}}";
             var pages = [
@@ -34,6 +35,23 @@
                           { "text" : "Trash" }
                         ];
           </script>
+          <ul class="list-group">
+            <li class="list-group-item">Cras justo odio
+              <ul class="list-group  list-group-flush">
+                <li class="list-group-item">Cras justo odio
+                  
+                </li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Morbi leo risus</li>
+                <li class="list-group-item">Porta ac consectetur ac</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+              </ul>
+            </li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Morbi leo risus</li>
+            <li class="list-group-item">Porta ac consectetur ac</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+          </ul>
           <div id="pages" class="demo"></div>
         </div>
     </div>
@@ -86,18 +104,32 @@
           </div>
           <div class="form-group">
             <label for="Type">Page Type:</label>
-            <select class="form-control" id="Type" name="Type">
+            <script>
+              var actions = {
+                @foreach($Resource['PageTypes'] as $PageType)
+                  "{{ $PageType->id }}" : {
+                    "show" : "{{ $PageType->show }}",
+                    "hide" : "{{ $PageType->hide }}"
+                  },
+                @endforeach
+              };
+            </script>
+            <select class="form-control action" id="Type" name="Type">
               <option value="0" selected>Page Type</option>
               @foreach($Resource['PageTypes'] as $PageType)
               <option value="{{ $PageType->id }}">{{ $PageType->name }}</option>
               @endforeach
             </select>
           </div>
-          <div class="form-group">
+          <div class="form-group link">
+            <label for="link" class="col-form-label">Link:</label>
+            <input type="text" class="form-control" id="link" name="link">
+          </div>
+          <div class="form-group keywords">
             <label for="Keywords">Keywords</label>
             <textarea class="form-control" id="Keywords" name="Keywords" rows="5"></textarea>
           </div>
-          <div class="form-group">
+          <div class="form-group description">
             <label for="Description">Description</label>
             <textarea class="form-control" id="Description" name="Description" rows="5"></textarea>
           </div>

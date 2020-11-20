@@ -10,7 +10,7 @@ use App\Models\PageContent;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
-
+use File;
 
 class CmsController extends Controller
 {
@@ -105,6 +105,11 @@ class CmsController extends Controller
 
             //$this->PageContent->insert($Data);
             $this->PageContent->save();
+
+            File::copy(
+                public_path('../resources/views/home/origins/page.blade.php'),
+                public_path('../resources/views/home/pages/'.$this->Pages->slug.'.blade.php'
+            ));
 
             return redirect()->route('admin.cms.page-list',$this->PageContent->id);
         }
