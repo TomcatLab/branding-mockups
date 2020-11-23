@@ -55,6 +55,11 @@ class Controller extends BaseController
                     ],
                     [
                         "type" => "link",
+                        "label" => "Banner",
+                        "link" => "admin/cms/banner-list"
+                    ],
+                    [
+                        "type" => "link",
                         "label" => "Trash",
                         "link" => "admin/cms/pages-trash"
                     ]

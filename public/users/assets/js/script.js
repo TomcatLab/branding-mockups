@@ -15,4 +15,20 @@ $(document).ready(function(){
         });
     };
     $('.beer-slider').BeerSlider({width: 50});
+
+    var nav = $('.navbar.navbar-main');
+    var scrolled = false;
+
+    $(window).scroll(function () {
+        
+        if (500 < $(window).scrollTop() && !scrolled) {
+            nav.addClass('bg-invert');
+            scrolled = true;
+        }
+
+        if (500 > $(window).scrollTop() && scrolled) {
+            nav.removeClass('bg-invert');
+            scrolled = false;      
+        }
+    });
 });

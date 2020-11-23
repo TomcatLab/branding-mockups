@@ -12,6 +12,7 @@ class Mockups extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    
     public $MockupsTable = "mockups";
 
     public function by_groups()

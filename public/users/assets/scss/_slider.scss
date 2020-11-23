@@ -1,6 +1,4 @@
 .bm-slider.owl-carousel{
-    background-position: center;
-    background-size: cover;
     height: 200px;
 
     @include media-breakpoint-up(md) {
@@ -30,5 +28,10 @@
         .owl-dot.active{
             background: rgba(255, 255, 255, 0.9);
         }
+    }
+
+    .owl-item > div{
+        background-position: center;
+        background-size: cover;
     }
 }

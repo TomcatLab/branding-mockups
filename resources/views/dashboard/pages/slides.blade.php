@@ -139,8 +139,8 @@
               <option value="0" selected>Select Parent page</option>
               @foreach($Resource["Pages"] as $Pages)
                 <optgroup label="{{ $Page['Group']->name }}">
-                @foreach($Pages['Pages'] as $Item)
-                <option value="{{ $Item->page_id }}">{{ $Item->name }}</option>
+                @foreach($Pages['Pages'] as $Page)
+                <option value="{{ $Page->page_id }}">{{ $Page->name }}</option>
                 @endforeach
                 </optgroup>
               @endforeach

@@ -68,6 +68,7 @@ gulp.task('buildCoreJs', () => {
         './node_modules/owl.carousel/dist/owl.carousel.min.js',
         './node_modules/feather-icons/dist/feather.min.js',
         './node_modules/beerslider/dist/BeerSlider.js',
+        './node_modules/jquery-color/dist/jquery.color.min.js'
     ])
     .pipe(concat('core.js'))
     .pipe(gulp.dest('./assets/vendors/core'));

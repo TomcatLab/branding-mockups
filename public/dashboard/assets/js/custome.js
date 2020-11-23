@@ -41,12 +41,12 @@ if(typeof pages !== 'undefined'){
           ]
     });
 
-    $('#pages').on("select_node.jstree", function (e, data) {
-      if(data.node.data){
-        editor = editor.replace('xxx',data.node.data);
-        window.location.replace(editor);
-      }
-    });
+    // $('#pages').on("select_node.jstree", function (e, data) {
+    //   if(data.node.data){
+    //     editor = editor.replace('xxx',data.node.data);
+    //     window.location.replace(editor);
+    //   }
+    // });
 
     // $('#pages').jstree({
     //   "core" : {

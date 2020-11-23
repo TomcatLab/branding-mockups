@@ -7,6 +7,7 @@ use App\Models\Mockups;
 use App\Models\FileExtensions;
 use App\Models\MockupCategories;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ImageUploadController;
 
 
 class MockupsController extends Controller
@@ -76,7 +77,8 @@ class MockupsController extends Controller
             "MockupSlug" => "required",
             "MockupPrice" => "required",
             //"MockupInformations" => "",
-            //"MockupExtension" => ""
+            //"MockupExtension" => "",
+            //'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
   
         $MockupName = $this->Request->input('MockupName');
@@ -87,12 +89,16 @@ class MockupsController extends Controller
         $MockupPrice = $this->Request->input('MockupPrice');
         $MockupInformations = $this->Request->input('MockupInformations');
         $MockupExtension = $this->Request->input('MockupExtension');
+        // if ($this->Request->file('image')->isValid())
+        // {
+            $this->Request->file('image')->move("images");
+        //}
     
-        // if ($Validator->fails()) {
-        //     return redirect('admin.products.mockups.new')
-        //                 ->withErrors($Validator)
-        //                 ->withInput();
-        // }else{
+        if ($Validator->fails()) {
+            return redirect('admin.products.mockups.new')
+                        ->withErrors($Validator)
+                        ->withInput();
+        }else{
             $Data = [
                 "name" => $MockupName,
                 "keywords" => $MockupKeywords,
@@ -109,8 +115,13 @@ class MockupsController extends Controller
             ];
     
             $this->Mockups->insert($Data);
+
+            $imageName = time().'.'.$this->Request->image->extension();  
+     
+            $this->Request->image->move(public_path('images'), $imageName);
+
             return redirect()->route('admin.products.mockups.list');
-        //}
+        }
        
     }
 

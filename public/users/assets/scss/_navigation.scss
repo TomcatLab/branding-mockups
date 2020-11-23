@@ -1,5 +1,84 @@
-.pagination{
-    .page-link{
-        border: none;
+@-webkit-keyframes color_dark {
+	from { background-color:  $white; }
+	to { background-color: rgba(1, 13, 27, 0.3); }
+}
+@-moz-keyframes color_dark {
+	from { background-color: $white; }
+	to { background-color: rgba(1, 13, 27, 0.3);}
+}
+@-ms-keyframes color_dark {
+	from { background-color: $white; }
+	to { background-color: rgba(1, 13, 27, 0.3); }
+}
+@-o-keyframes color_dark {
+	from { background-color:  $white; }
+	to { background-color: rgba(1, 13, 27, 0.3); }
+}
+@keyframes color_dark {
+	from { background-color:  $white; }
+	to { background-color: rgba(1, 13, 27, 0.3); }
+}
+
+@-webkit-keyframes color_invert {
+	from { background-color: rgba(1, 13, 27, 0.3); }
+	to { background-color: $white; }
+}
+@-moz-keyframes color_invert {
+	from { background-color: rgba(1, 13, 27, 0.3); }
+	to { background-color: $white; }
+}
+@-ms-keyframes color_invert {
+	from { background-color: rgba(1, 13, 27, 0.3); }
+	to { background-color: $white; }
+}
+@-o-keyframes color_invert {
+	from { background-color: rgba(1, 13, 27, 0.3); }
+	to { background-color: $white;}
+}
+@keyframes color_invert {
+	from { background-color: rgba(1, 13, 27, 0.3); }
+	to { background-color: $white; }
+}
+
+.navbar{
+    &.navbar-main{
+        animation: color_dark 1s;
+        animation-iteration-count: 1;
+        background-color: rgba(1, 13, 27, 0.3);
+
+        .navbar-nav{
+            a.nav-link{
+                color: $white;
+                &:hover{
+                    color: $gray-500;
+                }
+            }
+        }
+        .logo-invert{
+            display: none;
+        }
+    }
+}
+.navbar{
+    &.bg-invert{
+        animation: color_invert 1s;
+        background-color: $white;
+        border-bottom: 1px solid #EDEDED;
+        animation-iteration-count: 1;
+
+        .navbar-nav{
+            a.nav-link{
+                color: $black;
+                &:hover{
+                    color: $gray-500;
+                }
+            }
+        }
+        .logo-invert{
+            display: block;
+        }
+        .logo{
+            display: none !important;
+        }
     }
 }

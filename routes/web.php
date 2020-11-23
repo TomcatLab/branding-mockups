@@ -86,6 +86,14 @@ Route::group(['prefix'=>'admin'],function(){
         Route::post('page-group',[
             App\Http\Controllers\Admin\CmsController::class, 'new_group'
         ])->name('admin.cms.page-group');
+
+        Route::get('slide-list',[
+            App\Http\Controllers\Admin\CmsController::class, 'index'
+        ])->name('admin.cms.slide-list');
+
+        Route::get('banner-list',[
+            App\Http\Controllers\Admin\CmsController::class, 'index'
+        ])->name('admin.cms.banner-list');
     });
 
     Route::group(['prefix'=>'emails'],function(){

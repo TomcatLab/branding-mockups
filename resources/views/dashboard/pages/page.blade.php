@@ -44,10 +44,9 @@
           ];
 </script>
 <div id="page-{{ $PageId }}" style="height:0px; overflow:hidden;">
-      {!! $Resources['PageContent']->value !!}
-      <style>
-      {{ $Resources['PageContent']->styles }}
-      </style>
-    </div>
-
+    {!! $Resources['PageContent']->value !!}
+    <style>
+    {{ $Resources['PageContent']->styles }}
+    </style>
+</div>
 @endsection

@@ -4,11 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pages;
+use App\Models\Configurations;
+use App\Models\Mockups;
+use App\Models\Showcases;
+
+
 
 class HomeController extends Controller
 {
     public $Pages;
     public $Request;
+    public $Configurations;
+    public $MockupCategories;
+    public $Showcases;
 
     /**
      * Create a new controller instance.
@@ -17,11 +25,17 @@ class HomeController extends Controller
      */
     public function __construct(
         Pages $Pages,
-        Request $Request
+        Request $Request,
+        Mockups $Mockups,
+        Configurations $Configurations,
+        Showcases $Showcases
     )
     {
         $this->Pages = $Pages;
         $this->Request = $Request;
+        $this->Configurations = $Configurations;
+        $this->Mockups = $Mockups;
+        $this->Showcases = $Showcases;
 
         //$this->middleware('auth');
         $this->Data["menus"] = $this->Pages->get_menus();
@@ -32,24 +46,31 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index($Slug = null,$Id = null)
+    public function index($Slug = null,$Id = null, $Pagination = null)
     {
+        $this->page_handler($Slug, $Id, $Pagination);
+
         $this->Data['PageConfig'] = [
-            
+            "home" => $this->Pages->get_home_page(),
+            "config" => $this->Configurations->get_configurations(3),
         ];
+        $this->Data['PageData'] = [
+            "mockups" => $this->Mockups->all(),
+            "showcase" => $this->Showcases->all()
+        ];
+
         if(!empty($Slug)){
-            return view('home.pages.'.$Slug, $this->Data);
+            $this->Data['PageConfig']["self"] = $this->Pages->by_slug($Slug);
+
+            return view('home.pages.'.$this->Data['PageConfig']["self"]->slug, $this->Data);
         }else{
-            return view('home.pages.mockups', $this->Data);
+            $this->Data['PageConfig']["self"] = $this->Pages->by_slug($this->Data['PageConfig']["home"]->slug);
+
+            return view('home.pages.'.$this->Data['PageConfig']["home"]->slug, $this->Data);
         }
-        // }elseif(empty($PageSlug_2) && !empty($PageSlug_1)){
-        //     return view('home.pages.'.$PageSlug_1, $this->Data);
-        // }elseif(!empty($PageSlug_1) && empty($PageSlug_2)){
-        //     return view('home.pages.mockup', $this->Data);
-        // }
     }
 
-    private function page_handler($Slug, $Id)
+    private function page_handler($Slug, $Id, $Pagination)
     {
         
     }

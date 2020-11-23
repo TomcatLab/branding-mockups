@@ -66,7 +66,7 @@
     <!-- end custom js for this page -->
     <script src="{{URL::to('dashboard/assets/vendors/jstree/dist/jstree.min.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/vendors/simplemde/simplemde.min.js')}}"></script>
-
+    <script src="{{URL::to('dashboard/assets/js/file-upload.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/js/custome.js')}}"></script>
 </body>
 </html>

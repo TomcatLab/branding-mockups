@@ -18,6 +18,7 @@ class ConfigurationsSeeder extends Seeder
             'group_id' => 1,
             'name' => "API",
             'default' => "123456789",
+            'validations' => "required"
         ]);
 
         DB::table('configurations')->insert([
@@ -40,8 +41,39 @@ class ConfigurationsSeeder extends Seeder
 
         DB::table('configurations')->insert([
             'group_id' => 2,
-            'name' => "Facebook",
+            'name' => "Instgram",
             'default' => "",
+        ]);
+
+        DB::table('configurations')->insert([
+            'group_id' => 2,
+            'name' => "Dribbler",
+            'default' => "",
+        ]);
+
+        DB::table('configurations')->insert([
+            'group_id' => 3,
+            'name' => "Title",
+            'default' => "Branding Mockups",
+            'validations' => "required"
+        ]);
+
+        DB::table('configurations')->insert([
+            'group_id' => 3,
+            'name' => "Keyword",
+            'default' => "",
+        ]);
+
+        DB::table('configurations')->insert([
+            'group_id' => 3,
+            'name' => "Description",
+            'default' => "",
+        ]);
+
+        DB::table('configurations')->insert([
+            'group_id' => 3,
+            'name' => "Copyright Text",
+            'default' => "Branding Mockups",
         ]);
     }
 }

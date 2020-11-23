@@ -27,5 +27,11 @@ class PageTypesSeeder extends Seeder
             'show' => 'link',
             'hide' => "keywords,description"
         ]);
+        DB::table('page_types')->insert([
+            'name' => 'Inner Page',
+            'action' => 'innerpage',
+            'show' => 'keywords,description',
+            'hide' => "link"
+        ]);
     }
 }

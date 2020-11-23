@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\ConfigurationGroups;
+use Illuminate\Support\Str;
+
 
 class Configurations extends Model
 {
@@ -18,7 +20,7 @@ class Configurations extends Model
         $Groups = ConfigurationGroups::all();
         foreach ($Groups as $GroupKey => $Group) {
             $Configurations =  DB::table($this->ConfigurationsTable)
-                        ->where('id',  $Group->id)
+                        ->where('group_id',  $Group->id)
                         ->get();
             $DataConfiguration = [];
             foreach ($Configurations as $key => $Configuration) {
@@ -41,6 +43,20 @@ class Configurations extends Model
         return DB::table($this->ConfigurationsTable)
                 ->where('group_id', $GroupId)
                 ->get();
+    }
+
+    public function get_configurations($GroupId)
+    {
+        $Return = [];
+        $Data = DB::table($this->ConfigurationsTable)
+                ->where('group_id', $GroupId)
+                ->get();
+
+        foreach ($Data as $key => $value) {
+            $Name = Str::of(Str::lower($value->name))->replace(' ', '-');
+        }
+
+        return $Return;
     }
 
     public function Set($Data)

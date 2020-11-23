@@ -4,6 +4,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ $PageConfig['config']->Title ?? "Branding Mockups"}}</title>
+    <link rel="shortcut icon" href="{{URL::to('users/assets/images/logo.svg')}}" />
 
     <!-- core:css -->
     <link rel="stylesheet" href="{{URL::to('users/assets/vendors/core/core.css')}}">
@@ -17,8 +19,15 @@
   <body>
     <div class="">
       @include('home.partials.header')
-      @include('home.partials.slider')
+
+      @if(isset($PageConfig['self']->slider_id) && !empty($PageConfig['self']->slider_id))
+        @include('home.partials.slider')
+      @else
+        @include('home.partials.banner')
+      @endif
+
       @yield('content')
+
       @include('home.partials.footer')
     </div>
 

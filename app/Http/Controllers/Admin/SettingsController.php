@@ -57,7 +57,8 @@ class SettingsController extends Controller
         foreach($RequiredConfigurations as $RequiredConfiguration){
             $InputName = Str::slug($RequiredConfiguration->name, '-');
             $InputValues[$RequiredConfiguration->id] = $this->Request->input($InputName);
-            $ValidationRules[$InputName] = $RequiredConfiguration->validations;
+            if(!empty($RequiredConfiguration->validations))
+                $ValidationRules[$InputName] = $RequiredConfiguration->validations;
         }
 
         $validator = Validator::make($this->Request->all(), $ValidationRules, []);

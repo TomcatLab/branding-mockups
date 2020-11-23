@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Pages;
+use App\Models\Configurations;
 
 
 class LoginController extends Controller
@@ -37,13 +38,20 @@ class LoginController extends Controller
      *
      * @return void
      */
+
+    public $Pages;
+    public $Request;
+    public $Configurations;
+
     public function __construct(
         Pages $Pages,
-        Request $Request
+        Request $Request,
+        Configurations $Configurations
     )
     {
         $this->Pages = $Pages;
         $this->Request = $Request;
+        $this->Configurations = $Configurations;
 
         $this->middleware('guest')->except('logout');
     }
@@ -51,6 +59,9 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         $this->Data["menus"] = $this->Pages->get_menus();
+        $this->Data['PageConfig'] = [
+            "config" => $this->Configurations->get_configurations(3),
+        ];
 
         return view('auth.login', $this->Data);
     }
