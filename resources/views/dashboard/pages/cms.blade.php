@@ -16,12 +16,12 @@
           <div class="card">
             <div class="card-header" role="tab" id="{{ $Page['Group']->key }}">
               <h6 class="mb-0">
-                <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <a data-toggle="collapse" href="#{{ $Page['Group']->key }}-collapseOne" aria-expanded="false" aria-controls="{{ $Page['Group']->key }}-collapseOne">
                 {{ $Page['Group']->name }}
                 </a>
               </h6>
             </div>
-            <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="{{ $Page['Group']->key }}" data-parent="#accordion">
+            <div id="{{ $Page['Group']->key }}-collapseOne" class="collapse" role="tabpanel" aria-labelledby="{{ $Page['Group']->key }}" data-parent="#accordion">
               <div class="card-body">
               @foreach($Page['Pages'] as $Item)
                 <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
@@ -29,7 +29,7 @@
                     <i data-feather="file"></i>												
 										<div class="ml-2">
                       <p>{{$Item->name}}</p>
-                      <p class="tx-11 text-muted">[unknown]</p>
+                      <p class="tx-11 text-muted">[{{$Item->slug}}]</p>
                     </div>
                   </div>
                   <div class="d-flex align-items-center hover-pointer">

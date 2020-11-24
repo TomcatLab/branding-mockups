@@ -17,7 +17,12 @@
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#"><i data-feather="search" width="18"  height="18"></i></a>
+          <div class="nav-link">
+            <form class="search-form p-0 m-0">
+              <input type="text" class="search" name="search" placeholder="Search">
+              <button class="search"><i class="search-btn" data-feather="search" width="18"  height="18"></i></button>
+            </form>
+          </div>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ route('login') }}"><i data-feather="user" width="18"  height="18"></i></a>

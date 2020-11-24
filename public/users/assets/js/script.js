@@ -21,14 +21,36 @@ $(document).ready(function(){
 
     $(window).scroll(function () {
         
-        if (500 < $(window).scrollTop() && !scrolled) {
+        if (200 < $(window).scrollTop() && !scrolled) {
             nav.addClass('bg-invert');
             scrolled = true;
         }
 
-        if (500 > $(window).scrollTop() && scrolled) {
+        if (200 > $(window).scrollTop() && scrolled) {
             nav.removeClass('bg-invert');
             scrolled = false;      
         }
     });
+
+    let search = $("input.search");
+    $(".search-form").submit(function(){
+        if(search.val().length === 0){
+            search.fadeToggle();
+            search.focus();
+            return false;
+        }
+    });
+    search.focusout(function() {
+        if(search.val().length === 0){
+            search.fadeToggle();
+        }
+    });
+    // $("button.search").click(function(){
+    //     let search = $("input.search").val();
+    //     if(isEmpty(search)){
+    //         search.show();
+    //     }else{
+    //         search.hide();
+    //     }
+    // });
 });

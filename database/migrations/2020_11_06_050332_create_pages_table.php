@@ -22,6 +22,7 @@ class CreatePagesTable extends Migration
             $table->string('description')->nullable();
             $table->boolean('home')->nullable();
             $table->foreignId('slider_id')->nullable();
+            $table->foreignId('banner_id')->nullable();
             $table->foreignId('parent_id');
             $table->foreignId('group_id');
             $table->foreignId('type_id');

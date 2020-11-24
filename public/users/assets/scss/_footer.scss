@@ -1,9 +1,31 @@
 footer{
     /* Rectangle 6 */
     background: #010D1B;
-    padding-top: 8rem;
-    padding-bottom: 8rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    @include media-breakpoint-up(md) {
+        padding-top: 4rem;
+        padding-bottom: 4rem;    
+    }
+    @include media-breakpoint-up(lg) {
+        padding-top: 8rem;
+        padding-bottom: 8rem;    
+    }
     
+    .row.navigation{
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+
+        @include media-breakpoint-up(md) {
+            padding-bottom: 2rem;
+            padding-top: 2rem;
+        }
+        @include media-breakpoint-up(lg) {
+            padding-bottom: 0;
+            padding-top: 0;
+        }
+    }
     .copyright-text{
         font-family: Roboto;
         font-style: normal;
@@ -32,6 +54,7 @@ footer{
             }
         }
     }
+    
     .social-navigation{
         font-style: normal;
         font-size: 20px;

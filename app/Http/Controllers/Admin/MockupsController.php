@@ -91,8 +91,12 @@ class MockupsController extends Controller
         $MockupExtension = $this->Request->input('MockupExtension');
         // if ($this->Request->file('image')->isValid())
         // {
-            $this->Request->file('image')->move("images");
+            //$this->Request->file('image')->move("images");
         //}
+
+        $imageName = time().'.'.$this->Request->image->extension();
+     
+        $this->Request->image->storeAs('images', $imageName);
     
         if ($Validator->fails()) {
             return redirect('admin.products.mockups.new')

@@ -301,19 +301,19 @@ h1, h2, h3, h4, h5, h6,
   line-height: 1.2; }
 
 h1, .h1 {
-  font-size: 2.5rem; }
+  font-size: 3.5rem; }
 
 h2, .h2 {
-  font-size: 2rem; }
+  font-size: 2.5rem; }
 
 h3, .h3 {
   font-size: 1.75rem; }
 
 h4, .h4 {
-  font-size: 1.5rem; }
+  font-size: 1.62rem; }
 
 h5, .h5 {
-  font-size: 1.25rem; }
+  font-size: 1.5rem; }
 
 h6, .h6 {
   font-size: 1rem; }
@@ -7165,6 +7165,15 @@ a.text-dark:hover, a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6; } }
 
+.pagehead {
+  padding: 1.62rem 0; }
+  @media (min-width: 768px) {
+    .pagehead {
+      padding: 3.62rem 0; } }
+  @media (min-width: 992px) {
+    .pagehead {
+      padding: 5.62rem 0; } }
+
 .bm-slider.owl-carousel {
   height: 200px;
   width: 100%; }
@@ -7230,80 +7239,113 @@ section.page .pagehead .h5 {
 
 @-webkit-keyframes color_dark {
   from {
-    background-color: #fff; }
+    background-color: #fff;
+    border-bottom: 1px solid #EDEDED; }
   to {
-    background-color: rgba(1, 13, 27, 0.3); } }
+    background-color: rgba(1, 13, 27, 0.3);
+    border-bottom: 1px solid transparent; } }
 
 @-moz-keyframes color_dark {
   from {
-    background-color: #fff; }
+    background-color: #fff;
+    border-bottom: 1px solid #EDEDED; }
   to {
-    background-color: rgba(1, 13, 27, 0.3); } }
+    background-color: rgba(1, 13, 27, 0.3);
+    border-bottom: 1px solid transparent; } }
 
 @-ms-keyframes color_dark {
   from {
-    background-color: #fff; }
+    background-color: #fff;
+    border-bottom: 1px solid #EDEDED; }
   to {
-    background-color: rgba(1, 13, 27, 0.3); } }
+    background-color: rgba(1, 13, 27, 0.3);
+    border-bottom: 1px solid transparent; } }
 
 @-o-keyframes color_dark {
   from {
-    background-color: #fff; }
+    background-color: #fff;
+    border-bottom: 1px solid #EDEDED; }
   to {
-    background-color: rgba(1, 13, 27, 0.3); } }
+    background-color: rgba(1, 13, 27, 0.3);
+    border-bottom: 1px solid transparent; } }
 
 @keyframes color_dark {
   from {
-    background-color: #fff; }
+    background-color: #fff;
+    border-bottom: 1px solid #EDEDED; }
   to {
-    background-color: rgba(1, 13, 27, 0.3); } }
+    background-color: rgba(1, 13, 27, 0.3);
+    border-bottom: 1px solid transparent; } }
 
 @-webkit-keyframes color_invert {
   from {
-    background-color: rgba(1, 13, 27, 0.3); }
+    background-color: rgba(1, 13, 27, 0.3);
+    border-bottom: 1px solid transparent; }
   to {
-    background-color: #fff; } }
+    background-color: #fff;
+    border-bottom: 1px solid #EDEDED; } }
 
 @-moz-keyframes color_invert {
   from {
-    background-color: rgba(1, 13, 27, 0.3); }
+    background-color: rgba(1, 13, 27, 0.3);
+    border-bottom: 1px solid transparent; }
   to {
-    background-color: #fff; } }
+    background-color: #fff;
+    border-bottom: 1px solid #EDEDED; } }
 
 @-ms-keyframes color_invert {
   from {
-    background-color: rgba(1, 13, 27, 0.3); }
+    background-color: rgba(1, 13, 27, 0.3);
+    border-bottom: 1px solid transparent; }
   to {
-    background-color: #fff; } }
+    background-color: #fff;
+    border-bottom: 1px solid #EDEDED; } }
 
 @-o-keyframes color_invert {
   from {
-    background-color: rgba(1, 13, 27, 0.3); }
+    background-color: rgba(1, 13, 27, 0.3);
+    border-bottom: 1px solid transparent; }
   to {
-    background-color: #fff; } }
+    background-color: #fff;
+    border-bottom: 1px solid #EDEDED; } }
 
 @keyframes color_invert {
   from {
-    background-color: rgba(1, 13, 27, 0.3); }
+    background-color: rgba(1, 13, 27, 0.3);
+    border-bottom: 1px solid transparent; }
   to {
-    background-color: #fff; } }
+    background-color: #fff;
+    border-bottom: 1px solid #EDEDED; } }
 
 .navbar.navbar-main {
   animation: color_dark 1s;
   animation-iteration-count: 1;
-  background-color: rgba(1, 13, 27, 0.3); }
+  background-color: rgba(1, 13, 27, 0.3);
+  border-bottom: 1px solid transparent; }
+  .navbar.navbar-main .navbar-toggler {
+    color: #fff; }
   .navbar.navbar-main .navbar-nav a.nav-link {
     color: #fff; }
     .navbar.navbar-main .navbar-nav a.nav-link:hover {
       color: #adb5bd; }
   .navbar.navbar-main .logo-invert {
     display: none; }
+  .navbar.navbar-main button.search {
+    color: #fff; }
+    .navbar.navbar-main button.search:hover {
+      color: #adb5bd; }
+
+@media (max-width: 767.98px) {
+  .navbar .navbar-brand img {
+    width: 70%; } }
 
 .navbar.bg-invert {
   animation: color_invert 1s;
   background-color: #fff;
-  border-bottom: 1px solid #EDEDED;
-  animation-iteration-count: 1; }
+  animation-iteration-count: 1;
+  border-bottom: 1px solid #EDEDED; }
+  .navbar.bg-invert .navbar-toggler {
+    color: #000; }
   .navbar.bg-invert .navbar-nav a.nav-link {
     color: #000; }
     .navbar.bg-invert .navbar-nav a.nav-link:hover {
@@ -7312,15 +7354,64 @@ section.page .pagehead .h5 {
     display: block; }
   .navbar.bg-invert .logo {
     display: none !important; }
+  .navbar.bg-invert button.search {
+    color: #000; }
+    .navbar.bg-invert button.search:hover {
+      color: #adb5bd; }
+
+.search-form input {
+  padding: 0px 20px;
+  border-radius: 15px;
+  border: 1px solid #adb5bd;
+  display: none; }
+  .search-form input:focus {
+    outline: 0; }
+
+.search-form button {
+  background: transparent;
+  border: none; }
+  .search-form button:focus {
+    outline: 0; }
 
 .pagination .page-link {
   border: none; }
 
+.banner {
+  height: 100px;
+  width: 100%;
+  background-position: center;
+  background-size: cover; }
+  @media (min-width: 768px) {
+    .banner {
+      height: 261px; } }
+  @media (min-width: 992px) {
+    .banner {
+      height: 261px; } }
+
 footer {
   /* Rectangle 6 */
   background: #010D1B;
-  padding-top: 8rem;
-  padding-bottom: 8rem; }
+  padding-top: 2rem;
+  padding-bottom: 2rem; }
+  @media (min-width: 768px) {
+    footer {
+      padding-top: 4rem;
+      padding-bottom: 4rem; } }
+  @media (min-width: 992px) {
+    footer {
+      padding-top: 8rem;
+      padding-bottom: 8rem; } }
+  footer .row.navigation {
+    padding-bottom: 1rem;
+    padding-top: 1rem; }
+    @media (min-width: 768px) {
+      footer .row.navigation {
+        padding-bottom: 2rem;
+        padding-top: 2rem; } }
+    @media (min-width: 992px) {
+      footer .row.navigation {
+        padding-bottom: 0;
+        padding-top: 0; } }
   footer .copyright-text {
     font-family: Roboto;
     font-style: normal;

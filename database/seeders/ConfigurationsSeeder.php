@@ -53,6 +53,13 @@ class ConfigurationsSeeder extends Seeder
 
         DB::table('configurations')->insert([
             'group_id' => 3,
+            'name' => "Currency",
+            'default' => "$",
+            'validations' => "required"
+        ]);
+
+        DB::table('configurations')->insert([
+            'group_id' => 3,
             'name' => "Title",
             'default' => "Branding Mockups",
             'validations' => "required"

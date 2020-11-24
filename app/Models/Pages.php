@@ -44,6 +44,7 @@ class Pages extends Model
                             ->select(
                                 $this->PagesTable.".id as page_id",
                                 $this->PagesTable.".name",
+                                $this->PagesTable.".slug",
                                 $this->PagesTable.".keywords",
                                 $this->PagesTable.".description",
                                 $this->PagesTable.".parent_id",
