@@ -2,7 +2,9 @@
   <div class="card-body pr-0 pl-0">
     <div class="image-wrapper row no-gutters mb-3">
       <div class="col-12">
-        <img src="{{URL::to('users/assets/images/rectangle.jpg')}}" class="card-img-top" alt="...">
+        <a href="{{URL::to('home/mockup', $mockup->id)}}">
+          <img src="{{URL::to('users/assets/images/rectangle.jpg')}}" class="card-img-top" alt="...">
+        </a>
       </div>
       <div class="product-description">
         <h5>High Quality Pemium wine mockups</h5>
@@ -16,7 +18,7 @@
             <p class="card-text">in Packaging</p>
         </div>
         <div class="col-2">
-            <a href="#" class="btn btn-link text-success float-right">${{ $mockup->price }}</a>
+            <h4 href="#" class="text-success float-right">${{ $mockup->price }}</h4>
         </div>
     </div>
   </div>
