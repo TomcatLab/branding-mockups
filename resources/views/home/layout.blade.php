@@ -10,6 +10,7 @@
     <!-- core:css -->
     <link rel="stylesheet" href="{{URL::to('users/assets/vendors/core/core.css')}}">
     <!-- endinject -->
+
     <link rel="stylesheet" href="{{URL::to('users/assets/fonts/feather-font/css/iconfont.css')}}">
     <link rel="stylesheet" href="{{URL::to('users/assets/vendors/font-awesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{URL::to('users/assets/css/style.min.css')}}">
@@ -17,7 +18,7 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <div class="">
+    <div class="branding-mockups">
       @include('home.partials.header')
 
       @if(isset($PageConfig['self']->slider_id) && !empty($PageConfig['self']->slider_id))

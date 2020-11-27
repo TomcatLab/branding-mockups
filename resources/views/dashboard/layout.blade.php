@@ -19,6 +19,9 @@
     <!-- Layout styles -->  
     <link rel="stylesheet" href="{{URL::to('dashboard/assets/css/demo_1/style.css')}}">
     <!-- End layout styles -->
+    <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/owl.carousel/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/owl.carousel/owl.theme.default.min.css')}}">
+    <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/animate.css/animate.min.css')}}">
     <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/simplemde/simplemde.min.css')}}">
     <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/grapesjs/dist/css/grapes.min.css')}}">
     <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/jstree/dist/themes/default/style.min.css')}}" />
@@ -54,6 +57,8 @@
     <script src="{{URL::to('dashboard/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/vendors/apexcharts/apexcharts.min.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/vendors/progressbar.js/progressbar.min.js')}}"></script>
+    <script src="{{URL::to('dashboard/assets/vendors/owl.carousel/owl.carousel.min.js')}}"></script>
+    <script src="{{URL::to('dashboard/assets/vendors/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
     <!-- end plugin js for this page -->
     <script src="{{URL::to('dashboard/assets/vendors/grapesjs/dist/grapes.min.js')}}"></script>
     <!-- inject:js -->
@@ -64,6 +69,7 @@
     <script src="{{URL::to('dashboard/assets/js/dashboard.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/js/datepicker.js')}}"></script>
     <!-- end custom js for this page -->
+    <script src="{{URL::to('dashboard/assets/js/carousel.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/vendors/jstree/dist/jstree.min.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/vendors/simplemde/simplemde.min.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/js/file-upload.js')}}"></script>

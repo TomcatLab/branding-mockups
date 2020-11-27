@@ -1,6 +1,6 @@
 <section class="page">
     <div class="container">
-        @include('home.partials.pagehead')
+        @include('home.blocks.pagehead')
         <div class="row">
             @foreach($PageData['mockups'] as $mockup )
             <div class="col-12 col-sm-6 mb-5">

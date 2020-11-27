@@ -20,7 +20,7 @@ class SlidesController extends Controller
                         "style" => "primary",
                         "action" => "model",
                         "icon" => "file-plus",
-                        "target" => ""
+                        "target" => "newSlideModal"
                     ]
                 ]
             ],

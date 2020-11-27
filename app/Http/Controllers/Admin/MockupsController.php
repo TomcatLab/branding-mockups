@@ -66,8 +66,8 @@ class MockupsController extends Controller
         
         return view('dashboard.pages.mockups.new', $this->Data);
     }
-
-    public function save()
+    
+    public function save($Id = null)
     {
         $ValidatedData = $this->Request->validate([
             'MockupName' => 'required|max:100',
@@ -117,8 +117,12 @@ class MockupsController extends Controller
                 "dimensions" => "1",
                 "license" => "1",
             ];
-    
-            $this->Mockups->insert($Data);
+            
+            if($Id){
+                $this->Mockups->insert($Data);
+            }else{
+                $this->Mockups->where('id', $Id)->update($Data);
+            }
 
             $imageName = time().'.'.$this->Request->image->extension();  
      
