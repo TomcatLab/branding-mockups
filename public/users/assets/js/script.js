@@ -53,4 +53,26 @@ $(document).ready(function(){
     //         search.hide();
     //     }
     // });
+    $(".mockup.card").hover(function(){
+    });
+    
+    $('.mockup.card').mouseenter(function () {
+        $(this).find(".product-add-cart").fadeIn();
+        $(this).find(".product-information").fadeOut();
+    });
+ 
+    $('.mockup.card').mouseleave(function () {
+        $(this).find(".product-add-cart").fadeOut();
+        $(this).find(".product-information").fadeIn();
+    }).mouseleave();
+
+    
+    $(".mockup-image").mouseenter(function () {
+        $(this).find(".overlap").fadeIn();
+    });
+ 
+    $(".mockup-image").mouseleave(function () {
+        $(this).find(".overlap").fadeOut();
+    }).mouseleave();
+
 });

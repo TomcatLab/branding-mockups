@@ -1,25 +1,58 @@
 .mockup.card{
     border: none;
-    .image-wrapper{
+    a{
+        text-decoration: none;
+    }
+    .card-body{
+        @extend .pr-0;
+        @extend .pl-0;
+    }
+    .image-holder{
         border-radius: 6px !important;
         overflow: hidden;
         position: relative;
+        background-size: cover;
+        @extend .mb-3;
+
         img{
             border-radius: inherit;
         }
-        .product-description{
+        .product-information{
             position: absolute;
-            top: 25%;
-            left: 25%;
-            padding: 5%;
-            width: 50%;
-            height: 50%;
             background: rgba(23, 73, 255, 0.5);
             border-radius: 6px;
+            padding: 5%;
+
+            @include media-breakpoint-up(md) {
+                padding: 6%;
+            }
+            @include media-breakpoint-up(lg) {
+                padding: 8%;
+            }
+        
 
             h5,
-            h6{
-                color: $white;
+            .h5{
+                font-size: 0.9rem;
+
+                @include media-breakpoint-up(md) {
+                    font-size: $h6-font-size;
+                }
+                @include media-breakpoint-up(lg) {
+                    font-size: $h5-font-size;
+                }
+            }
+
+            h6,
+            .h6{
+                font-size: 0.8rem;
+
+                @include media-breakpoint-up(md) {
+                    font-size: 0.9rem;
+                }
+                @include media-breakpoint-up(lg) {
+                    font-size: $h6-font-size;
+                }
             }
 
             hr{
@@ -27,9 +60,42 @@
                 width: 20%;
                 margin-left: 0;
             }
+
+            h5,
+            h6{
+                color: $white;
+            }            
+        }
+        .product-add-cart{
+            background: rgba(23, 73, 255, 0.5);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: none;
+            
+            > div{
+                width: 100%;
+                height: 100%;
+
+                .button-holder{
+                    width: 100%;
+                    @extend .d-flex;
+                    @extend .justify-content-center;
+    
+                    button{
+                        font-weight: bold;
+                    }
+                }
+    
+            }
         }
     }
-    &:hover{
-        
+    .product-description{
+        h5.card-title{
+            color: $black;
+        }
+        p.card-text{
+            color: $black;
+        }
     }
 }
