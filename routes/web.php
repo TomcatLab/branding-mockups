@@ -42,9 +42,12 @@ Route::group(['prefix'=>'home'], function () {
         HomeController::class, 'index'
     ]);
 });
-Route::group(['prefix'=>'myaccount'], function () {
-    Route::get('/', [
+Route::group(['prefix'=>'user'], function () {
+    Route::get('/account', [
         AccountController::class, 'index'
+    ]);
+    Route::get('/cart', [
+        AccountController::class, 'cart'
     ]);
 });
 
@@ -77,6 +80,14 @@ Route::group(['prefix'=>'admin'],function(){
             CmsController::class, 'page'
         ])->name('admin.cms.page-edit');
 
+        Route::post('page-edit/{id}', [
+            CmsController::class, 'ajax_save'
+        ])->name('admin.cms.page-edit');
+
+        Route::get('page-publish/{id}', [
+            CmsController::class, 'publish'
+        ])->name('admin.cms.page-publish');
+
         Route::post('page-add', [
             CmsController::class, 'add'
         ])->name('admin.cms.page-add');
@@ -93,9 +104,25 @@ Route::group(['prefix'=>'admin'],function(){
             SlidesController::class, 'index'
         ])->name('admin.cms.slide-list');
 
+        Route::post('slider-list',[
+            SlidesController::class, 'add'
+        ])->name('admin.cms.slide-list');
+
+        Route::post('slider-add-image',[
+            SlidesController::class, 'add_image'
+        ])->name('admin.cms.slide-add-image');
+
         Route::get('banner-list',[
             BannersController::class, 'index'
         ])->name('admin.cms.banner-list');
+
+        Route::post('banner-list',[
+            BannersController::class, 'add'
+        ])->name('admin.cms.banner-list');
+
+        Route::post('banner-add-image',[
+            BannersController::class, 'add_image'
+        ])->name('admin.cms.banner-add-image');
     });
 
     Route::group(['prefix'=>'emails'],function(){
@@ -128,6 +155,14 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('mockups-trash',[
             MockupsController::class, 'trash'
         ])->name('admin.products.mockups.trash');
+
+        Route::post('mockups-group-new',[
+            MockupsController::class, 'new_group'
+        ])->name('admin.cms.mockups-group');
+
+        Route::post('mockups-new-extension',[
+            MockupsController::class, 'new_extension'
+        ])->name('admin.cms.mockups-extension');
 
         Route::get('showcase-list',[
             ShowcaseController::class, 'index'

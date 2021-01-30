@@ -32,7 +32,12 @@ class AccountController extends Controller
 
     public function index()
     {
-        return "My account";
+        return view('home.user.myaccount', $this->Data);
+    }
+
+    public function cart()
+    {
+        return view('home.user.cart', $this->Data);
     }
 
 }

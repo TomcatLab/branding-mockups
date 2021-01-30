@@ -58,14 +58,11 @@ class HomeController extends Controller
             "mockups" => $this->Mockups->all(),
             "showcase" => $this->Showcases->all()
         ];
-
         if(!empty($Slug)){
             $this->Data['PageConfig']["self"] = $this->Pages->by_slug($Slug);
-
             return view('home.pages.'.$this->Data['PageConfig']["self"]->slug, $this->Data);
         }else{
-            $this->Data['PageConfig']["self"] = $this->Pages->by_slug($this->Data['PageConfig']["home"]->slug);
-
+            $this->Data['PageConfig']["self"] = $this->Pages->by_slug();
             return view('home.pages.'.$this->Data['PageConfig']["home"]->slug, $this->Data);
         }
     }

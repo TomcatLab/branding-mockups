@@ -13,6 +13,18 @@
   margin: 0px !important;
   width: 100% !important;
 }
+.gjs-pn-panel.gjs-pn-devices-c{
+  padding:0;
+}
+.gjs-pn-panel.gjs-pn-devices-c .gjs-devices-c{
+  padding:1px;
+}
+.gjs-pn-btn.fa.fa-paint-brush,
+.gjs-pn-btn.fa.fa-code,
+.gjs-pn-btn.fa.fa-bars,
+.gjs-pn-btn.fa.fa-cog{
+  display:none !important;
+}
 </style>
 <script>
     var PageId = '{{ $PageId }}';
@@ -42,9 +54,15 @@
               buildProps: ['transition', 'perspective', 'transform'],
             }
           ];
+    var Blocks = {!! json_encode($Resources['PageBlocks'])!!};
+    var BlockContents = {!! json_encode($Resources['BlockContents'])!!}
+    var CSRF_token = "{{ csrf_token() }}";
 </script>
+
 <div id="page-{{ $PageId }}" style="height:0px; overflow:hidden;">
-    {!! $Resources['PageContent']->value !!}
+    <div class="container">
+      {!! $Resources['PageContent']->value !!}
+    </div>
     <style>
     {{ $Resources['PageContent']->styles }}
     </style>

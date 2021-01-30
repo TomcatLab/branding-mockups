@@ -14,19 +14,25 @@ if(typeof PageId !== 'undefined' ){
         storageManager: {
           type: 'remote',
           stepsBeforeSave: 3,
-          urlStore: 'http://127.0.0.1:8000/admin/cms/page-edit/3',
-          urlLoad: 'http://127.0.0.1:8000/admin/cms/page-edit/3',
+          urlStore: 'http://127.0.0.1:8000/admin/cms/page-edit/'+PageId,
+          urlLoad: 'http://127.0.0.1:8000/admin/cms/page-edit/'+PageId,
           // For custom parameters/headers on requests
-          params: { _some_token: '....' },
-          headers: { Authorization: 'Basic ...' },
+          params: {
+            _token: CSRF_token,
+            publish: 0
+           },
+          //headers: { Authorization: 'Basic ...' },
         }
     });
-
-      editor.BlockManager.add('testBlock', {
-        label: 'Block',
-        attributes: { class:'gjs-fonts gjs-f-b1' },
-        content: `<div style="padding-top:50px; padding-bottom:50px; text-align:center">Test block</div>`
-      })
+    if(typeof Blocks !== 'undefined'){
+      $(Blocks).each(function(index, value) {
+        editor.BlockManager.add(value.key, {
+          label: value.name,
+          attributes: { class:'gjs-fonts gjs-f-b1' },
+          content: value.filename ? BlockContents[value.id] : value.content
+        })    
+      });
+    }
 }
 if(typeof pages !== 'undefined'){
     $('#pages').jstree({

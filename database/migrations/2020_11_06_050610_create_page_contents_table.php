@@ -18,6 +18,7 @@ class CreatePageContentsTable extends Migration
             $table->foreignId('page_id');
             $table->text('value')->nullable();
             $table->text('styles')->nullable();
+            $table->boolean('publish')->default(true);
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

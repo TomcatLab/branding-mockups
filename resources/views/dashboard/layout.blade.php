@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/animate.css/animate.min.css')}}">
     <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/simplemde/simplemde.min.css')}}">
     <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/grapesjs/dist/css/grapes.min.css')}}">
+    <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/dropify/dist/dropify.min.css')}}">
+    <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/sweetalert2/sweetalert2.min.css')}}">
     <link rel="stylesheet" href="{{URL::to('dashboard/assets/vendors/jstree/dist/themes/default/style.min.css')}}" />
     
 </head>
@@ -59,6 +61,7 @@
     <script src="{{URL::to('dashboard/assets/vendors/progressbar.js/progressbar.min.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/vendors/owl.carousel/owl.carousel.min.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/vendors/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
+	<script src="{{URL::to('dashboard/assets/vendors/dropify/dist/dropify.min.js')}}"></script>
     <!-- end plugin js for this page -->
     <script src="{{URL::to('dashboard/assets/vendors/grapesjs/dist/grapes.min.js')}}"></script>
     <!-- inject:js -->
@@ -73,6 +76,9 @@
     <script src="{{URL::to('dashboard/assets/vendors/jstree/dist/jstree.min.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/vendors/simplemde/simplemde.min.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/js/file-upload.js')}}"></script>
+    <script src="{{URL::to('dashboard/assets/js/dropify.js')}}"></script>
+    <script src="{{URL::to('dashboard/assets/vendors/sweetalert2/sweetalert2.min.js')}}"></script>
+    <script src="{{URL::to('dashboard/assets/js/sweet-alert.js')}}"></script>
     <script src="{{URL::to('dashboard/assets/js/custome.js')}}"></script>
 </body>
 </html>

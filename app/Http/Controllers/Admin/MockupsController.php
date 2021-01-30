@@ -8,6 +8,7 @@ use App\Models\FileExtensions;
 use App\Models\MockupCategories;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ImageUploadController;
+use Illuminate\Support\Facades\Validator;
 
 
 class MockupsController extends Controller
@@ -47,6 +48,20 @@ class MockupsController extends Controller
                         "label" => "Add New",
                         "icon" => "aperture",
                         "link" => "admin/products/mockups-new"
+                    ],
+                    [
+                        "label" => "Add Category",
+                        "style" => "primary",
+                        "action" => "model",
+                        "icon" => "file-plus",
+                        "target" => "newGroupModal"
+                    ],
+                    [
+                        "label" => "Add Extension",
+                        "style" => "primary",
+                        "action" => "model",
+                        "icon" => "file-plus",
+                        "target" => "newExtensionModal"
                     ]
                 ]
             ]
@@ -146,6 +161,64 @@ class MockupsController extends Controller
         return redirect()->route('admin.products.mockups.list');
     }
 
+    public function new_group()
+    {
+        $ValidatedRules = array(
+            'GroupName' => 'required',
+        );
+
+        $Validator = Validator::make($this->Request->all(), $ValidatedRules, []);
+
+        if ($Validator->fails()) {
+            return redirect()->route('admin.products.mockups.list')
+                                ->withErrors($Validator)
+                                ->withInput($this->Request->input());
+        }else{
+            $GroupName = $this->Request->input('GroupName');
+            $Data = [
+                "name" => $GroupName
+            ];
+            $this->MockupCategories->insert($Data);
+    
+            $Messages = [
+                "success" => [
+                    "Successfully Updated"
+                ]
+            ];
+            return redirect()->route('admin.products.mockups.list')->with($Messages);
+        }
+
+    }
+
+    public function new_extension()
+    {
+        $ValidatedRules = array(
+            'ExtensionName' => 'required',
+        );
+
+        $Validator = Validator::make($this->Request->all(), $ValidatedRules, []);
+
+        if ($Validator->fails()) {
+            return redirect()->route('admin.products.mockups.list')
+                                ->withErrors($Validator)
+                                ->withInput($this->Request->input());
+        }else{
+            $ExtensionName = $this->Request->input('ExtensionName');
+            $Data = [
+                "name" => $ExtensionName
+            ];
+            $this->FileExtensions->insert($Data);
+    
+            $Messages = [
+                "success" => [
+                    "Successfully Updated"
+                ]
+            ];
+            return redirect()->route('admin.products.mockups.list')->with($Messages);
+        }
+
+    }
+    
     public function trash()
     {
         $this->Data['page'] = [

@@ -51,9 +51,10 @@ class Pages extends Model
                                 $this->PagesTable.".group_id",
                                 $this->PagesTable.".type_id",
                                 $this->PagesTable.".slider_id",
-                                "page_contents.id",
+                                "page_contents.id as content_id",
                                 "page_contents.value",
-                                "page_contents.styles"
+                                "page_contents.styles",
+                                "page_contents.publish",
                             )
                             ->leftJoin('page_contents', $this->PagesTable.'.id', '=', 'page_id')
                             ->where('group_id',$GroupId)
@@ -66,9 +67,10 @@ class Pages extends Model
         return $PagesByGroup;
     }
 
-    public function by_slug($Slug)
+    public function by_slug($Slug = null)
     {
-        $Page = DB::table($this->PagesTable)
+        if(!empty($Slug)){
+            $Page = DB::table($this->PagesTable)
                     ->select(
                         $this->PagesTable.".name",
                         $this->PagesTable.".slug",
@@ -85,6 +87,26 @@ class Pages extends Model
                     ->leftJoin('page_contents', $this->PagesTable.'.id', '=', 'page_id')
                     ->where($this->PagesTable.".slug",$Slug)
                     ->first();
+        }
+        if (empty($Page) || empty($Slug)) {
+            $Page = DB::table($this->PagesTable)
+                    ->select(
+                        $this->PagesTable.".name",
+                        $this->PagesTable.".slug",
+                        $this->PagesTable.".keywords",
+                        $this->PagesTable.".description",
+                        $this->PagesTable.".parent_id",
+                        $this->PagesTable.".group_id",
+                        $this->PagesTable.".type_id",
+                        $this->PagesTable.".slider_id",
+                        "page_contents.id",
+                        "page_contents.value",
+                        "page_contents.styles"
+                    )
+                    ->leftJoin('page_contents', $this->PagesTable.'.id', '=', 'page_id')
+                    ->where($this->PagesTable.".home",1)
+                    ->first();
+        }
 
         return $Page;
     }
@@ -115,7 +137,6 @@ class Pages extends Model
                 "Pages" => $menus
             ];
         }
-
         return $Menus;
     }
 
@@ -133,6 +154,20 @@ class Pages extends Model
                     )
                     ->leftJoin('page_contents', $this->PagesTable.'.id', '=', 'page_id')
                     ->where($this->PagesTable.".home",1)
+                    ->first();
+
+        return $Page;
+    }
+
+    public function by_id($id = null)
+    {
+        $Page = DB::table($this->PagesTable)
+                    ->select(
+                        $this->PagesTable.".name",
+                        $this->PagesTable.".slug",
+                        $this->PagesTable.".keywords",
+                        $this->PagesTable.".description")
+                    ->where("id",$id)
                     ->first();
 
         return $Page;
