@@ -24,6 +24,7 @@ class Mockups extends Model
                                 'author',
                                 'mockup_categories.name as category_name'
                             )
+                    ->where('mockups.deleted_at', NULL)
                     ->leftJoin('mockup_categories', $this->MockupsTable.'.id', '=', 'mockup_categories.id')
                     ->get();
         return $Showcases;

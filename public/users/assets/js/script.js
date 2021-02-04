@@ -74,5 +74,45 @@ $(document).ready(function(){
     $(".mockup-image").mouseleave(function () {
         $(this).find(".overlap").fadeOut();
     }).mouseleave();
-
 });
+
+function AddToCart(product_id){
+    $.ajax({
+        type: "POST",
+        url: "/user/cart/add-item",
+        data: {
+           ProductId : product_id
+        },
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN':csrf_token,
+            // 'Authorization':'Basic xxxxxxxxxxxxx',
+            //'Content-Type':'application/json'
+        },
+        success: function(data, textStatus, xhr){
+            if(xhr.status == 200){
+                console.log(data,textStatus,xhr);     
+            }
+        },
+    });
+}
+function RemoveFromCart(CartItemId){
+    $.ajax({
+        type: "POST",
+        url: "/user/cart/remove-item",
+        data: {
+           CartItemId : CartItemId
+        },
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN':csrf_token,
+            // 'Authorization':'Basic xxxxxxxxxxxxx',
+            //'Content-Type':'application/json'
+        },
+        success: function(data, textStatus, xhr){
+            if(xhr.status == 200){
+                console.log(data,textStatus,xhr);     
+            }
+        },
+    });
+}

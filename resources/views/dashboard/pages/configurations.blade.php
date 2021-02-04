@@ -17,7 +17,7 @@
                             type="text"
                             class="form-control"
                             id="{{ $Configuration['id'] }}"
-                            value="{{ $Configuration['value'] }}"
+                            value="{{ $Configuration['value'] ? $Configuration['value'] : $Configuration['default'] }}"
                             name="{{ Str::slug($Configuration['name']) }}"
                         >
                     </div>

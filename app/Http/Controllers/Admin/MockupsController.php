@@ -9,6 +9,9 @@ use App\Models\MockupCategories;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ImageUploadController;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use File;
+use Intervention\Image\ImageManagerStatic as Image;
 
 
 class MockupsController extends Controller
@@ -84,7 +87,7 @@ class MockupsController extends Controller
     
     public function save($Id = null)
     {
-        $ValidatedData = $this->Request->validate([
+        $ValidatedRules = [
             'MockupName' => 'required|max:100',
             //'MockupKeywords' => "",
             //'MockupDescription' => "",
@@ -93,31 +96,28 @@ class MockupsController extends Controller
             "MockupPrice" => "required",
             //"MockupInformations" => "",
             //"MockupExtension" => "",
-            //'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+            //'MockupImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ];
   
-        $MockupName = $this->Request->input('MockupName');
-        $MockupKeywords = $this->Request->input('MockupKeywords');
-        $MockupDescription = $this->Request->input('MockupDescription');
-        $MockupCategory = $this->Request->input('MockupCategory');
-        $MockupSlug = $this->Request->input('MockupSlug');
-        $MockupPrice = $this->Request->input('MockupPrice');
-        $MockupInformations = $this->Request->input('MockupInformations');
-        $MockupExtension = $this->Request->input('MockupExtension');
-        // if ($this->Request->file('image')->isValid())
-        // {
-            //$this->Request->file('image')->move("images");
-        //}
+        $Validator = Validator::make($this->Request->all(), $ValidatedRules, []);
 
-        $imageName = time().'.'.$this->Request->image->extension();
-     
-        $this->Request->image->storeAs('images', $imageName);
-    
         if ($Validator->fails()) {
             return redirect('admin.products.mockups.new')
                         ->withErrors($Validator)
                         ->withInput();
         }else{
+            $MockupName = $this->Request->input('MockupName');
+            $MockupKeywords = $this->Request->input('MockupKeywords');
+            $MockupDescription = $this->Request->input('MockupDescription');
+            $MockupCategory = $this->Request->input('MockupCategory');
+            $MockupSlug = $this->Request->input('MockupSlug');
+            $MockupPrice = $this->Request->input('MockupPrice');
+            $MockupInformations = $this->Request->input('MockupInformations');
+            $MockupExtension = $this->Request->input('MockupExtension');
+            $imageName = time().'.'.$this->Request->MockupImage->extension();
+     
+            $this->Request->MockupImage->storeAs('images', $imageName);
+    
             $Data = [
                 "name" => $MockupName,
                 "keywords" => $MockupKeywords,
@@ -134,14 +134,22 @@ class MockupsController extends Controller
             ];
             
             if($Id){
-                $this->Mockups->insert($Data);
-            }else{
                 $this->Mockups->where('id', $Id)->update($Data);
+            }else{
+                $this->Mockups->insert($Data);
+            }
+            
+            $MockupPathUploadPath = public_path('users/assets/images/products/5');
+            $MockupPathUploadThumb = public_path('users/assets/images/products/5/thumb');
+
+            if (!file_exists($MockupPathUploadPath)) {
+                File::makeDirectory($MockupPathUploadPath);
+            }
+            if (!file_exists($MockupPathUploadThumb)) {
+                File::makeDirectory($MockupPathUploadThumb);
             }
 
-            $imageName = time().'.'.$this->Request->image->extension();  
-     
-            $this->Request->image->move(public_path('images'), $imageName);
+            $this->Request->MockupImage->move($MockupPathUploadPath, $imageName);
 
             return redirect()->route('admin.products.mockups.list');
         }

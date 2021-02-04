@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="{{URL::to('users/assets/fonts/feather-font/css/iconfont.css')}}">
     <link rel="stylesheet" href="{{URL::to('users/assets/vendors/font-awesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{URL::to('users/assets/css/style.min.css')}}">
-
-    <title>Hello, world!</title>
   </head>
   <body>
     <div class="branding-mockups">
@@ -31,7 +29,9 @@
 
       @include('home.partials.footer')
     </div>
-
+    <script>
+      var csrf_token = "{{ csrf_token() }}";
+    </script>
     <!-- core:js -->
     <script src="{{ URL::to('users/assets/vendors/core/core.js') }}"></script>
     <!-- endinject -->

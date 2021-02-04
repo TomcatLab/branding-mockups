@@ -12,7 +12,7 @@
       <div class="product-add-cart">
         <div class="d-flex align-items-center">
           <div class="button-holder">
-            <button type="button" class="btn btn-warning"><i data-feather="shopping-cart" width="18"  height="18"></i> Add to cart</button>
+            <button type="button" class="btn btn-warning" onClick="AddToCart({{ $mockup->id }})" ><i data-feather="shopping-cart" width="18"  height="18"></i> Add to cart</button>
           </div>
         </div>
       </div>

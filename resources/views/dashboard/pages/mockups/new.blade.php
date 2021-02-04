@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-body">
                 <h6 class="card-title">New Mockup</h6>
-                {{ Form::open(array('url' => route('admin.products.mockups.new'))) }}
+                {{ Form::open(array('url' => route('admin.products.mockups.new'), "method" => "post",'files' => 'true')) }}
                     <input type="hidden" name="MockupAuthor">
                     <div class="form-group">
                         <label for="MockupName">Name</label>
@@ -38,7 +38,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label>Thumbnail image</label>
-                                <input type="file" name="image[]" class="file-upload-default">
+                                <input type="file" name="MockupImage" class="file-upload-default">
                                 <div class="input-group col-xs-12">
                                     <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">
                                     <span class="input-group-append">

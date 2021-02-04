@@ -27,7 +27,7 @@ class Configurations extends Model
                 $DataConfiguration[$key]['id'] = $Configuration->id;
                 $DataConfiguration[$key]['name'] = $Configuration->name;
                 $DataConfiguration[$key]['value'] = $Configuration->value;
-                $DataConfiguration[$key]['defualt'] = $Configuration->default;
+                $DataConfiguration[$key]['default'] = $Configuration->default;
             }
             $All[$GroupKey] = [
                 "GroupId" =>  $Group->id,

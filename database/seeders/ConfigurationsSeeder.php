@@ -82,5 +82,23 @@ class ConfigurationsSeeder extends Seeder
             'name' => "Copyright Text",
             'default' => "Branding Mockups",
         ]);
+
+        DB::table('configurations')->insert([
+            'group_id' => 4,
+            'name' => "Tax",
+            'default' => "2",
+        ]);
+
+        DB::table('configurations')->insert([
+            'group_id' => 4,
+            'name' => "Discount",
+            'default' => "2",
+        ]);
+
+        DB::table('configurations')->insert([
+            'group_id' => 4,
+            'name' => "Extra Charge",
+            'default' => "2",
+        ]);
     }
 }

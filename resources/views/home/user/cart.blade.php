@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
+        @foreach($Produts as $Produt)
         <div class="col-12 col-md-8">
             <div class="card mt-3 mb-3">
                 <div class="row g-0">
@@ -11,24 +12,26 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <h5 class="card-title">{{ $Produt->name }}</h5>
+                            <p class="card-text">{{ $Produt->description }}</p>
                             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <p class="card-text"><button type="button" onClick="RemoveFromCart({{ $Produt->id }})" class="btn btn-danger">Remove</button></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        @endforeach
         <div class="col-12 col-md-4">
-            <div class="card text-dark bg-light mt-3 mb-3">
-                <div class="card-header">Billing</div>
+            <div class="card text-dark mt-3 mb-3">
+                <div class="card-header">Billing Information</div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Morbi leo risus</li>
-                        <li class="list-group-item">Porta ac consectetur ac</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
+                        <li class="list-group-item">Price {{ $BillingInformaion['Quantity'] }} {{ $BillingInformaion['Price'] }}</li>
+                        <li class="list-group-item">Tax</li>
+                        <li class="list-group-item">Discount</li>
+                        <li class="list-group-item">Additional Charges</li>
+                        <li class="list-group-item"><h5>Total</h5></li>
                     </ul>
                 </div>
             </div>

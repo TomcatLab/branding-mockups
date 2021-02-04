@@ -35,9 +35,4 @@ class AccountController extends Controller
         return view('home.user.myaccount', $this->Data);
     }
 
-    public function cart()
-    {
-        return view('home.user.cart', $this->Data);
-    }
-
 }

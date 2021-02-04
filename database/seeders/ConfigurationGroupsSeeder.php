@@ -25,5 +25,9 @@ class ConfigurationGroupsSeeder extends Seeder
         DB::table('configuration_groups')->insert([
             'name' => 'Global Settings',
         ]);
+
+        DB::table('configuration_groups')->insert([
+            'name' => 'Billing Information',
+        ]);
     }
 }
