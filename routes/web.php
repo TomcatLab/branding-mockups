@@ -29,7 +29,7 @@ Route::get('/', [
     HomeController::class, 'index'
 ]);
 
-Route::group(['prefix'=>'home'], function () {
+Route::group(['prefix'=>'home','middleware' => ['web']], function () {
     Route::get('/', [
         HomeController::class, 'index'
     ]);
@@ -44,19 +44,25 @@ Route::group(['prefix'=>'home'], function () {
     ]);
 });
 
-Route::group(['prefix'=>'user'], function () {
+Route::group(['prefix'=>'user','middleware' => ['web']], function () {
     Route::get('/account', [
         AccountController::class, 'index'
     ]);
     Route::get('/cart', [
         CartsController::class, 'cart'
-    ]);
+    ])->name('user.cart');
+    
     Route::post('/cart/add-item', [
         CartsController::class, 'add_to_cart'
     ])->name('user.cart.add-item');
+
     Route::post('/cart/remove-item', [
         CartsController::class, 'remove_from_cart'
     ])->name('user.cart.remove.item');
+
+    Route::get('/cart/clear-cart', [
+        CartsController::class, 'clear_cart'
+    ])->name('user.cart.clear.items');
 
 });
 

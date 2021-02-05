@@ -7415,6 +7415,15 @@ section.page .mockup-image .overlap {
     color: #fff; }
     .navbar.navbar-main .navbar-nav a.nav-link:hover {
       color: #adb5bd; }
+  .navbar.navbar-main .navbar-nav .cart {
+    position: relative; }
+    .navbar.navbar-main .navbar-nav .cart .badge {
+      border-radius: 50%;
+      background-color: rgba(23, 73, 255, 0.5);
+      color: #fff;
+      position: absolute;
+      top: 5px;
+      right: -5px; }
   .navbar.navbar-main .logo-invert {
     display: none; }
   .navbar.navbar-main button.search {

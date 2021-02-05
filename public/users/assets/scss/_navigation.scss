@@ -118,6 +118,17 @@
                     color: $gray-500;
                 }
             }
+            .cart{
+                position: relative;
+                .badge{
+                    border-radius: 50%;
+                    background-color: rgba(23, 73, 255, 0.5);
+                    color: $white;
+                    position: absolute;
+                    top: 5px;
+                    right: -5px;
+                }
+            }
         }
         .logo-invert{
             display: none;

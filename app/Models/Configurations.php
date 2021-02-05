@@ -58,11 +58,26 @@ class Configurations extends Model
 
         return $Return;
     }
+    
 
     public function Set($Data)
     {
         DB::table($this->ConfigurationsTable)
             ->where('id', $Data['id'])
             ->update(['value' => $Data['value']]);
+    }
+
+    public function by_configuration_key(Int $ConfigurationKey = null)
+    {
+        $Configuration = [];
+        if(is_numeric($ConfigurationKey)){
+            $Configuration = DB::table($this->ConfigurationsTable)
+                            ->where('key',$ConfigurationKey)
+                            ->first();
+            // if(isset($BannerImages->id)){
+            //     $BannerImages = [];
+            // }
+        }
+        return $Configuration;
     }
 }

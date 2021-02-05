@@ -17,6 +17,7 @@ class CreateConfigurationsTable extends Migration
             $table->id();
             $table->foreignId('group_id');
             $table->string('name');
+            $table->string('key');
             $table->string('default')->nullable();
             $table->string('value')->nullable();
             $table->string('validations')->nullable();

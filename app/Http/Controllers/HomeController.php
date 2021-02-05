@@ -7,7 +7,7 @@ use App\Models\Pages;
 use App\Models\Configurations;
 use App\Models\Mockups;
 use App\Models\Showcases;
-
+use App\Models\CartProducts;
 
 
 class HomeController extends Controller
@@ -17,7 +17,8 @@ class HomeController extends Controller
     public $Configurations;
     public $MockupCategories;
     public $Showcases;
-
+    public $CartProducts;
+    public $Cart;
     /**
      * Create a new controller instance.
      *
@@ -28,7 +29,8 @@ class HomeController extends Controller
         Request $Request,
         Mockups $Mockups,
         Configurations $Configurations,
-        Showcases $Showcases
+        Showcases $Showcases,
+        CartProducts $CartProducts
     )
     {
         $this->Pages = $Pages;
@@ -36,9 +38,11 @@ class HomeController extends Controller
         $this->Configurations = $Configurations;
         $this->Mockups = $Mockups;
         $this->Showcases = $Showcases;
+        $this->CartProducts = $CartProducts;
 
         //$this->middleware('auth');
         $this->Data["menus"] = $this->Pages->get_menus();
+        $this->Data["cart"]["count"] = $this->CartProducts->get_product_count();
     }
 
     /**
@@ -48,6 +52,7 @@ class HomeController extends Controller
      */
     public function index($Slug = null,$Id = null, $Pagination = null)
     {
+
         $this->page_handler($Slug, $Id, $Pagination);
 
         $this->Data['PageConfig'] = [

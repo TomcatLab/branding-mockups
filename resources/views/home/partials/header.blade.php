@@ -1,61 +1,40 @@
-
-if(typeof PageId !== 'undefined' ){
-    var editor = grapesjs.init({
-        showOffsets: 1,
-        noticeOnUnload: 0,
-        container: '#page-'+PageId,
-        height: '100%',
-        fromElement: true,
-        storageManager: { autoload: 0 },
-        stylable: false,
-        styleManager : {
-          sectors: Styles,
-        },
-        storageManager: {
-          type: 'remote',
-          stepsBeforeSave: 3,
-          urlStore: 'http://127.0.0.1:8000/admin/cms/page-edit/'+PageId,
-          urlLoad: 'http://127.0.0.1:8000/admin/cms/page-edit/'+PageId,
-          // For custom parameters/headers on requests
-          params: {
-            _token: CSRF_token,
-            publish: 0
-           },
-          //headers: { Authorization: 'Basic ...' },
-        }
-    });
-    if(typeof Blocks !== 'undefined'){
-      $(Blocks).each(function(index, value) {
-        editor.BlockManager.add(value.key, {
-          label: value.name,
-          attributes: { class:'gjs-fonts gjs-f-b1' },
-          content: value.content
-        })    
-      });
-    }
-}
-if(typeof pages !== 'undefined'){
-    $('#pages').jstree({
-        "core" : {
-            'data' : pages,
-            "themes" : {
-              "variant" : "large"
-            }
-          },
-          "plugins" : [
-            "contextmenu", "dnd", "search", "types", "wholerow"
-          ]
-    });
-
-    // $('#pages').on("select_node.jstree", function (e, data) {
-    //   if(data.node.data){
-    //     editor = editor.replace('xxx',data.node.data);
-    //     window.location.replace(editor);
-    //   }
-    // });
-
-    // $('#pages').jstree({
-    //   "core" : {
-    //     "animation" : 0,
-    //     // "check_callback" : true,
-    //     "themes" : { "stripes" 
+<nav class="navbar navbar-expand-lg fixed-top navbar-main">
+  <div class="container">
+    <a class="navbar-brand" href="./">
+      <img class="logo" src="{{URL::to('users/assets/images/logo-branding.svg')}}">
+      <img class="logo-invert" src="{{URL::to('users/assets/images/logo-branding-revert.svg')}}">
+    </a>
+    <button class="navbar-toggler border-0 p-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <i data-feather="more-vertical"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        @foreach($menus['main-menu']['Pages'] as $item)
+        <li class="nav-item">
+          <a class="nav-link" href="{{URL::to('home/'.$item->slug)}}">{{ $item->name }}<span class="sr-only">(current)</span></a>
+        </li>
+        @endforeach
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <div class="nav-link">
+            <form class="search-form p-0 m-0">
+              <input type="text" class="search" name="search" placeholder="Search">
+              <button class="search"><i class="search-btn" data-feather="search" width="18"  height="18"></i></button>
+            </form>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('login') }}"><i data-feather="user" width="18"  height="18"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link cart" href="{{ route('user.cart') }}"><i data-feather="shopping-cart" width="18"  height="18"></i>
+            @if(isset($cart['count']) && $cart['count'] != 0)
+              <span class="badge badge-light">{{ $cart['count'] ? $cart['count'] : '0' }}</span>
+            @endif
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

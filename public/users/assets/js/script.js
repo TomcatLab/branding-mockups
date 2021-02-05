@@ -111,7 +111,8 @@ function RemoveFromCart(CartItemId){
         },
         success: function(data, textStatus, xhr){
             if(xhr.status == 200){
-                console.log(data,textStatus,xhr);     
+                //$("#"+data.cartItemId).remove();
+                location.reload();
             }
         },
     });
