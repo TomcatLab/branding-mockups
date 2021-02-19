@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pages;
+use Auth;
 
 
 class AccountController extends Controller
@@ -30,8 +31,19 @@ class AccountController extends Controller
         $this->Data["menus"] = $this->Pages->get_menus();
     }
 
-    public function index()
+    public function index($Page = "orders")
     {
+        $User = Auth::user();
+        $this->Data['Configs'] = [
+            "blade" => "home.user.".$Page,
+            "page" => $Page
+        ];
+        $this->Data['Resources'] = [
+            "UserInfo" => [
+                "name" => $User->name,
+                "email" => $User->email
+            ]
+        ];
         return view('home.user.myaccount', $this->Data);
     }
 

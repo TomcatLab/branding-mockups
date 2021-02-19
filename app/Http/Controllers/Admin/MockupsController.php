@@ -67,7 +67,9 @@ class MockupsController extends Controller
                         "target" => "newExtensionModal"
                     ]
                 ]
-            ]
+            ],
+            "show_delete" => true,
+            "show_restore" => false
         ];
         $this->Data['resources'] = [
             "Mockups" => $this->Mockups->by_groups()
@@ -85,6 +87,127 @@ class MockupsController extends Controller
         return view('dashboard.pages.mockups.new', $this->Data);
     }
     
+    public function presentation($MockupId = null)
+    {
+        $this->Data['Presentation'] = [
+            "Structure" => [
+                "Images" => [
+                    [
+                        "Name" => "Image 1",
+                        "Cols" => [
+                            [
+                                "Title" => "Image",
+                                "Num" => 1,
+                                "Hover" => true
+                            ]
+                        ],
+                    ],
+                    [
+                        "Name" => "Image 1",
+                        "Cols" => [
+                            [
+                                "Title" => "Image",
+                                "Num" => 1,
+                                "Hover" => true
+                            ],
+                            [
+                                "Title" => "Image",
+                                "Num" => 1,
+                                "Hover" => true
+                            ]
+                        ],
+                    ],
+                    [
+                        "Name" => "Image 1",
+                        "Cols" => [
+                            [
+                                "Title" => "Image",
+                                "Num" => 1,
+                                "Hover" => true
+                            ]
+                        ],
+                    ],
+                    [
+                        "Name" => "Image 1",
+                        "Cols" => [
+                            [
+                                "Title" => "Image",
+                                "Num" => 1,
+                                "Hover" => true
+                            ],
+                            [
+                                "Title" => "Image",
+                                "Num" => 1,
+                                "Hover" => true
+                            ]
+                        ],
+                    ],
+                    [
+                        "Name" => "Image 1",
+                        "Cols" => [
+                            [
+                                "Title" => "Image",
+                                "Num" => 1,
+                                "Hover" => true
+                            ]
+                        ],
+                    ],
+                    [
+                        "Name" => "Image 1",
+                        "Cols" => [
+                            [
+                                "Title" => "Image",
+                                "Num" => 1,
+                                "Hover" => true
+                            ],
+                            [
+                                "Title" => "Image",
+                                "Num" => 1,
+                                "Hover" => true
+                            ]
+                        ],
+                    ],
+                    [
+                        "Name" => "Image 1",
+                        "Cols" => [
+                            [
+                                "Title" => "Image",
+                                "Num" => 1,
+                                "Hover" => true
+                            ]
+                        ],
+                    ],
+                    [
+                        "Name" => "Image 1",
+                        "Cols" => [
+                            [
+                                "Title" => "Image",
+                                "Num" => 1,
+                                "Hover" => true
+                            ],
+                            [
+                                "Title" => "Image",
+                                "Num" => 1,
+                                "Hover" => true
+                            ]
+                        ],
+                    ],
+                    [
+                        "Name" => "Slider",
+                        "Cols" => [
+                            [
+                                "Title" => "Image",
+                                "Num" => 1,
+                                "Hover" => true
+                            ]
+                        ],
+                    ],
+                ],
+            ]
+        ];
+        return view('dashboard.pages.mockups.presentation', $this->Data);
+    }
+
     public function save($Id = null)
     {
         $ValidatedRules = [
@@ -156,15 +279,15 @@ class MockupsController extends Controller
        
     }
 
-    public function delete()
+    public function delete($MockupId = null)
     {
-        $MockupId = $this->Request->input('MockupId');
+        if($MockupId){
+            $Mockup = $this->Mockups->where('id',$MockupId)->first();
 
-        $Mockup = $this->Mockups->where('id',$MockupId)->first();
-
-        if ($Mockup != null) {
-            $Mockup->delete();
-            redirect()->route('admin.products.mockups.list')->with(['success' => [ 'Successfully deleted!!']]);
+            if ($Mockup != null) {
+                $Mockup->delete();
+                redirect()->route('admin.products.mockups.list')->with(['success' => [ 'Successfully deleted!!']]);
+            }    
         }
         return redirect()->route('admin.products.mockups.list');
     }
@@ -242,11 +365,29 @@ class MockupsController extends Controller
                     //     "link" => "#"
                     // ]
                 ]
-            ]
+            ],
+            "show_delete" => false,
+            "show_restore" => true
         ];
         $this->Data['Resources'] = [
-
+            "Mockups" => $this->Mockups->by_groups_deleted()
         ];
         return view('dashboard.pages.mockups.trash', $this->Data);
+    }
+
+    public function restore($MockupId = null)
+    {
+        if($MockupId){
+            $Showcase = $this->Mockups->withTrashed()->where('id',$MockupId)->first()->restore();
+
+            $messages = [
+                "success" => [
+                    "Successfully Retored."
+                ]
+            ];
+        }else{
+
+        }
+        return redirect()->route('admin.products.mockups.list')->with($messages);
     }
 }

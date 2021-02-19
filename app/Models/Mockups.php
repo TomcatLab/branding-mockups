@@ -29,4 +29,18 @@ class Mockups extends Model
                     ->get();
         return $Showcases;
     }
+    public function by_groups_deleted()
+    {
+        $Showcases = DB::table($this->MockupsTable)
+                    ->select('mockups.id',
+                                'price',
+                                'mockups.name as mockup_name',
+                                'author',
+                                'mockup_categories.name as category_name'
+                            )
+                    ->where('mockups.deleted_at', '!=' , null )
+                    ->leftJoin('mockup_categories', $this->MockupsTable.'.id', '=', 'mockup_categories.id')
+                    ->get();
+        return $Showcases;
+    }
 }

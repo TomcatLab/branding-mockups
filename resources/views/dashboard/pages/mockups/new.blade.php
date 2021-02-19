@@ -35,6 +35,20 @@
                         <input type="text" class="form-control" id="MockupSlug" value="{{ old('MockupSlug') }}" name="MockupSlug" placeholder="highway-blue">
                     </div>
                     <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Package</label>
+                                <input type="file" name="package" class="file-upload-default">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">
+                                    <span class="input-group-append">
+                                        <button class="file-upload-browse btn btn-primary" type="button">Zip</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-4">
                             <div class="form-group">
                                 <label>Thumbnail image</label>

@@ -19,5 +19,11 @@ class EmailsSeeder extends Seeder
             'subject' => "Sign Up Email",
             'content' => "test content"
         ]);
+
+        DB::table('emails')->insert([
+            'name' => "Invoice",
+            'subject' => "Invoice",
+            'content' => "test content"
+        ]);
     }
 }

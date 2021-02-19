@@ -23,6 +23,7 @@ class Showcases extends Model
                      'behance_url',
                      'mockup_categories.name as category_name'
                     )
+            ->where('showcases.deleted_at', null)
             ->leftJoin('mockup_categories', $this->ShowcasesTable.'.id', '=', 'mockup_categories.id')
             ->get();
         return $Showcases;

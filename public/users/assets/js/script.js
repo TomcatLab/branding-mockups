@@ -74,6 +74,15 @@ $(document).ready(function(){
     $(".mockup-image").mouseleave(function () {
         $(this).find(".overlap").fadeOut();
     }).mouseleave();
+
+    $("#paypal").addClass('d-none');
+    $("#card").addClass('d-none');
+
+    $('.selectPayment').click(function(){
+        $(".btn-payment").addClass('d-none');
+        let selectedPayment = $(this).attr('data-payment');
+        $("#"+selectedPayment).removeClass('d-none');
+    });
 });
 
 function AddToCart(product_id){

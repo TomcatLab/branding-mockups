@@ -49,6 +49,9 @@
         @endif
     </div>
 
+    <script>
+        var URL = "{{URL::to('')}}";
+    </script>
     <!-- core:js -->
     <script src="{{URL::to('dashboard/assets/vendors/core/core.js')}}"></script>
     <!-- endinject -->

@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Carts;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 
 
 
@@ -20,9 +19,8 @@ class CartProducts extends Model
     public $Request;
     public $CartProductsTable = "cart_products";
 
-    public function __construct( Request $Request)
+    public function __construct()
     {
-        $this->Request = $Request;
     }
 
 
@@ -30,7 +28,6 @@ class CartProducts extends Model
     public function get_product_count($CartId = null)
     {
         $CartProducts = [];
-        $CartSession = $this->Request->session()->get('Cart', null);
         if($CartId){
             $CartProducts = DB::table($this->CartProductsTable)
                             ->where('cart_id',$CartId)

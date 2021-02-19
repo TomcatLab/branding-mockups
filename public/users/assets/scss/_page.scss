@@ -10,3 +10,8 @@ section.page{
         }
     } 
 }
+.razorpay-payment-button{
+    @extend .btn;
+    @extend .btn-primary;
+    @extend .btn-block;
+}

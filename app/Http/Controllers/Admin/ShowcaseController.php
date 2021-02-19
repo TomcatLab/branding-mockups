@@ -7,10 +7,13 @@ use App\Models\MockupCategories;
 use App\Models\Showcases;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class ShowcaseController extends Controller
 {
+    use SoftDeletes;
+    
     public $Request;
     public $MockupCategories;
     public $Showcases;
@@ -44,6 +47,8 @@ class ShowcaseController extends Controller
                     ]
                 ]
             ],
+            "show_delete" => true,
+            "show_restore" => false
         ];
         $this->Data['resources'] = [
             "MockupCategories" => $this->MockupCategories->all(),
@@ -72,14 +77,11 @@ class ShowcaseController extends Controller
             $BehanceProjectUrl = $this->Request->input('BehanceProjectUrl');
             //$ShowcaseUser = $this->Request->input('ShowcaseUser');
 
-            $Data = [
-                "label" => $ShowcaseLabel,
-                //"user" => $ShowcaseUser,
-                "category_id" => $ShowcaseCategory,
-                "behance_url" => $BehanceProjectUrl
-            ];
-    
-            $this->Showcases->insert($Data);
+           
+            $this->Showcases->label = $ShowcaseLabel;
+            $this->Showcases->category_id = $ShowcaseCategory;
+            $this->Showcases->behance_url = $BehanceProjectUrl;
+            $this->Showcases->save();
 
             $messages = [
                 "success" => [
@@ -91,26 +93,56 @@ class ShowcaseController extends Controller
         }
     }
 
-    public function delete()
+    public function delete($ShowcaseId = null)
     {
-        $ShowcaseId = $this->Request->input('ShowcaseId');
-
         if($ShowcaseId){
-            $this->Showcases->soft_delete($ShowcaseId);
-        }
+            $Showcase = $this->Showcases->where('id',$ShowcaseId)->first();
+            $Showcase->delete();
 
-        $messages = [
-            "success" => [
-                "Successfully Deleted."
-            ]
-        ];
+            $messages = [
+                "success" => [
+                    "Successfully Deleted."
+                ]
+            ];
+        }else{
+
+        }
 
         return redirect()->route('admin.products.showcases')->with($messages);
     }
 
     public function trash()
     {
-        $Showcases = $this->Showcases->onlyTrashed()->get();
-        return $Showcases;
+        $this->Data['page'] = [
+            "header" => [
+                "style" => "regular",
+                "label" => "Showcases Trash",
+                "buttons" => [
+                    
+                ]
+            ],
+            "show_delete" => false,
+            "show_restore" => true
+        ];
+        $this->Data['resources'] = [
+            "Showcases" => $this->Showcases->onlyTrashed()->get()
+        ];
+        return view('dashboard.pages.showcaseTrash', $this->Data);
+    }
+
+    public function restore($ShowcaseId = null)
+    {
+        if($ShowcaseId){
+            $Showcase = $this->Showcases->withTrashed()->where('id',$ShowcaseId)->first()->restore();
+
+            $messages = [
+                "success" => [
+                    "Successfully Retored."
+                ]
+            ];
+        }else{
+
+        }
+        return redirect()->route('admin.products.showcases')->with($messages);
     }
 }

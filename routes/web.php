@@ -14,6 +14,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Users\AccountController;
 use App\Http\Controllers\Users\CartsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +31,7 @@ Route::get('/', [
     HomeController::class, 'index'
 ]);
 
-Route::group(['prefix'=>'home','middleware' => ['web']], function () {
+Route::group(['prefix'=>'home'], function () {
     Route::get('/', [
         HomeController::class, 'index'
     ]);
@@ -44,10 +46,16 @@ Route::group(['prefix'=>'home','middleware' => ['web']], function () {
     ]);
 });
 
-Route::group(['prefix'=>'user','middleware' => ['web']], function () {
+Route::group(['prefix'=>'user'], function () {
+    
     Route::get('/account', [
         AccountController::class, 'index'
     ]);
+
+    Route::get('/account/{Page}', [
+        AccountController::class, 'index'
+    ])->name('user.account');
+
     Route::get('/cart', [
         CartsController::class, 'cart'
     ])->name('user.cart');
@@ -150,7 +158,8 @@ Route::group(['prefix'=>'admin'],function(){
     });
 
     Route::group(['prefix'=>'products'],function(){
-        
+
+        // MOCKUP
         Route::get('mockups-list',[
             MockupsController::class, 'index'
         ])->name('admin.products.mockups.list');
@@ -163,14 +172,22 @@ Route::group(['prefix'=>'admin'],function(){
             MockupsController::class, 'save'
         ])->name('admin.products.mockups.new');
 
-        Route::delete('mockups-list',[
+        Route::get('mockup-presentation/{id}',[
+            MockupsController::class, 'presentation'
+        ])->name('admin.products.mockups.presentation');
+
+        Route::get('mockups-delete/{id}',[
             MockupsController::class, 'delete'
-        ])->name('admin.products.mockups.list');
+        ])->name('admin.products.mockups-delete');
 
         Route::get('mockups-trash',[
             MockupsController::class, 'trash'
         ])->name('admin.products.mockups.trash');
 
+        Route::get('mockups-restore/{id}',[
+            MockupsController::class, 'restore'
+        ])->name('admin.products.mockup-restore');
+        
         Route::post('mockups-group-new',[
             MockupsController::class, 'new_group'
         ])->name('admin.cms.mockups-group');
@@ -178,7 +195,9 @@ Route::group(['prefix'=>'admin'],function(){
         Route::post('mockups-new-extension',[
             MockupsController::class, 'new_extension'
         ])->name('admin.cms.mockups-extension');
+        
 
+        // SHOWCASE
         Route::get('showcase-list',[
             ShowcaseController::class, 'index'
         ])->name("admin.products.showcases");
@@ -187,13 +206,17 @@ Route::group(['prefix'=>'admin'],function(){
             ShowcaseController::class, 'add'
         ])->name("admin.products.showcases");
 
-        Route::delete('showcase-list',[
+        Route::get('showcase-list/{id}',[
             ShowcaseController::class, 'delete'
-        ])->name("admin.products.showcases");
+        ])->name("admin.showcase-delete");
 
         Route::get('showcase-trash',[
             ShowcaseController::class, 'trash'
-        ]);
+        ])->name('admin.cms.showcase-trash');
+
+        Route::get('showcase-trash/{id}', [
+            ShowcaseController::class, 'restore'
+        ])->name('admin.cms.showcase-restore');
     });
     
     Route::get('settings',[
@@ -215,5 +238,28 @@ Route::group(['prefix'=>'admin'],function(){
 });
 
 Auth::routes();
-
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('payment-razorpay',[
+    PaymentController::class, 'create'
+])->name('paywithrazorpay');
+
+Route::post('payment',[
+    PaymentController::class, 'payment'
+])->name('payment');
+
+//payment form
+Route::get('paypal',[
+    PaymentController::class, 'index'
+])->name('paypal');
+
+// route for processing payment
+Route::post('paypal', [
+    PaymentController::class, 'payWithpaypal'
+])->name('paypal');
+
+// route for check status of the payment
+Route::get('status',[
+    PaymentController::class, 'getPaymentStatus'
+])->name('status');

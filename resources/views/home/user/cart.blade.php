@@ -71,11 +71,68 @@
                         </tfooter>
                     </table>
                     <div class="row">
+                        <div class="col-12">
+                            <div class="card mt-3 mb-3 selectPayment" data-payment="paypal">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="..." alt="...">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Paypal</h5>
+                                            <p class="card-text">Paypal amount</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card mt-3 mb-3 selectPayment" data-payment="card">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="..." alt="...">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card/Bank</h5>
+                                            <p class="card-text">Paypal amount</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6">
                             <a type="button" class="btn btn-danger btn-block" href="{{ route('user.cart.clear.items') }}">Clear Cart</a>
                         </div>
                         <div class="col-6">
-                            <button type="button" class="btn btn-primary btn-block">Checkout</button>
+                        @if (Route::has('login'))
+                            @auth
+                            <button type="button" class="btn btn-primary btn-block btn-payment" disabled>Checkout</button>
+                            <form class="btn-payment d-none" method="POST" id="paypal" action="{!! URL::to('paypal') !!}">
+                            {{ csrf_field() }}
+                                <input type="hidden" name="amount" value="{{ $BillingInformaion['GrandTotal'] }}">
+                                <input type="submit" class="btn btn-primary btn-block" value="Checkout">
+                            </form>
+                            <form action="{{ route('payment') }}" class="btn-payment" method="POST" id="card" >
+                                @csrf
+                                <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                        data-key="{{ env('RAZOR_KEY') }}"
+                                        data-amount="100"
+                                        data-buttontext="Checkout"
+                                        data-name="NiceSnippets"
+                                        data-description="Rozerpay"
+                                        data-image="{{URL::to('users/assets/images/logo-branding.svg')}}"
+                                        data-prefill.name="name"
+                                        data-prefill.email="email"
+                                        data-theme.color="#ff7529">
+                                </script>
+                            </form>
+                            @else
+                            <a class="btn btn-primary btn-block" href="{{ route('login') }}">Checkout</a>
+                            @endif
+                        @endif
                         </div>
                     </div>
                 </div>

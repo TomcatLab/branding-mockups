@@ -42,7 +42,7 @@ class HomeController extends Controller
 
         //$this->middleware('auth');
         $this->Data["menus"] = $this->Pages->get_menus();
-        $this->Data["cart"]["count"] = $this->CartProducts->get_product_count();
+        //$this->Data["cart"]["count"] = $this->CartProducts->get_product_count();
     }
 
     /**

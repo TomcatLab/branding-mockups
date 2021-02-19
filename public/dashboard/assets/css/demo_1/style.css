@@ -25174,3 +25174,8 @@ div.tagsinput {
   float: right; }
 
 /*# sourceMappingURL=../maps/demo_1/style.css.map */
+
+.dropify-message .file-icon,
+.dropify-message .dropify-error{
+  font-size: 12px !important;
+}

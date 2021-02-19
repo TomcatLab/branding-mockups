@@ -56,7 +56,14 @@ class CartsController extends Controller
 
     public function cart()
     {
-        $this->Data["Produts"] = $this->CartProducts->all();
+        $Cart = $this->Request->session()->get('Cart', []);
+        
+        if(!empty($Cart)){
+            $this->Data["Produts"] = $this->CartProducts->where('cart_id',$Cart['Id'])->get();
+        }else{
+            $this->Data["Produts"]  = $this->CartProducts->where('cart_id',0)->get();
+        }
+
         $this->Data["BillingInformaion"] = [
             "Price" => 0,
             "Quantity" => 0,

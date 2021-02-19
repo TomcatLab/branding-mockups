@@ -25,7 +25,13 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('login') }}"><i data-feather="user" width="18"  height="18"></i></a>
+          @if (Route::has('login'))
+            @auth
+              <a class="nav-link" href="{{ route('user.account','orders') }}"><i data-feather="user" width="18"  height="18"></i></a>
+            @else
+              <a class="nav-link" href="{{ route('login') }}"><i data-feather="user" width="18"  height="18"></i></a>
+            @endif
+          @endif
         </li>
         <li class="nav-item">
           <a class="nav-link cart" href="{{ route('user.cart') }}"><i data-feather="shopping-cart" width="18"  height="18"></i>
