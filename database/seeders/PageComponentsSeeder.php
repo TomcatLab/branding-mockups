@@ -20,5 +20,23 @@ class PageComponentsSeeder extends Seeder
             'key' => 'MOCKUPS',
             'filename' => 'mockups'
         ]);
+
+        DB::table('page_components')->insert([
+            'name' => 'Mockup',
+            'key' => 'MOCKUP',
+            'filename' => 'mockup'
+        ]);
+
+        DB::table('page_components')->insert([
+            'name' => 'Freebies',
+            'key' => 'FREEBIES',
+            'filename' => 'freebies'
+        ]);
+
+        DB::table('page_components')->insert([
+            'name' => 'Showcase',
+            'key' => 'SHOWCASE',
+            'filename' => 'showcase'
+        ]);
     }
 }

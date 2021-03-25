@@ -31,5 +31,29 @@ class PageBlocksSeeder extends Seeder
             'style' => '',
             'attributes' => '',
         ]);
+        DB::table('page_blocks')->insert([
+            'name' => 'Mockup',
+            'key' => 'Mockup',
+            'filename' => 'mockup',
+            'content' => '',
+            'style' => '',
+            'attributes' => '',
+        ]);
+        DB::table('page_blocks')->insert([
+            'name' => 'Freebies',
+            'key' => 'Freebies',
+            'filename' => 'freebies',
+            'content' => '',
+            'style' => '',
+            'attributes' => '',
+        ]);
+        DB::table('page_blocks')->insert([
+            'name' => 'Showcase',
+            'key' => 'Showcase',
+            'filename' => 'showcase',
+            'content' => '',
+            'style' => '',
+            'attributes' => '',
+        ]);
     }
 }

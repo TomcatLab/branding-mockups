@@ -16,6 +16,7 @@ class UsersController extends Controller
     )
     {
         $this->User = $User;
+        $this->middleware('admin');
     }
 
     //

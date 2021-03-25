@@ -52,8 +52,6 @@ class LoginController extends Controller
         $this->Pages = $Pages;
         $this->Request = $Request;
         $this->Configurations = $Configurations;
-
-        $this->middleware('guest')->except('logout');
     }
 
     public function showLoginForm()
@@ -88,6 +86,7 @@ class LoginController extends Controller
                 $request->get('remember')
                 )
             ){
+            $request->session()->put('is_admin', true);
             return redirect()->intended(route('admin.analytics'));
         }
         

@@ -35,8 +35,8 @@
         </li>
         <li class="nav-item">
           <a class="nav-link cart" href="{{ route('user.cart') }}"><i data-feather="shopping-cart" width="18"  height="18"></i>
-            @if(isset($cart['count']) && $cart['count'] != 0)
-              <span class="badge badge-light">{{ $cart['count'] ? $cart['count'] : '0' }}</span>
+            @if(isset($Cart['count']) && $Cart['count'] != 0)
+              <span class="badge badge-light">{{ $Cart['count'] ? $Cart['count'] : '0' }}</span>
             @endif
           </a>
         </li>

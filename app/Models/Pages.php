@@ -80,6 +80,7 @@ class Pages extends Model
                         $this->PagesTable.".group_id",
                         $this->PagesTable.".type_id",
                         $this->PagesTable.".slider_id",
+                        $this->PagesTable.".data",
                         "page_contents.id",
                         "page_contents.value",
                         "page_contents.styles"
@@ -130,6 +131,7 @@ class Pages extends Model
                         ->leftJoin('page_types', $this->PagesTable.'.id', '=', 'page_types.id')
                         ->where('group_id',$Group->id)
                         ->where('type_id', "!=", 3)
+                        ->where('parent_id', "=", null)
                         ->get();
 
             $Menus[$Group->key] = [

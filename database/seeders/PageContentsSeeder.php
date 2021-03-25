@@ -30,5 +30,15 @@ class PageContentsSeeder extends Seeder
             'value' => "Showcase content",
             'styles' => ""
         ]);
+        DB::table('page_contents')->insert([
+            'page_id' => 4,
+            'value' => "Mockup content",
+            'styles' => ""
+        ]);
+        DB::table('page_contents')->insert([
+            'page_id' => 5,
+            'value' => "Freebie content",
+            'styles' => ""
+        ]);
     }
 }

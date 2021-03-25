@@ -19,9 +19,9 @@ class SettingsController extends Controller
         Request $Request
     )
     {
-       // $this->middleware('auth');
         $this->Configurations = $Configurations;
         $this->Request = $Request;
+        $this->middleware('admin');
     }
 
     //

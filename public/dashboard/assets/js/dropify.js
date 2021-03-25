@@ -3,10 +3,11 @@ $(function() {
 
   var img = $('.myDropify').dropify();
   img.on('file_upload.afterClear', function(event, element) {
-      $.ajax({
-          url: 'path/to/ajax',
-          type: 'POST',
-          data: {}
-      });
+    console.log("asdf");
+     
+  });
+  $( ".myDropify" ).change(function() {
+    let id = $(this).attr('data-id');
+    $(this).parents('form').submit();
   });
 });

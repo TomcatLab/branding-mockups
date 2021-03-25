@@ -7289,6 +7289,9 @@ section.page .mockup-image .overlap {
   left: 0;
   top: 0; }
 
+.features {
+  background: #F7FBFF; }
+
 .mockup.card {
   border: none; }
   .mockup.card a {

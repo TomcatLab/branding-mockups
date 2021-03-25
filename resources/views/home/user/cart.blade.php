@@ -6,19 +6,19 @@
         @if(!$Produts->isEmpty())
             <div class="col-12 col-md-8">
             @foreach($Produts as $Produt)
-                <div class="card mt-3 mb-3" id="{{ $Produt->id }}">
+                <div class="card mt-3 mb-3" id="{{ $Produt->product_id }}">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="..." alt="...">
+                            <img class="card-img-top" src="{{URL::to($Produt->full_url)}}" alt="">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $Produt->name }}</h5>
                                 <p class="card-text">{{ $Produt->description }}</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                <p class="card-text"><small class="text-muted">{{  $Produt->category_name }}</small></p>
                                 <div class="row">
                                     <div class="col-6">
-                                        <button type="button" onClick="RemoveFromCart({{ $Produt->id }})" class="btn btn-danger">Remove</button>
+                                        <button type="button" onClick="RemoveFromCart({{ $Produt->product_id }})" class="btn btn-danger">Remove</button>
                                     </div>
                                     <div class="col-6">
                                     <h5 class="card-title">{{ $Config['CURRENCY']}}{{ $Produt->price }}</h5>
@@ -72,10 +72,10 @@
                     </table>
                     <div class="row">
                         <div class="col-12">
-                            <div class="card mt-3 mb-3 selectPayment" data-payment="paypal">
+                            <div class="card mt-3 mb-3 selectPayment" id="option-paypal" data-payment="paypal">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="..." alt="...">
+                                        <img src="{{URL::to('users/assets/images/paypal.png')}}" class="img-fluid my-2 mx-2">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
@@ -87,10 +87,10 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="card mt-3 mb-3 selectPayment" data-payment="card">
+                            <div class="card mt-3 mb-3 selectPayment" id="option-card" data-payment="card">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="..." alt="...">
+                                        <img src="{{URL::to('users/assets/images/cards-brank.png')}}" class="img-fluid my-2 mx-2">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
@@ -111,7 +111,7 @@
                             @auth
                             <button type="button" class="btn btn-primary btn-block btn-payment" disabled>Checkout</button>
                             <form class="btn-payment d-none" method="POST" id="paypal" action="{!! URL::to('paypal') !!}">
-                            {{ csrf_field() }}
+                                {{ csrf_field() }}
                                 <input type="hidden" name="amount" value="{{ $BillingInformaion['GrandTotal'] }}">
                                 <input type="submit" class="btn btn-primary btn-block" value="Checkout">
                             </form>
@@ -119,18 +119,17 @@
                                 @csrf
                                 <script src="https://checkout.razorpay.com/v1/checkout.js"
                                         data-key="{{ env('RAZOR_KEY') }}"
-                                        data-amount="100"
+                                        data-amount="{{ $BillingInformaion['GrandTotal'] * 100 }}"
                                         data-buttontext="Checkout"
-                                        data-name="NiceSnippets"
-                                        data-description="Rozerpay"
-                                        data-image="{{URL::to('users/assets/images/logo-branding.svg')}}"
-                                        data-prefill.name="name"
-                                        data-prefill.email="email"
-                                        data-theme.color="#ff7529">
+                                        data-name="Pay with Rozerpay"
+                                        data-description="Visa, Mastercard, Bank"
+                                        data-image="{{URL::to('users/assets/images/logo.svg')}}"
+                                        data-prefill.name="{{ $Resources['UserInfo']['name'] }}"
+                                        data-prefill.email="{{ $Resources['UserInfo']['email'] }}">
                                 </script>
                             </form>
                             @else
-                            <a class="btn btn-primary btn-block" href="{{ route('login') }}">Checkout</a>
+                            <a class="btn btn-primary btn-block" href="{{ route('login') }}">Login</a>
                             @endif
                         @endif
                         </div>
@@ -141,4 +140,10 @@
         @endif
     </div>
 </div>
+<style>
+    .selectPayment.active{
+        border:1px solid #007bff;
+        background-color:#f0f8ff;
+    }
+</style>
 @endsection

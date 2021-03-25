@@ -1,7 +1,11 @@
 <div class="mockup card">
   <div class="card-body">
     <div class="image-holder row no-gutters d-flex align-items-center">
-      <img src="{{URL::to('users/assets/images/rectangle.jpg')}}" class="card-img-top" alt="...">
+      @if( $mockup->full_url)
+        <img src="{{URL::to( $mockup->full_url )}}" class="card-img-top" alt="...">
+      @else
+        <img src="{{URL::to('users/assets/images/rectangle.jpg')}}" class="card-img-top" alt="...">
+      @endif
       <div class="col-8 offset-2 product-information">
         <a class="" href="{{URL::to('home/mockup', $mockup->id)}}">
           <h5>High Quality Pemium wine mockups</h5>
@@ -19,7 +23,7 @@
     </div>
     <a class="row no-gutters product-description" href="{{URL::to('home/mockup', $mockup->id)}}">
       <div class="col-10">
-          <h5 class="card-title">{{ $mockup->name }}</h5>
+          <h5 class="card-title">{{ $mockup->mockup_name }}</h5>
           <p class="card-text">in Packaging</p>
       </div>
       <div class="col-2">

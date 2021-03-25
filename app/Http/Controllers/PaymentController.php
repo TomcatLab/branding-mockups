@@ -65,7 +65,7 @@ class PaymentController extends Controller
         }
         
         \Session::put('success', 'Payment successful');
-        return redirect()->back();
+        return redirect(route('user.make-order'));
     }
 
     public function index()
@@ -166,7 +166,7 @@ class PaymentController extends Controller
         if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
 
             \Session::put('error', 'Payment failed');
-            return Redirect::route('/');
+            return redirect()->back();
 
         }
 
@@ -180,12 +180,12 @@ class PaymentController extends Controller
         if ($result->getState() == 'approved') {
 
             \Session::put('success', 'Payment success');
-            return Redirect::route('/');
+            return redirect(route('user.make-order'));
 
         }
 
         \Session::put('error', 'Payment failed');
-        return Redirect::route('/');
+        return redirect()->back();
 
     }
 }

@@ -21,6 +21,7 @@ class CreateMockupsTable extends Migration
             $table->integer('price');
             $table->foreignId('author');
             $table->foreignId('category_id');
+            $table->foreignId('type_id');
             $table->string('slug');
             $table->text('info')->nullable();
             $table->foreignId('file_extension');

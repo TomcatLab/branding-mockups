@@ -9,6 +9,7 @@ use App\Models\CartProducts;
 use App\Models\Pages;
 use App\Models\Mockups;
 use App\Models\Configurations;
+use Auth;
 
 
 class CartsController extends Controller
@@ -51,17 +52,25 @@ class CartsController extends Controller
             $this->Configs[$config->key] = $config->value ? $config->value : $config->default;
         }
         $this->Data["Config"] = $this->Configs;
-
+        $this->Data["Cart"] = $this->cart_handler();
     }
 
     public function cart()
     {
         $Cart = $this->Request->session()->get('Cart', []);
-        
+        $User = Auth::user();
+
+        $this->Data['Resources'] = [
+            "UserInfo" => [
+                "name" => $User ? $User->name : '',
+                "email" => $User ? $User->email : ''
+            ]
+        ];
+
         if(!empty($Cart)){
-            $this->Data["Produts"] = $this->CartProducts->where('cart_id',$Cart['Id'])->get();
+            $this->Data["Produts"] = $this->Carts->get_cart_products($Cart['Id']);
         }else{
-            $this->Data["Produts"]  = $this->CartProducts->where('cart_id',0)->get();
+            $this->Data["Produts"]  = $this->CartProducts->where('cart_id',0)->where('deleted_at',null)->get();
         }
 
         $this->Data["BillingInformaion"] = [
@@ -99,32 +108,24 @@ class CartsController extends Controller
         //$this->Request->session()->flush();
 
         $CartSession = $this->Request->session()->get('Cart', null);
-        if(empty($CartSession)){        
-            $CartKey = md5(microtime().rand());
-            $this->Carts->key = $CartKey;
-            $this->Carts->checkout = 0;
-            $this->Carts->save();
-            $CartId = $this->Carts->id;
-            $this->Request->session()->put("Cart",['Key'=> $CartKey, 'Id' => $CartId]);
+
+        if(empty($CartSession)){
+            $CartSession = $this->create_cart();
         }else{
-            $CartKey = $CartSession['Key'];
-            $CartId = $CartSession['Id'];
+            if(!($this->Carts->is_exist($CartSession['Id']))){
+                $CartSession = $this->create_cart();
+            }
         }
 
         $ProductId = $this->Request->input('ProductId');
         
-        $CartProducts = $this->CartProducts->is_exist_in_cart($CartId, $ProductId);
+        $CartProducts = $this->CartProducts->is_exist_in_cart($CartSession['Id'], $ProductId);
 
         if(!$CartProducts) {
             $Mockups = $this->Mockups->where('id',$ProductId)->first();
-            $this->CartProducts->cart_id = $CartId;
+            $this->CartProducts->cart_id = $CartSession['Id'];
             $this->CartProducts->product_id = $ProductId;
-            $this->CartProducts->name = $Mockups->name;
-            $this->CartProducts->description = $Mockups->description;
-            $this->CartProducts->price = $Mockups->price;
-            $this->CartProducts->category_id = $Mockups->category_id;
-            $this->CartProducts->slug = $Mockups->slug;
-            $this->CartProducts->save();       
+            $this->CartProducts->save();
         }
 
         $Data = [
@@ -132,7 +133,21 @@ class CartsController extends Controller
             "key" => "",
             "data" => ""
         ];
-        return response($Data, 200)->header('Content-Type', 'application/json');
+        return response($CartSession, 200)->header('Content-Type', 'application/json');
+    }
+
+    private function create_cart()
+    {
+        $CartKey = md5(microtime().rand());
+
+        $this->Carts->key = $CartKey;
+        $this->Carts->checkout = 0;
+        $this->Carts->save();
+
+        $CartId = $this->Carts->id;
+        $this->Request->session()->put("Cart",['Key'=> $CartKey, 'Id' => $CartId]);
+
+        return ["Key" => $CartKey, "Id" => $CartId];
     }
 
     public function remove_from_cart()
@@ -152,11 +167,11 @@ class CartsController extends Controller
     public function clear_cart()
     {
         $CartSession = $this->Request->session()->get('Cart', null);
-        // $CartKey = $CartSession['Key'];
-        // $CartId = $CartSession['Id'];
+        $CartKey = $CartSession['Key'];
+        $CartId = $CartSession['Id'];
 
-        // $this->CartProducts = CartProducts::where("cart_id",$CartId);
-        // $this->CartProducts->delete();
+        $this->CartProducts = CartProducts::where("cart_id",$CartId);
+        $this->CartProducts->delete();
 
         $messages = [
             "success" => [
@@ -165,5 +180,20 @@ class CartsController extends Controller
         ];    
         
         return redirect()->route('user.cart')->with($messages);
+    }
+
+    private function cart_handler()
+    {
+        //$Cart = $this->Request->session()->get('Cart', []);
+
+        $Return = [
+            "count" => 0
+        ];
+
+        if(!empty($Cart)){
+            $Return['count'] = $this->CartProducts->where('cart_id',$Cart['Id'])->count();
+        }
+
+        return $Return;
     }
 }

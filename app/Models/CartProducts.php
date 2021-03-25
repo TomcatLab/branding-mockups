@@ -45,4 +45,16 @@ class CartProducts extends Model
                             ->first();
         return $CartProducts === null ? false : true;
     }
+
+    public function get_products($CartId = null)
+    {
+        $CartProducts = [];
+        if($CartId){
+            $CartProducts = DB::table($this->CartProductsTable)
+                                ->where('cart_id',$CartId)
+                                ->where('deleted_at',null)
+                                ->get();
+        }
+        return $CartProducts;
+    }
 }

@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use File;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Models\MockupImages;
+use App\Models\Packages;
+use App\Models\Presentations;
+use App\Models\MockupTypes;
+
+
 
 
 class MockupsController extends Controller
@@ -21,20 +27,31 @@ class MockupsController extends Controller
     public $Mockups;
     public $FileExtensions;
     public $MockupCategories;
-
+    public $MockupImages;
+    public $Packages;
+    public $Presentations;
+    public $MockupTypes;
 
     public function __construct(
         Request $Request,
         Mockups $Mockups,
         MockupCategories $MockupCategories,
-        FileExtensions $FileExtensions
+        FileExtensions $FileExtensions,
+        MockupImages $MockupImages,
+        Packages $Packages,
+        Presentations $Presentations,
+        MockupTypes $MockupTypes
     )
     {
         $this->Request = $Request;
         $this->Mockups = $Mockups;
         $this->FileExtensions = $FileExtensions;
         $this->MockupCategories = $MockupCategories;
-
+        $this->MockupImages = $MockupImages;
+        $this->Packages = $Packages;
+        $this->Presentations = $Presentations;
+        $this->MockupTypes = $MockupTypes;
+        $this->middleware('admin');
     }
 
     //
@@ -81,7 +98,8 @@ class MockupsController extends Controller
     {
         $this->Data['Resources'] = [
             "MockupCategories" => $this->MockupCategories->all(),
-            "FileExtensions" => $this->FileExtensions->all()
+            "FileExtensions" => $this->FileExtensions->all(),
+            "MockupTypes" => $this->MockupTypes->all()
         ];
         
         return view('dashboard.pages.mockups.new', $this->Data);
@@ -90,120 +108,9 @@ class MockupsController extends Controller
     public function presentation($MockupId = null)
     {
         $this->Data['Presentation'] = [
-            "Structure" => [
-                "Images" => [
-                    [
-                        "Name" => "Image 1",
-                        "Cols" => [
-                            [
-                                "Title" => "Image",
-                                "Num" => 1,
-                                "Hover" => true
-                            ]
-                        ],
-                    ],
-                    [
-                        "Name" => "Image 1",
-                        "Cols" => [
-                            [
-                                "Title" => "Image",
-                                "Num" => 1,
-                                "Hover" => true
-                            ],
-                            [
-                                "Title" => "Image",
-                                "Num" => 1,
-                                "Hover" => true
-                            ]
-                        ],
-                    ],
-                    [
-                        "Name" => "Image 1",
-                        "Cols" => [
-                            [
-                                "Title" => "Image",
-                                "Num" => 1,
-                                "Hover" => true
-                            ]
-                        ],
-                    ],
-                    [
-                        "Name" => "Image 1",
-                        "Cols" => [
-                            [
-                                "Title" => "Image",
-                                "Num" => 1,
-                                "Hover" => true
-                            ],
-                            [
-                                "Title" => "Image",
-                                "Num" => 1,
-                                "Hover" => true
-                            ]
-                        ],
-                    ],
-                    [
-                        "Name" => "Image 1",
-                        "Cols" => [
-                            [
-                                "Title" => "Image",
-                                "Num" => 1,
-                                "Hover" => true
-                            ]
-                        ],
-                    ],
-                    [
-                        "Name" => "Image 1",
-                        "Cols" => [
-                            [
-                                "Title" => "Image",
-                                "Num" => 1,
-                                "Hover" => true
-                            ],
-                            [
-                                "Title" => "Image",
-                                "Num" => 1,
-                                "Hover" => true
-                            ]
-                        ],
-                    ],
-                    [
-                        "Name" => "Image 1",
-                        "Cols" => [
-                            [
-                                "Title" => "Image",
-                                "Num" => 1,
-                                "Hover" => true
-                            ]
-                        ],
-                    ],
-                    [
-                        "Name" => "Image 1",
-                        "Cols" => [
-                            [
-                                "Title" => "Image",
-                                "Num" => 1,
-                                "Hover" => true
-                            ],
-                            [
-                                "Title" => "Image",
-                                "Num" => 1,
-                                "Hover" => true
-                            ]
-                        ],
-                    ],
-                    [
-                        "Name" => "Slider",
-                        "Cols" => [
-                            [
-                                "Title" => "Image",
-                                "Num" => 1,
-                                "Hover" => true
-                            ]
-                        ],
-                    ],
-                ],
-            ]
+            "Structure" => $this->Presentations->structure(),
+            "Images" => $this->Presentations->where('mockup_id', $MockupId)->first(),
+            "MockupId" => $MockupId
         ];
         return view('dashboard.pages.mockups.presentation', $this->Data);
     }
@@ -219,7 +126,8 @@ class MockupsController extends Controller
             "MockupPrice" => "required",
             //"MockupInformations" => "",
             //"MockupExtension" => "",
-            //'MockupImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'MockupImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'MockupPackage' => 'required|mimes:zip,rar,7zip',
         ];
   
         $Validator = Validator::make($this->Request->all(), $ValidatedRules, []);
@@ -237,9 +145,11 @@ class MockupsController extends Controller
             $MockupPrice = $this->Request->input('MockupPrice');
             $MockupInformations = $this->Request->input('MockupInformations');
             $MockupExtension = $this->Request->input('MockupExtension');
-            $imageName = time().'.'.$this->Request->MockupImage->extension();
+            $MockupType = $this->Request->input('MockupType');
+            $ImageName = time().'.'.$this->Request->MockupImage->extension();
+            $PackageName = time().'.'.$this->Request->MockupPackage->extension();
      
-            $this->Request->MockupImage->storeAs('images', $imageName);
+            //$this->Request->MockupImage->storeAs('images', $ImageName);
     
             $Data = [
                 "name" => $MockupName,
@@ -247,6 +157,7 @@ class MockupsController extends Controller
                 "description" => $MockupDescription,
                 "author" => "1",
                 "category_id" => $MockupCategory,
+                "type_id" => $MockupType,
                 "slug" => $MockupSlug,
                 "price" => $MockupPrice,
                 "info" => $MockupInformations,
@@ -259,11 +170,39 @@ class MockupsController extends Controller
             if($Id){
                 $this->Mockups->where('id', $Id)->update($Data);
             }else{
-                $this->Mockups->insert($Data);
+                $this->Mockups->name = $MockupName;
+                $this->Mockups->keywords = $MockupKeywords;
+                $this->Mockups->description = $MockupDescription;
+                $this->Mockups->author  = 1;
+                $this->Mockups->category_id = $MockupCategory;
+                $this->Mockups->slug = $MockupSlug;
+                $this->Mockups->price = $MockupPrice;
+                $this->Mockups->info = $MockupInformations;
+                $this->Mockups->file_extension = $MockupExtension;
+                $this->Mockups->type_id = $MockupType;
+                $this->Mockups->size = 1;
+                $this->Mockups->dimensions = 1;
+                $this->Mockups->license = 1;
+                $this->Mockups->save();
+                $Id = $this->Mockups->id;
+                $Data = [
+                    "mockup_id" => $Id,
+                ];
+                $this->Presentations->insert($Data);
             }
             
-            $MockupPathUploadPath = public_path('users/assets/images/products/5');
-            $MockupPathUploadThumb = public_path('users/assets/images/products/5/thumb');
+            $MockupPathUploadPath = public_path('users/assets/images/products/'.$Id);
+            $MockupPathUploadThumb = public_path('users/assets/images/products/'.$Id.'/thumb');
+            $MockupPublicPath = '/users/assets/images/products/'.$Id;
+            $MockupPublicThumb = '/users/assets/images/products/'.$Id.'/thumb';
+
+            if ($this->Request->hasFile('MockupPackage')) {
+                $this->Request->MockupPackage->storeAs('packages', $PackageName);
+                $this->Packages->filename = $PackageName;
+                $this->Packages->mockup_id = $Id;
+                $this->Packages->save();
+            }
+
 
             if (!file_exists($MockupPathUploadPath)) {
                 File::makeDirectory($MockupPathUploadPath);
@@ -272,11 +211,52 @@ class MockupsController extends Controller
                 File::makeDirectory($MockupPathUploadThumb);
             }
 
-            $this->Request->MockupImage->move($MockupPathUploadPath, $imageName);
+            $this->Request->MockupImage->move($MockupPathUploadPath, $ImageName);
+
+            if($ImageName){
+                $this->MockupImages->mockup_id = $Id;
+                $this->MockupImages->filename = $ImageName;
+                $this->MockupImages->url = $MockupPublicPath;
+                $this->MockupImages->preview = 1;
+                $this->MockupImages->full_url = $MockupPublicPath.'/'.$ImageName;
+                $this->MockupImages->save();
+            }
 
             return redirect()->route('admin.products.mockups.list');
         }
        
+    }
+
+    public function save_presentation_img()
+    {
+        $MockupId = $this->Request->input('mockup_id');
+        $Row = $this->Request->input('row');
+        $Col = $this->Request->input('col');
+        $Hov = $this->Request->input('hov');
+        $MockupPathUploadPath = public_path('users/assets/images/products/'.$MockupId);
+        $MockupPathUploadThumb = public_path('users/assets/images/products/'.$MockupId.'/thumb');
+        $ImageName = time().'.'.$this->Request->Image->extension();
+
+        $this->Request->Image->move($MockupPathUploadPath, $ImageName);
+
+        if($Hov)
+            $field = "img_h_".$Row."_".$Col;
+        else
+            $field = "img_".$Row."_".$Col;
+        
+        if($this->Presentations->is_exist($MockupId)){
+            $Data = [
+                $field => $ImageName
+            ];
+            $this->Presentations->where('mockup_id', $MockupId)->update($Data);
+        }else{
+            $Data = [
+                "mockup_id" => $MockupId,
+                $field => $ImageName
+            ];
+            $this->Presentations->insert($Data);
+        }
+        return redirect()->route('admin.products.mockups.presentation',$MockupId);
     }
 
     public function delete($MockupId = null)

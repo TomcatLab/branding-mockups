@@ -17,11 +17,6 @@ class CreateCartProductsTable extends Migration
             $table->id();
             $table->foreignId('cart_id');
             $table->foreignId('product_id');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->integer('price');
-            $table->foreignId('category_id');
-            $table->string('slug');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

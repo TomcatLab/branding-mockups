@@ -28,16 +28,27 @@
             </div>
             <div class="row">
                 <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">3,897</h3>
+                <h3 class="mb-2">{{ $data['customers']['new'] }}</h3>
                 <div class="d-flex align-items-baseline">
+                    @if($data['customers']['status'] == 'up')
                     <p class="text-success">
-                    <span>+3.3%</span>
-                    <i data-feather="arrow-up" class="icon-sm mb-1"></i>
+                        <span>{{ $data['customers']['statusNumber'] }}</span>
+                        <i data-feather="arrow-up" class="icon-sm mb-1"></i>
                     </p>
+                    @else
+                    <p class="text-danger">
+                    <span>-{{ $data['customers']['statusNumber'] }}</span>
+                        <i data-feather="arrow-down" class="icon-sm mb-1"></i>
+                    </p>
+                    @endif
                 </div>
                 </div>
                 <div class="col-6 col-md-12 col-xl-7">
-                <div id="apexChart1" class="mt-md-3 mt-xl-0"></div>
+                <div id="newCustomers" class="mt-md-3 mt-xl-0"></div>
+                <script>
+                    let newCustomers = "{!! $data['customers']['allJson'] !!}";
+                    newCustomers = newCustomers.split(",");
+                </script>
                 </div>
             </div>
             </div>

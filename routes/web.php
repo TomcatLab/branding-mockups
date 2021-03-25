@@ -55,10 +55,6 @@ Route::group(['prefix'=>'user'], function () {
     Route::get('/account/{Page}', [
         AccountController::class, 'index'
     ])->name('user.account');
-
-    Route::get('/cart', [
-        CartsController::class, 'cart'
-    ])->name('user.cart');
     
     Route::post('/cart/add-item', [
         CartsController::class, 'add_to_cart'
@@ -72,9 +68,24 @@ Route::group(['prefix'=>'user'], function () {
         CartsController::class, 'clear_cart'
     ])->name('user.cart.clear.items');
 
+    Route::get('/cart', [
+        CartsController::class, 'cart'
+    ])->name('user.cart');
+
+    Route::get('/makeorder', [
+        AccountController::class, 'make_order'
+    ])->name('user.make-order');
+
+    Route::get('/download/{id}', [
+        AccountController::class, 'download'
+    ])->name('user.package-download');
 });
 
 Route::group(['prefix'=>'admin'],function(){
+
+    Route::get('/',  function () {
+        return redirect('admin/analytics');
+    })->middleware('admin');
 
     // Analytics
     Route::get('/login', [
@@ -84,10 +95,6 @@ Route::group(['prefix'=>'admin'],function(){
     Route::post('/login', [
         LoginController::class, 'admin_login'
     ])->name('admin.login');
-
-    Route::get('/', [
-        AnalyticsController::class, 'index'
-    ]);
 
     Route::get('analytics', [
         AnalyticsController::class, 'index'
@@ -176,6 +183,10 @@ Route::group(['prefix'=>'admin'],function(){
             MockupsController::class, 'presentation'
         ])->name('admin.products.mockups.presentation');
 
+        Route::post('presentation-image-upload',[
+            MockupsController::class, 'save_presentation_img'
+        ])->name('admin.products.mockups.presentation-save');
+
         Route::get('mockups-delete/{id}',[
             MockupsController::class, 'delete'
         ])->name('admin.products.mockups-delete');
@@ -237,29 +248,35 @@ Route::group(['prefix'=>'admin'],function(){
     });
 });
 
-Auth::routes();
-Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Auth::routes();
 
-Route::get('payment-razorpay',[
-    PaymentController::class, 'create'
-])->name('paywithrazorpay');
+    Route::get('/logout',[
+        LoginController::class, 'logout'
+    ]);
 
-Route::post('payment',[
-    PaymentController::class, 'payment'
-])->name('payment');
+    Route::get('/home', [
+        HomeController::class, 'index'
+    ])->name('home');
 
-//payment form
-Route::get('paypal',[
-    PaymentController::class, 'index'
-])->name('paypal');
+    Route::get('payment-razorpay',[
+        PaymentController::class, 'create'
+    ])->name('paywithrazorpay');
 
-// route for processing payment
-Route::post('paypal', [
-    PaymentController::class, 'payWithpaypal'
-])->name('paypal');
+    Route::post('payment',[
+        PaymentController::class, 'payment'
+    ])->name('payment');
 
-// route for check status of the payment
-Route::get('status',[
-    PaymentController::class, 'getPaymentStatus'
-])->name('status');
+    //payment form
+    Route::get('paypal',[
+        PaymentController::class, 'index'
+    ])->name('paypal');
+
+    // route for processing payment
+    Route::post('paypal', [
+        PaymentController::class, 'payWithpaypal'
+    ])->name('paypal');
+
+    // route for check status of the payment
+    Route::get('status',[
+        PaymentController::class, 'getPaymentStatus'
+    ])->name('status');

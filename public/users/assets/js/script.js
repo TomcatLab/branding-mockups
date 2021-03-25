@@ -80,9 +80,17 @@ $(document).ready(function(){
 
     $('.selectPayment').click(function(){
         $(".btn-payment").addClass('d-none');
+        $(".selectPayment").removeClass('active');
         let selectedPayment = $(this).attr('data-payment');
         $("#"+selectedPayment).removeClass('d-none');
+        $("#option-"+selectedPayment).addClass('active');
     });
+
+    $('a.download').click(function(e) {
+        e.preventDefault();  //stop the browser from following        
+        window.location.href = $(this).attr('href');
+    });
+
 });
 
 function AddToCart(product_id){

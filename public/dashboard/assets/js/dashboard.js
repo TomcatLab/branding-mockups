@@ -231,7 +231,7 @@ $(function() {
   // Flot chart1 end
 
   // Apex chart1 start
-  if($('#apexChart1').length) {
+  if($('#newCustomers').length) {
     var options1 = {
       chart: {
         type: "line",
@@ -241,7 +241,7 @@ $(function() {
         }
       },
       series: [{
-          data: [3844, 3855, 3841, 3867, 3822, 3843, 3821, 3841, 3856, 3827, 3843]
+          data: newCustomers
       }],
       stroke: {
         width: 2,
@@ -270,7 +270,7 @@ $(function() {
         }
       }
     };
-    new ApexCharts(document.querySelector("#apexChart1"),options1).render();
+    new ApexCharts(document.querySelector("#newCustomers"),options1).render();
   }
   // Apex chart1 end
 

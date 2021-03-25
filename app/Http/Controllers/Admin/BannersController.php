@@ -25,6 +25,7 @@ class BannersController extends Controller
         $this->Banners = $Banners;
         $this->Request = $Request;
         $this->BannerImages = $BannerImages;
+        $this->middleware('admin');
     }
     //
     public function index()

@@ -10,20 +10,79 @@ if(typeof PageId !== 'undefined' ){
         stylable: false,
         styleManager : {
           sectors: Styles,
-        },
+        },  
         storageManager: {
           type: 'remote',
-          stepsBeforeSave: 3,
-          urlStore: 'http://127.0.0.1:8000/admin/cms/page-edit/'+PageId,
-          urlLoad: 'http://127.0.0.1:8000/admin/cms/page-edit/'+PageId,
-          // For custom parameters/headers on requests
+          // stepsBeforeSave: 3,
+          // urlStore: _url +'admin/cms/page-edit/'+PageId,
+          // urlLoad: _url +'admin/cms/page-edit/'+PageId,
+          // // For custom parameters/headers on requests
           params: {
             _token: CSRF_token,
             publish: 0
-           },
-          //headers: { Authorization: 'Basic ...' },
+          },
+          // headers: { Authorization: 'Basic ' },
+          id: 'gjs-',             // Prefix identifier that will be used on parameters
+          //type: 'local',          // Type of the storage
+          autosave: false,         // Store data automatically
+          autoload: true,         // Autoload stored data on init
+          stepsBeforeSave: 3,     // If autosave enabled, indicates how many changes are necessary before store method is triggered
+        }
+        
+    });
+    editor.Panels.addButton
+    ('options',
+      [{
+        id: 'save-db',
+        className: 'fa fa-floppy-o',
+        command: 'save-db',
+        attributes: {title: 'Save DB'}
+      }]
+    );
+    editor.Commands.add
+    ('save-db',
+    {
+        run: function(editor, sender)
+        {
+          sender && sender.set('active', 0); // turn off the button
+          editor.store();
+
+          var htmldata = editor.getHtml();
+          var cssdata = editor.getCss();
+          //_csrf_token
+          //_url +'/admin/cms/page-edit/'+PageId
+          $.ajax({
+            type: "POST",
+            url: _url +'/admin/cms/page-edit/'+PageId,
+            data: {
+              _token: _csrf_token,
+            },
+            success: function(){
+
+            },
+            dataType: 'json'
+          });
         }
     });
+    editor.Panels.addButton
+    ('options',
+      [{
+        id: 'page-back',
+        className: 'fa fa-arrow-left',
+        command: 'page-back',
+        attributes: {title: 'Page Back'}
+      }]
+    );
+    editor.Commands.add
+    ('page-back',
+    {
+        run: function(editor, sender)
+        {
+          //window.location.href = "http://www.w3schools.com";
+          window.location.replace(_url+"/admin/cms/pages-list");
+        }
+    });
+
     if(typeof Blocks !== 'undefined'){
       $(Blocks).each(function(index, value) {
         editor.BlockManager.add(value.key, {

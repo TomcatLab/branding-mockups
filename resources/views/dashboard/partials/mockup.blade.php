@@ -1,5 +1,5 @@
 <div class="card">
-    <img src="{{URL::to('dashboard/assets/images/placeholder.jpg')}}" class="card-img-top" alt="...">
+    <img src="{{URL::to( $Mockup->full_url )}}" class="card-img-top" alt="...">
     <div class="card-body">
         <h5 class="card-title">{{ $Mockup->mockup_name }}</h5>
         <p class="card-text">{{ $Mockup->category_name}}</p>

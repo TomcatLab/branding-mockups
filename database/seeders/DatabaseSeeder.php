@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PageTypesSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(PageComponentsSeeder::class);
+        $this->call(MockupTypesSeeder::class);
     }
 }

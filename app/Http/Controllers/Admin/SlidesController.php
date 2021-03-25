@@ -26,6 +26,7 @@ class SlidesController extends Controller
         $this->Sliders = $Sliders;
         $this->Request = $Request;
         $this->SliderImages = $SliderImages;
+        $this->middleware('admin');
     }
     //
     public function index()

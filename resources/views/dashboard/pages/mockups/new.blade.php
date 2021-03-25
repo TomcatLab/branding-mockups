@@ -21,14 +21,29 @@
                         <label for="MockupDescription">Description</label>
                         <textarea class="form-control" id="MockupDescription" name="MockupDescription" rows="5">{{ old('MockupDescription') }}</textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="MockupCategory">Category</label>
-                        <select class="form-control" id="MockupCategory" name="MockupCategory">
-                            <option selected disabled>Select Category</option>
-                            @foreach($Resources['MockupCategories'] as $MockupCategory)
-                            <option value="{{ $MockupCategory->id }}" {{ $MockupCategory->id  == old('MockupCategory') ? 'selected' : '' }} >{{ $MockupCategory->name }}</option>
-                            @endforeach
-                        </select>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="MockupCategory">Category</label>
+                                <select class="form-control" id="MockupCategory" name="MockupCategory">
+                                    <option selected disabled>Select Category</option>
+                                    @foreach($Resources['MockupCategories'] as $MockupCategory)
+                                    <option value="{{ $MockupCategory->id }}" {{ $MockupCategory->id  == old('MockupCategory') ? 'selected' : '' }} >{{ $MockupCategory->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="MockupTypes">Types</label>
+                                <select class="form-control" id="MockupTypes" name="MockupType">
+                                    <option selected disabled>Select Category</option>
+                                    @foreach($Resources['MockupTypes'] as $MockupType)
+                                    <option value="{{ $MockupType->id }}" {{ $MockupType->id  == old('MockupType') ? 'selected' : '' }} >{{ $MockupType->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="MockupSlug">Slug</label>
@@ -38,9 +53,9 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label>Package</label>
-                                <input type="file" name="package" class="file-upload-default">
+                                <input type="file" name="MockupPackage" class="file-upload-default" accept=".zip,.rar,.7zip">
                                 <div class="input-group col-xs-12">
-                                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">
+                                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Package">
                                     <span class="input-group-append">
                                         <button class="file-upload-browse btn btn-primary" type="button">Zip</button>
                                     </span>
@@ -52,7 +67,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label>Thumbnail image</label>
-                                <input type="file" name="MockupImage" class="file-upload-default">
+                                <input type="file" name="MockupImage" class="file-upload-default" accept="image/png, image/jpeg,image/jpg">
                                 <div class="input-group col-xs-12">
                                     <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">
                                     <span class="input-group-append">

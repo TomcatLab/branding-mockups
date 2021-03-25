@@ -27,6 +27,7 @@ class ShowcaseController extends Controller
         $this->Request = $Request;
         $this->MockupCategories = $MockupCategories;
         $this->Showcases = $Showcases;
+        $this->middleware('admin');
     }
 
     //

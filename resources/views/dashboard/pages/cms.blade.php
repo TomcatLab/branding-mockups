@@ -26,7 +26,12 @@
               @foreach($Page['Pages'] as $Item)
                 <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
 									<div class="d-flex align-items-center hover-pointer">
-                    <i data-feather="file"></i>												
+                    @if($Item->parent_id)
+                      <i data-feather="file-text"></i>
+                    @else
+                      <i data-feather="file"></i>
+                    @endif
+
 										<div class="ml-2">
                       <p>{{$Item->name}}</p>
                       <p class="tx-11 text-muted">[{{$Item->slug}}]</p>

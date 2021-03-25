@@ -20,6 +20,7 @@ class EmailsController extends Controller
     {
         $this->Emails = $Emails;
         $this->Request = $Request;
+        $this->middleware('admin');
     }
     //
     public function index()

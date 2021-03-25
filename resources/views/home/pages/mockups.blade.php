@@ -1,7 +1,7 @@
 @extends("home.layout")
 
 @section('content')
-<div class="container"><div class="container"><div class="container"><div class="pagehead"><h1 id="i0vw">High Quality Free &amp; Premium Mockups Home</h1><div class="h4">Showcase Your Work With Professional Mockup</div></div></div></div><section class="page">
+<div class="pagehead"><h1>High Quality Free & Premium Mockups</h1><div class="h4">Showcase Your Work With Professional Mockup</div></div><section class="page">
     <div class="container">
     <div class="row">
         @foreach($PageData['mockups'] as $mockup )
@@ -12,5 +12,5 @@
     </div>
     @include('home.partials.pagination')
 </div>
-</section></div>
+</section>
 @endsection

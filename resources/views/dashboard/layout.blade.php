@@ -50,7 +50,9 @@
     </div>
 
     <script>
-        var URL = "{{URL::to('')}}";
+        var _url = "{{URL::to('')}}";
+        var _token = "";
+        var _csrf_token = "{{ csrf_token() }}";
     </script>
     <!-- core:js -->
     <script src="{{URL::to('dashboard/assets/vendors/core/core.js')}}"></script>
