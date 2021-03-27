@@ -118,6 +118,11 @@ Route::group(['prefix'=>'admin'],function(){
             CmsController::class, 'publish'
         ])->name('admin.cms.page-publish');
 
+        
+        Route::get('page-new', [
+            CmsController::class, 'new_page'
+        ])->name('admin.cms.page-new');
+
         Route::post('page-add', [
             CmsController::class, 'add'
         ])->name('admin.cms.page-add');
@@ -175,7 +180,15 @@ Route::group(['prefix'=>'admin'],function(){
             MockupsController::class, 'new'
         ])->name('admin.products.mockups.new');
 
+        Route::get('mockups-edit/{id}',[
+            MockupsController::class, 'new'
+        ])->name('admin.products.mockups.edit');
+
         Route::post('mockups-new',[
+            MockupsController::class, 'save'
+        ])->name('admin.products.mockups.new');
+
+        Route::post('mockups-new/{id}',[
             MockupsController::class, 'save'
         ])->name('admin.products.mockups.new');
 
@@ -248,35 +261,38 @@ Route::group(['prefix'=>'admin'],function(){
     });
 });
 
-    Auth::routes();
+Auth::routes();
 
-    Route::get('/logout',[
-        LoginController::class, 'logout'
-    ]);
+Route::get('/logout',[
+    LoginController::class, 'logout'
+]);
 
-    Route::get('/home', [
-        HomeController::class, 'index'
-    ])->name('home');
+Route::get('/home', [
+    HomeController::class, 'index'
+])->name('home');
 
-    Route::get('payment-razorpay',[
-        PaymentController::class, 'create'
-    ])->name('paywithrazorpay');
+// Payments
 
-    Route::post('payment',[
-        PaymentController::class, 'payment'
-    ])->name('payment');
+// Razorpay
+Route::post('payment',[
+    PaymentController::class, 'payment'
+])->name('payment');
 
-    //payment form
-    Route::get('paypal',[
-        PaymentController::class, 'index'
-    ])->name('paypal');
+Route::get('payment-razorpay',[
+    PaymentController::class, 'create'
+])->name('paywithrazorpay');
 
-    // route for processing payment
-    Route::post('paypal', [
-        PaymentController::class, 'payWithpaypal'
-    ])->name('paypal');
+// Paypal
+Route::get('paypal',[
+    PaymentController::class, 'index'
+])->name('paypal');
 
-    // route for check status of the payment
-    Route::get('status',[
-        PaymentController::class, 'getPaymentStatus'
-    ])->name('status');
+// route for processing payment
+Route::post('paypal', [
+    PaymentController::class, 'payWithpaypal'
+])->name('paypal');
+
+// route for check status of the payment
+Route::get('status',[
+    PaymentController::class, 'getPaymentStatus'
+])->name('status');

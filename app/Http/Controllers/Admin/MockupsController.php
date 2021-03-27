@@ -89,20 +89,30 @@ class MockupsController extends Controller
             "show_restore" => false
         ];
         $this->Data['resources'] = [
-            "Mockups" => $this->Mockups->by_groups()
+            "Mockups" => $this->Mockups->by_groups(),
+            "Categories" => $this->MockupCategories->all(),
+            "Extensions" => $this->FileExtensions->all()
         ];
         return view('dashboard.pages.mockups.all', $this->Data);
     }
 
-    public function new()
+    public function new($id = null)
     {
         $this->Data['Resources'] = [
             "MockupCategories" => $this->MockupCategories->all(),
             "FileExtensions" => $this->FileExtensions->all(),
-            "MockupTypes" => $this->MockupTypes->all()
+            "MockupTypes" => $this->MockupTypes->all(),
         ];
         
-        return view('dashboard.pages.mockups.new', $this->Data);
+        if($id){
+            $this->Data['Resources']["MockupId"] = $id;
+            $this->Data['Resources']["Mockup"] = $this->Mockups->find($id)->first();
+            $this->Data['Resources']["Package"] = $this->Packages->where("mockup_id",$id)->first();
+            return view('dashboard.pages.mockups.edit', $this->Data);
+        }else{
+            return view('dashboard.pages.mockups.new', $this->Data);
+        }
+
     }
     
     public function presentation($MockupId = null)
@@ -126,9 +136,11 @@ class MockupsController extends Controller
             "MockupPrice" => "required",
             //"MockupInformations" => "",
             //"MockupExtension" => "",
-            'MockupImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'MockupPackage' => 'required|mimes:zip,rar,7zip',
         ];
+        if($Id == null){
+            $ValidatedRules['MockupImage'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+            $ValidatedRules['MockupPackage'] = 'required|mimes:zip,rar,7zip';
+        }
   
         $Validator = Validator::make($this->Request->all(), $ValidatedRules, []);
 
@@ -146,8 +158,10 @@ class MockupsController extends Controller
             $MockupInformations = $this->Request->input('MockupInformations');
             $MockupExtension = $this->Request->input('MockupExtension');
             $MockupType = $this->Request->input('MockupType');
-            $ImageName = time().'.'.$this->Request->MockupImage->extension();
-            $PackageName = time().'.'.$this->Request->MockupPackage->extension();
+            if($this->Request->MockupImage)
+                $ImageName = time().'.'.$this->Request->MockupImage->extension();
+            if($this->Request->MockupPackage)
+                $PackageName = time().'.'.$this->Request->MockupPackage->extension();
      
             //$this->Request->MockupImage->storeAs('images', $ImageName);
     
@@ -211,9 +225,10 @@ class MockupsController extends Controller
                 File::makeDirectory($MockupPathUploadThumb);
             }
 
-            $this->Request->MockupImage->move($MockupPathUploadPath, $ImageName);
+            if(isset($ImageName) && $ImageName)
+                $this->Request->MockupImage->move($MockupPathUploadPath, $ImageName);
 
-            if($ImageName){
+            if(isset($ImageName) && $ImageName){
                 $this->MockupImages->mockup_id = $Id;
                 $this->MockupImages->filename = $ImageName;
                 $this->MockupImages->url = $MockupPublicPath;

@@ -173,3 +173,11 @@ $(function() {
     });
   }
 });
+
+$(document).ready(function(){
+  $('.bannerSlider').change(function(){
+    $('.banner-slider-option').addClass('d-none');
+    var id = $(this).val();
+    $('#'+id).removeClass('d-none');
+  });
+});

@@ -1,5 +1,9 @@
 <div class="card">
-    <img src="{{URL::to('dashboard/assets/images/placeholder.jpg')}}" class="card-img-top" alt="...">
+    @if($Showcase->image_full_path)
+        <img src="{{URL::to($Showcase->image_full_path)}}" class="card-img-top" alt="...">
+    @else
+        <img src="{{URL::to('dashboard/assets/images/placeholder.jpg')}}" class="card-img-top" alt="...">
+    @endif
     <div class="card-body">
         <h5 class="card-title">{{ $Showcase->label }}</h5>
         <p class="card-text">{{ $Showcase->category_name }}{{ $Showcase->user }}</p>

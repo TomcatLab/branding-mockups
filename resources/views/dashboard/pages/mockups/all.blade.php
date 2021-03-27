@@ -5,7 +5,7 @@
 
 <div class="row">
     @foreach($resources['Mockups'] as $Mockup)
-    <div class="col-12 col-md-3 stretch-card">
+    <div class="col-12 col-md-2 stretch-card">
         @include('dashboard.partials.mockup')
     </div>
     @endforeach
@@ -24,6 +24,16 @@
           <div class="form-group">
             <label for="GroupName" class="col-form-label">Group Name:</label>
             <input type="text" class="form-control" id="GroupName" name="GroupName">
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h6>Categories</h6>
+              <ul class="list-group list-group-flush">
+                @foreach($resources['Categories'] as $Category)
+                <li class="list-group-item">{{ $Category->name }}</li>
+                @endforeach
+              </ul>
+            </div>
           </div>
       </div>
       <div class="modal-footer">
@@ -48,6 +58,16 @@
           <div class="form-group">
             <label for="ExtensionName" class="col-form-label">Extension Name:</label>
             <input type="text" class="form-control" id="ExtensionName" name="ExtensionName">
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h6>Extensions</h6>
+              <ul class="list-group list-group-flush">
+                @foreach($resources['Extensions'] as $Extension)
+                <li class="list-group-item">{{ $Extension->name }}</li>
+                @endforeach
+              </ul>
+            </div>
           </div>
       </div>
       <div class="modal-footer">

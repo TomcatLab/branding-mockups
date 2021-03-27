@@ -8,6 +8,8 @@ use App\Models\PageGroups;
 use App\Models\Pages;
 use App\Models\PageContent;
 use App\Models\PageBlocks;
+use App\Models\Sliders;
+use App\Models\Banners;
 use App\Models\PageComponents;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -24,6 +26,8 @@ class CmsController extends Controller
     public $PageContent;
     public $PageBlocks;
     public $PageComponents;
+    public $Sliders;
+    public $Banners;
 
     public function __construct(
         Request $request,
@@ -32,7 +36,9 @@ class CmsController extends Controller
         Pages $Pages,
         PageContent $PageContent,
         PageBlocks $PageBlocks,
-        PageComponents $PageComponents
+        PageComponents $PageComponents,
+        Sliders $Sliders,
+        Banners $Banners
     )
     {
         $this->Request = $request;
@@ -42,9 +48,44 @@ class CmsController extends Controller
         $this->PageContent = $PageContent;
         $this->PageBlocks = $PageBlocks;
         $this->PageComponents = $PageComponents;
+        $this->Sliders = $Sliders;
+        $this->Banners = $Banners;
     }
 
     public function index()
+    {
+        $this->Data['page'] = [
+            "header" => [
+                "style" => "regular",
+                "label" => "Pages",
+                "buttons" => [
+                    [
+                        "label" => "New Page",
+                        "style" => "primary",
+                        "action" => "link",
+                        "icon" => "file-plus",
+                        "link" => "admin/cms/page-new"
+                    ],
+                    [
+                        "label" => "New Group",
+                        "style" => "primary",
+                        "action" => "model",
+                        "icon" => "file-plus",
+                        "target" => "newGroupModal"
+                    ]
+                ]
+            ],
+        ];
+        $this->Data['Resource'] = [
+            "Pages" => $this->Pages->by_groups(),
+            "Groups" => $this->PageGroups->all(),
+            "PageTypes" => $this->PageTypes->all(),
+            "AllPages" => []
+        ];
+        return view('dashboard.pages.cms.cms', $this->Data);
+    }
+
+    public function new_page($id = null)
     {
         $this->Data['page'] = [
             "header" => [
@@ -72,9 +113,11 @@ class CmsController extends Controller
             "Pages" => $this->Pages->by_groups(),
             "Groups" => $this->PageGroups->all(),
             "PageTypes" => $this->PageTypes->all(),
+            "Sliders" => $this->Sliders->all(),
+            "Banners" => $this->Banners->all(),
             "AllPages" => []
         ];
-        return view('dashboard.pages.cms', $this->Data);
+        return view('dashboard.pages.cms.new', $this->Data);
     }
 
     public function add()

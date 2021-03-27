@@ -21,6 +21,7 @@ class Showcases extends Model
                      'label',
                      'user',
                      'behance_url',
+                     'image_full_path',
                      'mockup_categories.name as category_name'
                     )
             ->where('showcases.deleted_at', null)

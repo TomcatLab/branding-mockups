@@ -19,6 +19,7 @@ class CreateShowcasesTable extends Migration
             $table->string('user')->nullable();
             $table->foreignId('category_id');
             $table->string('behance_url');
+            $table->string('image_full_path')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

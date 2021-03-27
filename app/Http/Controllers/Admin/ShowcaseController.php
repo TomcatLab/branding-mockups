@@ -8,6 +8,8 @@ use App\Models\Showcases;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use File;
+use Intervention\Image\ImageManagerStatic as Image;
 
 
 class ShowcaseController extends Controller
@@ -64,6 +66,7 @@ class ShowcaseController extends Controller
             'ShowcaseLabel' => 'required',
             "ShowcaseCategory" => 'required',
             "BehanceProjectUrl" => 'required',
+            "ShowcaseImage" => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
 
         $Validator = Validator::make($this->Request->all(), $ValidationRules, []);
@@ -77,11 +80,19 @@ class ShowcaseController extends Controller
             $ShowcaseCategory = $this->Request->input('ShowcaseCategory');
             $BehanceProjectUrl = $this->Request->input('BehanceProjectUrl');
             //$ShowcaseUser = $this->Request->input('ShowcaseUser');
+            if($this->Request->ShowcaseImage){
+                $ImageName = time().'.'.$this->Request->ShowcaseImage->extension();
+                $ShowcasePathUploadPath = public_path('users/assets/images/showcase/');
+                $ShowcaseFullPath = 'users/assets/images/showcase/'.$ImageName;
 
+                $this->Request->ShowcaseImage->move($ShowcasePathUploadPath, $ImageName);
+
+            }
            
             $this->Showcases->label = $ShowcaseLabel;
             $this->Showcases->category_id = $ShowcaseCategory;
             $this->Showcases->behance_url = $BehanceProjectUrl;
+            $this->Showcases->image_full_path = $ShowcaseFullPath ? $ShowcaseFullPath : null;
             $this->Showcases->save();
 
             $messages = [

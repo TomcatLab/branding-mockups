@@ -7,7 +7,7 @@
 
 <div class="row">
     @foreach($resources['Showcases'] as $Showcase)
-    <div class="col-12 col-md-3 stretch-card">
+    <div class="col-12 col-md-2 stretch-card">
       @include('dashboard.partials.showcase')
     </div>
     @endforeach

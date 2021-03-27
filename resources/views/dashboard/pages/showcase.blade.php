@@ -7,7 +7,7 @@
 
 <div class="row">
     @foreach($resources['Showcases'] as $Showcase)
-    <div class="col-12 col-md-3 stretch-card">
+    <div class="col-12 col-md-2 stretch-card">
       @include('dashboard.partials.showcase')
     </div>
     @endforeach
@@ -22,7 +22,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        {{ Form::open(array('url' => route('admin.products.showcases'))) }}
+        {{ Form::open(array('url' => route('admin.products.showcases'), "method" => "post",'files' => 'true')) }}
         <div class="modal-body">
             <div class="form-group">
               <label for="ShowcaseLabel" class="col-form-label">Showcase Label:</label>
@@ -40,6 +40,16 @@
                 <option value="{{ $MockupCategory->id }}" >{{ $MockupCategory->name }}</option>
                 @endforeach
               </select>
+            </div>
+            <div class="form-group">
+                <label>Thumbnail image</label>
+                <input type="file" name="ShowcaseImage" class="file-upload-default" accept="image/png, image/jpeg,image/jpg">
+                <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">
+                    <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                    </span>
+                </div>
             </div>
             <div class="form-group">
               <label for="BehanceProjectUrl" class="col-form-label">Behance Project URL:</label>
