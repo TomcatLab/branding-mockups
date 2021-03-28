@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-body">
                 <h6 class="card-title">New Mockup</h6>
-                {{ Form::open(array('url' => route('admin.products.mockups.new', $Resources['MockupId']), "method" => "post",'files' => 'true')) }}
+                {{ Form::open(array('url' => route('admin.products.mockups.edit', $Resources['MockupId']), "method" => "post",'files' => 'true')) }}
                     <input type="hidden" name="MockupAuthor">
                     <input type="hidden" name="id" value="{{ $Resources['MockupId'] }}">
                     <div class="form-group">

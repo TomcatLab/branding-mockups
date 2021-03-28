@@ -44,7 +44,7 @@
                     <a class="btn btn-link" href="{{ route('admin.cms.page-edit',$Item->page_id) }}" role="button">
                       <i data-feather="align-left" data-toggle="tooltip" title="Manage Content" width="16" height="16" ></i>
                     </a>
-                    <a class="btn btn-link" href="{{ $Item->page_id }}" role="button"  data-toggle="modal" data-target="#editPageModal">
+                    <a class="btn btn-link" href="{{ route('admin.cms.page-edit-prop',$Item->page_id) }}" role="button">
                       <i data-feather="edit" data-toggle="tooltip" title="Edit Page Propertis" width="16" height="16" ></i>
                     </a>
                     <a   href="{{ $Item->page_id }}"  role="button" class="btn btn-link" onclick="showSwal('passing-parameter-execute-cancel')">

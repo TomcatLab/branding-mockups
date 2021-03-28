@@ -119,18 +119,27 @@ Route::group(['prefix'=>'admin'],function(){
         ])->name('admin.cms.page-publish');
 
         
-        Route::get('page-new', [
-            CmsController::class, 'new_page'
-        ])->name('admin.cms.page-new');
+        Route::get('page-new-prop', [
+            CmsController::class, 'new_page_prop'
+        ])->name('admin.cms.page-new-prop');
 
-        Route::post('page-add', [
-            CmsController::class, 'add'
-        ])->name('admin.cms.page-add');
+        Route::get('page-edit-prop/{id}', [
+            CmsController::class, 'new_page_prop'
+        ])->name('admin.cms.page-edit-prop');
+
+        Route::post('page-new-prop', [
+            CmsController::class, 'add_prop'
+        ])->name('admin.cms.page-new-prop');
+
+        Route::post('page-edit-prop/{id}', [
+            CmsController::class, 'add_prop'
+        ])->name('admin.cms.page-edit-prop');
+
 
         Route::get('pages-trash',[
             CmsController::class, 'trash'
         ]);
-
+        
         Route::post('page-group',[
             CmsController::class, 'new_group'
         ])->name('admin.cms.page-group');
@@ -188,7 +197,7 @@ Route::group(['prefix'=>'admin'],function(){
             MockupsController::class, 'save'
         ])->name('admin.products.mockups.new');
 
-        Route::post('mockups-new/{id}',[
+        Route::post('mockups-edit/{id}',[
             MockupsController::class, 'save'
         ])->name('admin.products.mockups.new');
 

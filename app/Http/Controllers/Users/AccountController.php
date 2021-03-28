@@ -88,7 +88,8 @@ class AccountController extends Controller
 
     public function download($PackageId)
     {
-        return Storage::download('packages/1614254250.zip');
+        $Package = $this->Packages->find($PackageId)->first();
+        return Storage::download('packages/'.$Package->filename);
     }
 
 }

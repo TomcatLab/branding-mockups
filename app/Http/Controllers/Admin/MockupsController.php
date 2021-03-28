@@ -106,7 +106,7 @@ class MockupsController extends Controller
         
         if($id){
             $this->Data['Resources']["MockupId"] = $id;
-            $this->Data['Resources']["Mockup"] = $this->Mockups->find($id)->first();
+            $this->Data['Resources']["Mockup"] = $this->Mockups->where("id",$id)->first();
             $this->Data['Resources']["Package"] = $this->Packages->where("mockup_id",$id)->first();
             return view('dashboard.pages.mockups.edit', $this->Data);
         }else{

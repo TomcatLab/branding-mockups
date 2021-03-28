@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-6">
-      {{ Form::open(array('url' => 'admin/cms/page-new-prop')) }}
+    {{ Form::open(array('url' => 'admin/cms/page-edit-prop/'.$Resource['PageId'])) }}
       <div class="card">
         <div class="card-body">
           <h6 class="card-title">New Page</h6>

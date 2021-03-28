@@ -64,7 +64,7 @@ class CmsController extends Controller
                         "style" => "primary",
                         "action" => "link",
                         "icon" => "file-plus",
-                        "link" => "admin/cms/page-new"
+                        "link" => "admin/cms/page-new-prop"
                     ],
                     [
                         "label" => "New Group",
@@ -85,7 +85,7 @@ class CmsController extends Controller
         return view('dashboard.pages.cms.cms', $this->Data);
     }
 
-    public function new_page($id = null)
+    public function new_page_prop($id = null)
     {
         $this->Data['page'] = [
             "header" => [
@@ -115,12 +115,18 @@ class CmsController extends Controller
             "PageTypes" => $this->PageTypes->all(),
             "Sliders" => $this->Sliders->all(),
             "Banners" => $this->Banners->all(),
+            "PageId" => $id,
+            "Page" => $id ? $this->Pages->where("id",$id)->first() : null,
             "AllPages" => []
         ];
-        return view('dashboard.pages.cms.new', $this->Data);
+        if($id)
+            return view('dashboard.pages.cms.edit', $this->Data);
+        else
+            return view('dashboard.pages.cms.new', $this->Data);
+
     }
 
-    public function add()
+    public function add_prop()
     {
         $ValidatedRules = [
             'PageName' => 'required',
@@ -142,6 +148,12 @@ class CmsController extends Controller
             $PageDescription = $this->Request->input('Description');
             $PageType = $this->Request->input('Type');
             $PageSlug = $this->Request->input('PageSlug');
+            $PageHome = $this->Request->input('Home');
+            $PageSlider = $this->Request->input('slider');
+            $PageBanner = $this->Request->input('Banner');
+
+            if($PageHome)
+                $this->Pages->where('home', 1)->update(['home' => null]);
 
             $this->Pages->name = $PageName;
             $this->Pages->parent_id = $PageParentId;
@@ -149,6 +161,15 @@ class CmsController extends Controller
             $this->Pages->keywords = $PageKeywords;
             $this->Pages->description = $PageDescription;
             $this->Pages->type_id = $PageType;
+            if($PageHome)
+                $this->Pages->home = 1;
+
+            if($PageSlider)
+                $this->Pages->slider_id = $PageSlider;
+            
+            if($PageBanner)
+                $this->Pages->banner_id = $PageBanner;
+
             $this->Pages->slug = Str::of(Str::lower($PageSlug))->replace(' ', '-');
             $this->Pages->save();
 
