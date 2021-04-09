@@ -40,5 +40,35 @@ class PageContentsSeeder extends Seeder
             'value' => "Freebie content",
             'styles' => ""
         ]);
+        DB::table('page_contents')->insert([
+            'page_id' => 6,
+            'value' => "Packaging content",
+            'styles' => ""
+        ]);
+        DB::table('page_contents')->insert([
+            'page_id' => 7,
+            'value' => "Stationery content",
+            'styles' => ""
+        ]);
+        DB::table('page_contents')->insert([
+            'page_id' => 8,
+            'value' => "Become a Seller content",
+            'styles' => ""
+        ]);
+        DB::table('page_contents')->insert([
+            'page_id' => 9,
+            'value' => "Contact Us content",
+            'styles' => ""
+        ]);
+        DB::table('page_contents')->insert([
+            'page_id' => 10,
+            'value' => "Privacy Policy content",
+            'styles' => ""
+        ]);
+        DB::table('page_contents')->insert([
+            'page_id' => 11,
+            'value' => "Terms of Service content",
+            'styles' => ""
+        ]);
     }
 }

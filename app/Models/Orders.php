@@ -31,4 +31,30 @@ class Orders extends Model
         }
         return [];
     }
+    public function new_orders()
+    {
+        $orders = DB::table('orders')->select('id', 'created_at')
+            ->get()
+            ->groupBy(function($date) {
+                //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
+                return Carbon::parse($date->created_at)->format('m'); // grouping by months
+            });
+
+        $ordermcount = [];
+        $orderArr = [];
+
+        foreach ($orders as $key => $value) {
+            $ordermcount[(int)$key] = count($value);
+        }
+
+        for($i = 1; $i <= 12; $i++){
+            if(!empty($ordermcount[$i])){
+                $orderArr[$i] = $ordermcount[$i];    
+            }else{
+                $orderArr[$i] = 0;
+            }
+        }
+
+        return $orderArr ;
+    }
 }

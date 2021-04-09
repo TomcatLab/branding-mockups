@@ -13,18 +13,6 @@
             <div class="card-body">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h6 class="card-title mb-0">New Customers</h6>
-                <div class="dropdown mb-2">
-                <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                </div>
-                </div>
             </div>
             <div class="row">
                 <div class="col-6 col-md-12 col-xl-5">
@@ -59,31 +47,30 @@
             <div class="card-body">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h6 class="card-title mb-0">New Orders</h6>
-                <div class="dropdown mb-2">
-                <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                </div>
-                </div>
             </div>
             <div class="row">
                 <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">35,084</h3>
+                <h3 class="mb-2">{{ $data['orders']['new'] }}</h3>
                 <div class="d-flex align-items-baseline">
-                    <p class="text-danger">
-                    <span>-2.8%</span>
-                    <i data-feather="arrow-down" class="icon-sm mb-1"></i>
+                    @if($data['orders']['status'] == 'up')
+                    <p class="text-success">
+                        <span>{{ $data['orders']['statusNumber'] }}</span>
+                        <i data-feather="arrow-up" class="icon-sm mb-1"></i>
                     </p>
+                    @else
+                    <p class="text-danger">
+                    <span>-{{ $data['orders']['statusNumber'] }}</span>
+                        <i data-feather="arrow-down" class="icon-sm mb-1"></i>
+                    </p>
+                    @endif
                 </div>
                 </div>
                 <div class="col-6 col-md-12 col-xl-7">
-                <div id="apexChart2" class="mt-md-3 mt-xl-0"></div>
+                <div id="newOrders" class="mt-md-3 mt-xl-0"></div>
+                <script>
+                    let newOrders = "{!! $data['orders']['allJson'] !!}";
+                    newOrders = newOrders.split(",");
+                </script>
                 </div>
             </div>
             </div>
@@ -94,31 +81,30 @@
             <div class="card-body">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h6 class="card-title mb-0">Growth</h6>
-                <div class="dropdown mb-2">
-                <button class="btn p-0" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                </div>
-                </div>
             </div>
             <div class="row">
                 <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">89.87%</h3>
+                <h3 class="mb-2">{{ $data['growth']['growth'] }}</h3>
                 <div class="d-flex align-items-baseline">
+                    @if($data['growth']['status'] == 'up')
                     <p class="text-success">
-                    <span>+2.8%</span>
-                    <i data-feather="arrow-up" class="icon-sm mb-1"></i>
+                        <span>{{ $data['growth']['statusNumber'] }}</span>
+                        <i data-feather="arrow-up" class="icon-sm mb-1"></i>
                     </p>
+                    @else
+                    <p class="text-danger">
+                    <span>-{{ $data['growth']['statusNumber'] }}</span>
+                        <i data-feather="arrow-down" class="icon-sm mb-1"></i>
+                    </p>
+                    @endif
                 </div>
                 </div>
                 <div class="col-6 col-md-12 col-xl-7">
-                <div id="apexChart3" class="mt-md-3 mt-xl-0"></div>
+                <div id="growth" class="mt-md-3 mt-xl-0"></div>
+                <script>
+                    let growth = "{!! $data['growth']['allJson'] !!}";
+                    growth = growth.split(",");
+                </script>
                 </div>
             </div>
             </div>

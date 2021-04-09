@@ -275,7 +275,7 @@ $(function() {
   // Apex chart1 end
 
   // Apex chart2 start
-  if($('#apexChart2').length) {
+  if($('#newOrders').length) {
     var options2 = {
       chart: {
         type: "bar",
@@ -291,7 +291,7 @@ $(function() {
       },
       colors: ["#727cf5"],
       series: [{
-        data: [36, 77, 52, 90, 74, 35, 55, 23, 47, 10, 63]
+        data: newOrders
       }],
       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       xaxis: {
@@ -323,7 +323,7 @@ $(function() {
   // Apex chart2 end
 
   // Apex chart3 start
-  if($('#apexChart3').length) {
+  if($('#growth').length) {
     var options3 = {
       chart: {
         type: "line",
@@ -333,7 +333,7 @@ $(function() {
         }
       },
       series: [{
-          data: [41, 45, 44, 46, 52, 54, 43, 74, 82, 82, 89]
+          data: growth
       }],
       stroke: {
         width: 2,
