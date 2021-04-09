@@ -38,7 +38,7 @@
                     </div>
                   </div>
                   <div class="d-flex align-items-center hover-pointer">
-                    <a class="btn btn-link {{ !$Item->publish ? 'disabled' : '' }}" href="{{ route('admin.cms.page-publish', $Item->content_id) }}" role="button" >
+                    <a class="btn btn-link {{ !$Item->publish ? 'disabled' : '' }}" href="{{ route('admin.cms.page-publish', $Item->content_id ? $Item->content_id : 0 ) }}" role="button" >
                       <i data-feather="send" data-toggle="tooltip" title="Publish" width="16" height="16" ></i>
                     </a>
                     <a class="btn btn-link" href="{{ route('admin.cms.page-edit',$Item->page_id) }}" role="button">
